@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://brx4cr7slpu57"]
+
+[ext_resource type="Texture2D" path="res://Asset/Chat/Idle/Chat1.png" id="1_a60r5"]
+[ext_resource type="Script" path="res://Script/Personnage/Chat.gd" id="1_ods7p"]
+[ext_resource type="Script" path="res://Script/Personnage/Creature.gd" id="2_kbe0w"]
+
+[sub_resource type="Resource" id="Resource_62mea"]
+script = ExtResource("2_kbe0w")
+nom = "Chat"
+pv_max = 50
+pv_actuel = 50
+force = 10
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4pqkc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_a60r5")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_earec"]
+size = Vector2(19, 6)
+
+[node name="Chat" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_ods7p")
+stats = SubResource("Resource_62mea")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_4pqkc")
+animation = &"new_animation"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7.5, 9)
+shape = SubResource("RectangleShape2D_earec")

@@ -1,0 +1,286 @@
+[gd_scene load_steps=41 format=3 uid="uid://t558g0tsuuel"]
+
+[ext_resource type="Script" path="res://Script/Personnage/Chat.gd" id="1_itbgo"]
+[ext_resource type="Script" path="res://Script/Personnage/Stats/Stats_Bien_Etre.gd" id="2_l57ln"]
+[ext_resource type="Script" path="res://Script/Personnage/Creature.gd" id="2_nj8j3"]
+[ext_resource type="Script" path="res://Script/Personnage/Stats/Stats_Combat.gd" id="3_ie7cs"]
+[ext_resource type="Texture2D" uid="uid://sscvu882ya58" path="res://Asset/Chat/Idle/Chat Idle.png" id="3_kxmg8"]
+[ext_resource type="Texture2D" uid="uid://c54i712i87ejq" path="res://Asset/Chat/Walk/Chat Walk.png" id="4_8g3ps"]
+[ext_resource type="Script" path="res://Script/Personnage/Etats/State_Machine.gd" id="7_0fnm7"]
+[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Idle.gd" id="8_trk2l"]
+[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Marcher.gd" id="9_jawt8"]
+[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Faim.gd" id="10_ep20d"]
+[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Manger.gd" id="11_gwri0"]
+[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Fatigue.gd" id="12_dbw1l"]
+[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Dormir.gd" id="13_yb7aq"]
+
+[sub_resource type="Resource" id="Resource_m33ci"]
+script = ExtResource("2_nj8j3")
+nom = "Chat"
+race = "Commun"
+competences = []
+
+[sub_resource type="Resource" id="Resource_b1p6d"]
+script = ExtResource("2_l57ln")
+faim = 0.0
+energie = 100.0
+sommeil = 100.0
+confort = 50.0
+confiance = 50.0
+
+[sub_resource type="Resource" id="Resource_3lx6j"]
+script = ExtResource("3_ie7cs")
+nom = ""
+niveau = 1
+experience = 0
+pv_max = 50
+pv_actuel = 50
+force = 10
+defense = 0
+agilite = 10
+precision = 10
+
+[sub_resource type="Resource" id="Resource_62mea"]
+script = ExtResource("2_nj8j3")
+nom = "Chat"
+race = "Commun"
+combat = SubResource("Resource_3lx6j")
+bien_etre = SubResource("Resource_b1p6d")
+competences = []
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s47pu"]
+size = Vector2(24.25, 29.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqp40"]
+atlas = ExtResource("3_kxmg8")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1e0qq"]
+atlas = ExtResource("3_kxmg8")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_enygk"]
+atlas = ExtResource("3_kxmg8")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4k51d"]
+atlas = ExtResource("3_kxmg8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4r4b2"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6aho"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdgnh"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4yop"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih4nj"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cetkf"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bm4g"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tl263"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rijk"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fbrj"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbjbq"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pcvn8"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1t8ni"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abttr"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfeu8"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_011td"]
+atlas = ExtResource("4_8g3ps")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lh1s4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqp40")
+}],
+"loop": true,
+"name": &"Idle NE",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1e0qq")
+}],
+"loop": true,
+"name": &"Idle NO",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_enygk")
+}],
+"loop": true,
+"name": &"Idle SE",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4k51d")
+}],
+"loop": true,
+"name": &"Idle SO",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4r4b2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6aho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cdgnh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4yop")
+}],
+"loop": true,
+"name": &"Walk NE",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ih4nj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cetkf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bm4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tl263")
+}],
+"loop": true,
+"name": &"Walk NO",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rijk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5fbrj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbjbq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pcvn8")
+}],
+"loop": true,
+"name": &"Walk SE",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1t8ni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abttr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfeu8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_011td")
+}],
+"loop": true,
+"name": &"Walk SO",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_earec"]
+size = Vector2(21.125, 7)
+
+[node name="Chat" type="CharacterBody2D"]
+position = Vector2(-1, 0)
+motion_mode = 1
+script = ExtResource("1_itbgo")
+statss = SubResource("Resource_m33ci")
+stats = SubResource("Resource_62mea")
+
+[node name="ZoneClick" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneClick"]
+position = Vector2(-1.125, -20.75)
+shape = SubResource("RectangleShape2D_s47pu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_lh1s4")
+animation = &"Idle SO"
+offset = Vector2(0, -24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0.4375, -9.5)
+shape = SubResource("RectangleShape2D_earec")
+
+[node name="Raycast" type="RayCast2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("7_0fnm7")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("8_trk2l")
+
+[node name="Marcher" type="Node" parent="StateMachine"]
+script = ExtResource("9_jawt8")
+
+[node name="Faim" type="Node" parent="StateMachine"]
+script = ExtResource("10_ep20d")
+
+[node name="Manger" type="Node" parent="StateMachine"]
+script = ExtResource("11_gwri0")
+
+[node name="Fatigue" type="Node" parent="StateMachine"]
+script = ExtResource("12_dbw1l")
+
+[node name="Dormir" type="Node" parent="StateMachine"]
+script = ExtResource("13_yb7aq")

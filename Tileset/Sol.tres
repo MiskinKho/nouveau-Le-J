@@ -1,0 +1,51 @@
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://utiuvvyxup8x"]
+
+[ext_resource type="Texture2D" uid="uid://u7sx618q68y3" path="res://Asset/Sol/Carlage.png" id="1_jkroj"]
+[ext_resource type="Texture2D" uid="uid://dc4hj2fl38ar6" path="res://Asset/Sol/Planché Bois (2).png" id="2_lvy2m"]
+[ext_resource type="Texture2D" uid="uid://dojq7y250t48b" path="res://Asset/Sol/planché Bois.png" id="3_6ii4e"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qiehx"]
+texture = ExtResource("1_jkroj")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/y_sort_origin = -6
+1:0/0 = 0
+1:0/0/y_sort_origin = -6
+2:0/0 = 0
+2:0/0/y_sort_origin = -6
+0:1/0 = 0
+0:1/0/y_sort_origin = -6
+1:1/0 = 0
+1:1/0/y_sort_origin = -6
+2:1/0 = 0
+2:1/0/y_sort_origin = -6
+3:1/0 = 0
+3:1/0/y_sort_origin = -6
+3:0/0 = 0
+3:0/0/y_sort_origin = -6
+4:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4dawi"]
+texture = ExtResource("2_lvy2m")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ow180"]
+texture = ExtResource("3_6ii4e")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+
+[resource]
+tile_shape = 1
+tile_offset_axis = 1
+tile_size = Vector2i(32, 16)
+sources/2 = SubResource("TileSetAtlasSource_qiehx")
+sources/4 = SubResource("TileSetAtlasSource_4dawi")
+sources/5 = SubResource("TileSetAtlasSource_ow180")

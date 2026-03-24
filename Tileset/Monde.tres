@@ -1,0 +1,207 @@
+[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://dqy07b7nphywe"]
+
+[ext_resource type="Texture2D" uid="uid://u7sx618q68y3" path="res://Asset/Sol/Carlage.png" id="1_oy6d1"]
+[ext_resource type="Texture2D" uid="uid://dc4hj2fl38ar6" path="res://Asset/Sol/Planché Bois (2).png" id="2_e1ude"]
+[ext_resource type="Texture2D" uid="uid://duitvve5bcm0o" path="res://Asset/Escalier/Escalier 2.png" id="2_gbf61"]
+[ext_resource type="Texture2D" uid="uid://dojq7y250t48b" path="res://Asset/Sol/planché Bois.png" id="3_10aa3"]
+[ext_resource type="Texture2D" uid="uid://drqwfepealsqh" path="res://Asset/Escalier/Escalier.png" id="3_e7d3y"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ageib"]
+texture = ExtResource("2_gbf61")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:1/0 = 0
+0:1/0/y_sort_origin = 17
+1:1/0 = 0
+1:1/0/y_sort_origin = 17
+1:0/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+2:1/0/y_sort_origin = 17
+3:0/0 = 0
+3:1/0 = 0
+3:1/0/y_sort_origin = 17
+0:2/0 = 0
+0:2/0/y_sort_origin = 36
+1:2/0 = 0
+1:2/0/y_sort_origin = 36
+2:2/0 = 0
+2:2/0/y_sort_origin = 36
+0:3/0 = 0
+0:3/0/y_sort_origin = 53
+1:3/0 = 0
+1:3/0/y_sort_origin = 53
+2:3/0 = 0
+2:3/0/y_sort_origin = 53
+3:3/0 = 0
+3:3/0/y_sort_origin = 53
+3:2/0 = 0
+3:2/0/y_sort_origin = 36
+0:4/0 = 0
+0:4/0/texture_origin = Vector2i(0, 8)
+1:4/0 = 0
+1:4/0/texture_origin = Vector2i(0, 8)
+2:4/0 = 0
+2:4/0/texture_origin = Vector2i(0, 8)
+3:4/0 = 0
+3:4/0/texture_origin = Vector2i(0, 8)
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+3:6/0 = 0
+2:6/0 = 0
+1:6/0 = 0
+0:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+3:8/0 = 0
+2:8/0 = 0
+1:8/0 = 0
+0:8/0 = 0
+0:9/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+3:9/0 = 0
+3:10/0 = 0
+2:10/0 = 0
+1:10/0 = 0
+1:11/0 = 0
+0:11/0 = 0
+0:12/0 = 0
+1:12/0 = 0
+2:11/0 = 0
+0:10/0 = 0
+2:12/0 = 0
+3:11/0 = 0
+3:12/0 = 0
+3:13/0 = 0
+2:13/0 = 0
+1:13/0 = 0
+0:13/0 = 0
+4:0/0 = 0
+4:1/0 = 0
+4:1/0/y_sort_origin = 17
+4:2/0 = 0
+4:2/0/y_sort_origin = 36
+5:2/0 = 0
+5:2/0/y_sort_origin = 36
+5:1/0 = 0
+5:1/0/y_sort_origin = 17
+5:0/0 = 0
+6:0/0 = 0
+6:1/0 = 0
+6:1/0/y_sort_origin = 17
+5:3/0 = 0
+5:3/0/y_sort_origin = 62
+4:3/0 = 0
+4:3/0/y_sort_origin = 62
+6:3/0 = 0
+6:3/0/y_sort_origin = 53
+6:2/0 = 0
+6:2/0/y_sort_origin = 36
+7:0/0 = 0
+8:0/0 = 0
+8:1/0 = 0
+8:1/0/y_sort_origin = 17
+8:2/0 = 0
+8:2/0/y_sort_origin = 36
+8:3/0 = 0
+8:3/0/y_sort_origin = 53
+7:3/0 = 0
+7:3/0/y_sort_origin = 53
+7:2/0 = 0
+7:2/0/y_sort_origin = 36
+7:1/0 = 0
+7:1/0/y_sort_origin = 17
+9:1/0 = 0
+9:1/0/y_sort_origin = 17
+9:2/0 = 0
+9:2/0/y_sort_origin = 36
+10:2/0 = 0
+10:2/0/y_sort_origin = 36
+10:3/0 = 0
+10:3/0/y_sort_origin = 53
+11:3/0 = 0
+11:3/0/y_sort_origin = 53
+12:3/0 = 0
+12:3/0/y_sort_origin = 62
+9:3/0 = 0
+9:3/0/y_sort_origin = 53
+11:2/0 = 0
+11:2/0/y_sort_origin = 36
+12:2/0 = 0
+12:2/0/y_sort_origin = 36
+10:1/0 = 0
+10:1/0/z_index = 1
+10:1/0/y_sort_origin = 17
+11:1/0 = 0
+11:1/0/y_sort_origin = 17
+12:1/0 = 0
+12:1/0/y_sort_origin = 17
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qiehx"]
+texture = ExtResource("1_oy6d1")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -8)
+0:0/0/y_sort_origin = 18
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -8)
+1:0/0/y_sort_origin = 37
+2:0/0 = 0
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -8)
+0:1/0/y_sort_origin = 52
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, -8)
+1:1/0/y_sort_origin = 120
+2:1/0 = 0
+3:1/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ngynq"]
+texture = ExtResource("3_e7d3y")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4dawi"]
+texture = ExtResource("2_e1ude")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ow180"]
+texture = ExtResource("3_10aa3")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+
+[resource]
+tile_shape = 1
+tile_offset_axis = 1
+tile_size = Vector2i(32, 16)
+sources/2 = SubResource("TileSetAtlasSource_qiehx")
+sources/4 = SubResource("TileSetAtlasSource_4dawi")
+sources/5 = SubResource("TileSetAtlasSource_ow180")
+sources/1 = SubResource("TileSetAtlasSource_ageib")
+sources/3 = SubResource("TileSetAtlasSource_ngynq")

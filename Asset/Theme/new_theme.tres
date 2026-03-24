@@ -1,0 +1,25 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bbfx42etdoil5"]
+
+[ext_resource type="FontFile" uid="uid://ci0b5r1351m8g" path="res://Asset/Font/fibberish.ttf" id="1_2p6km"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wag75"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpe8x"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5p66"]
+bg_color = Color(0.417487, 0.326104, 0.57076, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.386433, 0.152817, 0.550569, 1)
+
+[resource]
+default_font = ExtResource("1_2p6km")
+Button/colors/font_color = Color(0.75437, 0.0192435, 0.465186, 1)
+Button/fonts/font = ExtResource("1_2p6km")
+Button/styles/hover = SubResource("StyleBoxFlat_wag75")
+Button/styles/normal = SubResource("StyleBoxFlat_qpe8x")
+Panel/styles/panel = SubResource("StyleBoxFlat_f5p66")

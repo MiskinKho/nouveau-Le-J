@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfrl32rbfee16"]
+
+[ext_resource type="Texture2D" uid="uid://4lju7tniqfnv" path="res://Asset/Meuble/Canapé.png" id="1_jgmwb"]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_jgmwb")
+offset = Vector2(0, -15.775)
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1, 4)
+polygon = PackedVector2Array(-16, 13, 34, -10, 12, -18, -38, 6)

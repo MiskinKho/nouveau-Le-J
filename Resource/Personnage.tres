@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="Creature" load_steps=6 format=3 uid="uid://8g1jc0t8yv5e"]
+
+[ext_resource type="Script" path="res://Script/Personnage/Stats/Stats_Bien_Etre.gd" id="1_qpfeq"]
+[ext_resource type="Script" path="res://Script/Personnage/Stats/Stats_Combat.gd" id="2_mt4vi"]
+[ext_resource type="Script" path="res://Script/Personnage/Creature.gd" id="3_qbaop"]
+
+[sub_resource type="Resource" id="Resource_iprut"]
+script = ExtResource("1_qpfeq")
+faim = 0.0
+energie = 100.0
+sommeil = 100.0
+confort = 50.0
+confiance = 50.0
+
+[sub_resource type="Resource" id="Resource_1v4qb"]
+script = ExtResource("2_mt4vi")
+nom = ""
+niveau = 1
+experience = 0
+pv_max = 50
+pv_actuel = 50
+force = 10
+defense = 5
+agilite = 10
+precision = 10
+
+[resource]
+script = ExtResource("3_qbaop")
+nom = ""
+race = "Commun"
+combat = SubResource("Resource_1v4qb")
+bien_etre = SubResource("Resource_iprut")
+competences = []

@@ -24,7 +24,7 @@ func _ready():
 	
 	var creature_sauvegardee = SaveManager.charger()
 	if creature_sauvegardee != null:
-		$Chat.statss = creature_sauvegardee
+		$Chat.stats = creature_sauvegardee
 	else:
 		TimeManager.heure = 8.0
 		TimeManager.jour = 1
@@ -43,7 +43,7 @@ func _ready():
 func _on_entrainement_demande(cible):
 	var transition = $Cl_Transition
 	transition.transition_terminee.connect(func():
-		$Ui_Combat.afficher(cible.statss)
+		$Ui_Combat.afficher(cible.stats)
 		$Joueur.en_combat = true
 	, CONNECT_ONE_SHOT)
 	transition.lancer_transition($Joueur, cible)

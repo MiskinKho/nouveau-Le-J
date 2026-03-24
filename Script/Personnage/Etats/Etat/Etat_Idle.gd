@@ -12,14 +12,14 @@ func enter() -> void:
 	duree = randf_range(2.0, 5.0)
 
 func update(delta: float) -> void:
-	if personnage.statss.bien_etre.faim > 70.0:
+	if personnage.stats.bien_etre.faim > 70.0:
 		personnage.state_machine._changer_etat("Faim")
 		return
-	if personnage.statss.bien_etre.energie <= 1.0:
+	if personnage.stats.bien_etre.energie <= 1.0:
 		personnage.epuise = true
 		personnage.state_machine._changer_etat("Dormir")
 		return
-	if personnage.statss.bien_etre.energie <= 20.0:
+	if personnage.stats.bien_etre.energie <= 20.0:
 		personnage.state_machine._changer_etat("Fatigue")
 		return
 

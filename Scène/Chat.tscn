@@ -1,9 +1,6 @@
-[gd_scene load_steps=41 format=3 uid="uid://t558g0tsuuel"]
+[gd_scene load_steps=34 format=3 uid="uid://t558g0tsuuel"]
 
 [ext_resource type="Script" path="res://Script/Personnage/Chat.gd" id="1_itbgo"]
-[ext_resource type="Script" path="res://Script/Personnage/Stats/Stats_Bien_Etre.gd" id="2_l57ln"]
-[ext_resource type="Script" path="res://Script/Personnage/Creature.gd" id="2_nj8j3"]
-[ext_resource type="Script" path="res://Script/Personnage/Stats/Stats_Combat.gd" id="3_ie7cs"]
 [ext_resource type="Texture2D" uid="uid://sscvu882ya58" path="res://Asset/Chat/Idle/Chat Idle.png" id="3_kxmg8"]
 [ext_resource type="Texture2D" uid="uid://c54i712i87ejq" path="res://Asset/Chat/Walk/Chat Walk.png" id="4_8g3ps"]
 [ext_resource type="Script" path="res://Script/Personnage/Etats/State_Machine.gd" id="7_0fnm7"]
@@ -13,40 +10,6 @@
 [ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Manger.gd" id="11_gwri0"]
 [ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Fatigue.gd" id="12_dbw1l"]
 [ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Dormir.gd" id="13_yb7aq"]
-
-[sub_resource type="Resource" id="Resource_m33ci"]
-script = ExtResource("2_nj8j3")
-nom = "Chat"
-race = "Commun"
-competences = []
-
-[sub_resource type="Resource" id="Resource_b1p6d"]
-script = ExtResource("2_l57ln")
-faim = 0.0
-energie = 100.0
-sommeil = 100.0
-confort = 50.0
-confiance = 50.0
-
-[sub_resource type="Resource" id="Resource_3lx6j"]
-script = ExtResource("3_ie7cs")
-nom = ""
-niveau = 1
-experience = 0
-pv_max = 50
-pv_actuel = 50
-force = 10
-defense = 0
-agilite = 10
-precision = 10
-
-[sub_resource type="Resource" id="Resource_62mea"]
-script = ExtResource("2_nj8j3")
-nom = "Chat"
-race = "Commun"
-combat = SubResource("Resource_3lx6j")
-bien_etre = SubResource("Resource_b1p6d")
-competences = []
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s47pu"]
 size = Vector2(24.25, 29.5)
@@ -241,8 +204,6 @@ size = Vector2(21.125, 7)
 position = Vector2(-1, 0)
 motion_mode = 1
 script = ExtResource("1_itbgo")
-statss = SubResource("Resource_m33ci")
-stats = SubResource("Resource_62mea")
 
 [node name="ZoneClick" type="Area2D" parent="."]
 

@@ -13,7 +13,7 @@ func update(delta: float) -> void:
 		seuil = personnage.coussin.stats_chat.quantite_max_regeneration
 		bonus = personnage.coussin.stats_chat.vitesse_regeneration
 
-	personnage.stats.bien_etre.energie = min(seuil, personnage.stats.bien_etre.energie + delta * bonus)
+		personnage.stats.bien_etre.energie = min(seuil, personnage.stats.bien_etre.energie + delta * bonus)
 	if personnage.stats.bien_etre.energie >= seuil:
 		personnage.epuise = false
 		personnage.state_machine._changer_etat("Idle")

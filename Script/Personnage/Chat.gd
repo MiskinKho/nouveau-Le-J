@@ -4,7 +4,7 @@ extends Personnage
 
 @export var gamelle: StaticBody2D
 @export var coussin: Mobilier
-@export var statss: Creature
+
 @onready var nav_agent = $NavigationAgent2D
 @onready var state_machine: StateMachine = $StateMachine
 

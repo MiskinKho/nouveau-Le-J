@@ -6,6 +6,9 @@ class_name Creature
 @export var combat: Stats_Combat
 @export var bien_etre: Stats_Bien_Etre
 @export var competences: Array = []
+@export var stats: PlayerStats
+
+
 
 func to_dict() -> Dictionary:
 	return {

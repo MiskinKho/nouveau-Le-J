@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Script/Personnage/Stats/Stats_Bien_Etre.gd" id="1_qpfeq"]
 [ext_resource type="Script" path="res://Script/Personnage/Stats/Stats_Combat.gd" id="2_mt4vi"]
-[ext_resource type="Script" path="res://Script/Personnage/Creature.gd" id="3_qbaop"]
+[ext_resource type="Script" path="res://Script/Personnage/Stats_Personnage.gd" id="3_qbaop"]
 
 [sub_resource type="Resource" id="Resource_iprut"]
 script = ExtResource("1_qpfeq")

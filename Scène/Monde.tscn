@@ -1,10 +1,10 @@
-[gd_scene load_steps=64 format=4 uid="uid://ojg2v4525vj3"]
+[gd_scene load_steps=63 format=4 uid="uid://ojg2v4525vj3"]
 
 [ext_resource type="Script" path="res://Script/Monde.gd" id="1_w6god"]
 [ext_resource type="PackedScene" uid="uid://ier1pwmxrxs1" path="res://Scène/LEJ.tscn" id="2_fj0d0"]
+[ext_resource type="Script" path="res://Script/Personnage/Joueur.gd" id="3_ag5h0"]
 [ext_resource type="TileSet" uid="uid://utiuvvyxup8x" path="res://Tileset/Sol.tres" id="3_arxu3"]
 [ext_resource type="PackedScene" uid="uid://t558g0tsuuel" path="res://Scène/Chat.tscn" id="3_ubxcc"]
-[ext_resource type="Script" path="res://Script/Player_Stats.gd" id="3_x51ex"]
 [ext_resource type="Script" path="res://Script/Personnage/Stats/Stats_Bien_Etre.gd" id="3_xd10i"]
 [ext_resource type="Script" path="res://Script/Personnage/Stats_Personnage.gd" id="5_7t486"]
 [ext_resource type="TileSet" uid="uid://d1hnqknfk2ki0" path="res://Tileset/Mur2.tres" id="5_m5ndx"]
@@ -45,7 +45,7 @@
 [ext_resource type="Script" path="res://Script/UI/Ui_Resultats.gd" id="33_hcvl1"]
 [ext_resource type="Script" path="res://Script/UI/Ui_Gamelle.gd" id="35_4rjdm"]
 
-[sub_resource type="Resource" id="Resource_vf6nn"]
+[sub_resource type="Resource" id="Resource_g2ros"]
 script = ExtResource("21_w1ifc")
 nom = ""
 niveau = 1
@@ -57,11 +57,11 @@ defense = 5
 agilite = 10
 precision = 10
 
-[sub_resource type="Resource" id="Resource_i8c3f"]
+[sub_resource type="Resource" id="Resource_808po"]
 script = ExtResource("5_7t486")
 nom = "Chat"
 race = "Commun"
-combat = SubResource("Resource_vf6nn")
+combat = SubResource("Resource_g2ros")
 competences = []
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l3jw5"]
@@ -735,7 +735,7 @@ sources/4 = SubResource("TileSetAtlasSource_qx8qe")
 sources/1 = SubResource("TileSetAtlasSource_l3jw5")
 sources/5 = SubResource("TileSetAtlasSource_kbj7u")
 
-[sub_resource type="Resource" id="Resource_woco0"]
+[sub_resource type="Resource" id="Resource_72den"]
 script = ExtResource("3_xd10i")
 faim = 0.0
 energie = 100.0
@@ -743,7 +743,7 @@ sommeil = 100.0
 confort = 50.0
 confiance = 50.0
 
-[sub_resource type="Resource" id="Resource_lilks"]
+[sub_resource type="Resource" id="Resource_flxsc"]
 script = ExtResource("21_w1ifc")
 nom = ""
 niveau = 1
@@ -755,25 +755,15 @@ defense = 5
 agilite = 10
 precision = 10
 
-[sub_resource type="Resource" id="Resource_c7pxj"]
-script = ExtResource("3_x51ex")
-pv_max = 100
-vie_actuelle = 100
-force = 200
-agilite = 10
-precision = 10
-defense = 5
-
-[sub_resource type="Resource" id="Resource_wes7b"]
+[sub_resource type="Resource" id="Resource_3goss"]
 script = ExtResource("5_7t486")
 nom = "Chat"
 race = "Commun"
-combat = SubResource("Resource_lilks")
-bien_etre = SubResource("Resource_woco0")
+combat = SubResource("Resource_flxsc")
+bien_etre = SubResource("Resource_72den")
 competences = []
-stats = SubResource("Resource_c7pxj")
 
-[sub_resource type="Resource" id="Resource_wwsxc"]
+[sub_resource type="Resource" id="Resource_cjlqv"]
 script = ExtResource("21_w1ifc")
 nom = ""
 niveau = 1
@@ -785,11 +775,11 @@ defense = 5
 agilite = 10
 precision = 10
 
-[sub_resource type="Resource" id="Resource_pwygw"]
+[sub_resource type="Resource" id="Resource_jhvmv"]
 script = ExtResource("5_7t486")
 nom = "Chat"
 race = "Commun"
-combat = SubResource("Resource_wwsxc")
+combat = SubResource("Resource_cjlqv")
 competences = []
 
 [sub_resource type="Resource" id="Resource_0dpj1"]
@@ -826,10 +816,13 @@ position = Vector2(-144, 298)
 script = ExtResource("1_w6god")
 metadata/_edit_lock_ = true
 
-[node name="Joueur" parent="." instance=ExtResource("2_fj0d0")]
+[node name="Joueur" parent="." node_paths=PackedStringArray("tilemap_sol", "chat") instance=ExtResource("2_fj0d0")]
 y_sort_enabled = true
 position = Vector2(657, 398)
-stats = SubResource("Resource_i8c3f")
+script = ExtResource("3_ag5h0")
+tilemap_sol = NodePath("../Etage 0/Sol")
+chat = NodePath("../Chat")
+stats = SubResource("Resource_808po")
 
 [node name="Etage 0" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -850,6 +843,7 @@ tile_map_data = PackedByteArray("AAARABUAAgAAAAEAAAASABYAAgAAAAEAAAATABYAAgAAAAE
 tile_set = SubResource("TileSet_vl6ef")
 
 [node name="FauxEtage" type="Node2D" parent="."]
+visible = false
 z_index = 1
 y_sort_enabled = true
 
@@ -884,6 +878,7 @@ tile_map_data = PackedByteArray("AAARABUAAwAAAAEAAAASABYAAwAAAAEAAAATABYAAwAAAAE
 tile_set = ExtResource("5_m5ndx")
 
 [node name="Etage 1" type="Node2D" parent="."]
+visible = false
 visibility_layer = 2
 y_sort_enabled = true
 
@@ -1013,11 +1008,11 @@ y_sort_enabled = true
 position = Vector2(632, 457)
 gamelle = NodePath("../Gamelle")
 coussin = NodePath("../Coussin")
-stats = SubResource("Resource_wes7b")
+stats = SubResource("Resource_3goss")
 
 [node name="Animaux_Sauvages" parent="." instance=ExtResource("20_4bgbo")]
 position = Vector2(567, 289)
-stats = SubResource("Resource_pwygw")
+stats = SubResource("Resource_jhvmv")
 
 [node name="Gamelle" parent="." instance=ExtResource("20_qmcaj")]
 position = Vector2(376, 346)
@@ -1029,7 +1024,7 @@ sprite_remplie = ExtResource("23_jq2w1")
 position = Vector2(501, 248)
 
 [node name="Coussin" parent="." instance=ExtResource("25_porcf")]
-position = Vector2(408, 307)
+position = Vector2(443, 298)
 stats_chat = SubResource("Resource_0dpj1")
 
 [node name="Ui_Combat" type="CanvasLayer" parent="." node_paths=PackedStringArray("joueur", "chat_node", "monde")]

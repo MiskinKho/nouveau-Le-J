@@ -16,16 +16,7 @@ func _ready():
 	add_to_group("creatures_sauvages")
 	$Zone_Click.input_event.connect(_on_click)
  
-	if stats == null:
-		stats = Creature.new()
-		stats.combat = Stats_Combat.new()
-		stats.combat.nom = "Souris"
-		stats.combat.pv_max = 20
-		stats.combat.pv_actuel = 20
-		stats.combat.force = 5
-		stats.combat.defense = 2
-		stats.combat.agilite = 8
-		stats.combat.precision = 8
+
  
 func _physics_process(delta):
 	temps_changement -= delta

@@ -63,7 +63,7 @@ func _on_energie_insuffisante(_cible):
 
 func _on_creature_cliquee(creature):
 	$Ui_Combat.chat_node = $Chat
-	$Ui_Combat.afficher_auto($Chat.stats, creature.stats, creature)
+	$Ui_Combat.afficher_auto($Chat.stats, creature.stats.combat, creature)
 
 func _on_hud_chat_visible(visible: bool, cible):
 	var hud = $UI_HUD

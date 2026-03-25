@@ -14,11 +14,14 @@ var epuise := false
 signal chat_clique
  
 func _ready():
+	
 	add_to_group("chats")
 	$ZoneClick.input_event.connect(_on_click)
 	$ZoneClick.mouse_exited.connect(_on_survol_entrer)
 	$ZoneClick.mouse_entered.connect(_on_survol_sortir)
- 
+	if stats == null:
+		stats = Creature.new()
+		
 func _on_survol_entrer():
 	modulate = Color(1.5, 1.5, 1.5)
  

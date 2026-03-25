@@ -17,7 +17,7 @@ func _on_nouveau_jour(_jour):
 		SaveManager.sauvegarder(chat_node.stats)
 
 func entrainer(cible):
-	if cible.stats.bien_etre.energie < 5:
+	if cible.stats.bien_etre.energie < 1:
 		EventBus.energie_insuffisante.emit(cible)
 		return
 	EventBus.entrainement_demande.emit(cible)

@@ -1,21 +1,37 @@
 extends Personnage
-
-
+class_name PNJ
 
 @export var gamelle: StaticBody2D
 @export var coussin: Mobilier
-
+ 
 @onready var nav_agent = $NavigationAgent2D
 @onready var state_machine: StateMachine = $StateMachine
-
+ 
 var direction := Vector2.ZERO
 var mange := false
-
 var epuise := false
+ 
 signal chat_clique
-
-
-
+ 
+func _ready():
+	add_to_group("chats")
+	$ZoneClick.input_event.connect(_on_click)
+	$ZoneClick.mouse_exited.connect(_on_survol_entrer)
+	$ZoneClick.mouse_entered.connect(_on_survol_sortir)
+ 
+func _on_survol_entrer():
+	modulate = Color(1.5, 1.5, 1.5)
+ 
+func _on_survol_sortir():
+	modulate = Color(1, 0, 0)
+ 
+func _on_click(_viewport, event, _shape_idx):
+	if event is InputEventMouseButton and event.pressed:
+		if en_combat:
+			chat_clique.emit()
+		else:
+			EventBus.menu_contexte_ouvert.emit(get_viewport().get_mouse_position(), self)
+ 
 func _choisir_direction():
 	var directions = [
 		Vector2(1, 1), Vector2(-1, 1),
@@ -30,28 +46,7 @@ func _choisir_direction():
 			direction = dir
 			return
 	direction = Vector2.ZERO
-
-
-
-func _ready():
-	add_to_group("chats")
-	$ZoneClick.input_event.connect(_on_click)
-	$ZoneClick.mouse_exited.connect(_on_survol_entrer)
-	$ZoneClick.mouse_entered.connect(_on_survol_sortir)
-
-func _on_survol_entrer():
-	modulate = Color(1.5, 1.5, 1.5)
-
-func _on_survol_sortir():
-	modulate = Color(1, 0, 0)
-
-func _on_click(_viewport, event, _shape_idx):
-	if event is InputEventMouseButton and event.pressed:
-		if en_combat:
-			chat_clique.emit()
-		else:
-			EventBus.menu_contexte_ouvert.emit(get_viewport().get_mouse_position(), self)
-
+ 
 func _se_deplacer_vers(cible_position: Vector2):
 	nav_agent.target_position = cible_position
 	var direction_nav = nav_agent.get_next_path_position() - global_position

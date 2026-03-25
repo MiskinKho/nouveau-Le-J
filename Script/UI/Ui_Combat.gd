@@ -59,10 +59,10 @@ func afficher_auto(p_stats_chat: Creature, p_stats_ennemi: Stats_Combat, p_ennem
 func _creer_stats_joueur() -> Stats_Combat:
 	var stats = Stats_Combat.new()
 	stats.nom = "Joueur"
-	stats.force = joueur.stats.force
-	stats.defense = joueur.stats.defense
-	stats.pv_max = joueur.stats.pv_max
-	stats.pv_actuel = joueur.stats.vie_actuelle
+	stats.force = joueur.stats.combat.force
+	stats.defense = joueur.stats.combat.defense
+	stats.pv_max = joueur.stats.combat.pv_max
+	stats.pv_actuel = joueur.stats.combat.pv_actuel
 	return stats
 
 func _on_combat_demarre(combattant_1, combattant_2, mode):
@@ -79,10 +79,10 @@ func _on_combat_demarre(combattant_1, combattant_2, mode):
 		btn_competence.visible = true
 	barre_pv_chat.max_value = combattant_1.pv_max
 	barre_pv_chat.value = combattant_1.pv_actuel
-	barre_pv_joueur.max_value = joueur.stats.pv_max
-	barre_pv_joueur.value = joueur.stats.vie_actuelle
+	barre_pv_joueur.max_value = joueur.stats.combat.pv_max
+	barre_pv_joueur.value = joueur.stats.combat.pv_actuel
 	label_pv_chat.text = "%d / %d" % [combattant_1.pv_actuel, combattant_1.pv_max]
-	label_pv_joueur.text = "%d / %d" % [joueur.stats.vie_actuelle, joueur.stats.pv_max]
+	label_pv_joueur.text = "%d / %d" % [joueur.stats.combat.pv_actuel, joueur.stats.combat.pv_max]
 	label_degats.text = ""
 	_afficher_menu(menu_principal)
 
@@ -98,8 +98,8 @@ func _on_attaque_effectuee(attaquant_nom, cible_nom, degats):
 		barre_pv_ennemi.value = stats_ennemi.pv_actuel
 		label_pv_ennemi.text = "%d / %d" % [stats_ennemi.pv_actuel, stats_ennemi.pv_max]
 	else:
-		barre_pv_joueur.value = joueur.stats.vie_actuelle
-		label_pv_joueur.text = "%d / %d" % [joueur.stats.vie_actuelle, joueur.stats.pv_max]
+		barre_pv_joueur.value = joueur.stats.combat.pv_actuel
+		label_pv_joueur.text = "%d / %d" % [joueur.stats.combat.pv_actuel, joueur.stats.combat.pv_max]
 	
 	# Dégâts flottants
 	var degats_label = scene_degats.instantiate()
@@ -142,8 +142,8 @@ func cacher():
 	btn_attaquer.visible = true
 	btn_competence.visible = true
 	btn_attaquer.disabled = false
-	joueur.stats.vie_actuelle = joueur.stats.pv_max
-	barre_pv_joueur.value = joueur.stats.pv_max
+	joueur.stats.combat.pv_actuel = joueur.stats.combat.pv_max
+	barre_pv_joueur.value = joueur.stats.combat.pv_max
 	joueur.en_combat = false
 	chat_node.en_combat = false
 	SaveManager.sauvegarder(CombatManager.creature_complete)

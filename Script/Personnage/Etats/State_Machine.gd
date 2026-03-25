@@ -14,6 +14,7 @@ func _ready() -> void:
 	_changer_etat(get_child(0))
 
 func _physics_process(delta: float) -> void:
+	print("SM update, etat: ", get_etat_nom())
 	if etat_actuel:
 		etat_actuel.update(delta)
 

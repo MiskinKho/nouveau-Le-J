@@ -10,11 +10,11 @@ class_name PNJ
 var direction := Vector2.ZERO
 var mange := false
 var epuise := false
- 
+var personnage: Personnage
+
 signal chat_clique
  
 func _ready():
-	
 	add_to_group("chats")
 	$ZoneClick.input_event.connect(_on_click)
 	$ZoneClick.mouse_exited.connect(_on_survol_entrer)

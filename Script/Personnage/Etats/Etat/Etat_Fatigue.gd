@@ -4,6 +4,7 @@ func enter() -> void:
 	pass
 
 func update(_delta: float) -> void:
+	print("Fatigue update, energie: ", personnage.stats.bien_etre.energie, " epuise: ", personnage.epuise)
 	if personnage.stats.bien_etre.energie <= 1.0:
 		personnage.epuise = true
 		personnage.state_machine._changer_etat("Dormir")

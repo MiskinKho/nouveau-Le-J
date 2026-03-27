@@ -1,46 +1,21 @@
-extends State
+extends State   # Hérite de State, implémente l'état "repos/attente"
 
-const POIDS = {
-	"Marcher": 30,
-	"Idle": 70
-}
+# Table de probabilité pour le prochain état après la durée d'idle.
+# Idle est favorisé (70%) pour donner une impression de chat calme et contemplatif.
 
-var duree := 0.0
+
 
 func enter() -> void:
-	personnage._play_idle()
-	duree = randf_range(2.0, 5.0)
+	personnage._play_idle()                    # Lance l'animation statique (direction par défaut "S")
+	duree = randf_range(2.0, 5.0)             # Durée aléatoire entre 2 et 5 secondes
 
 func update(delta: float) -> void:
-	if personnage.stats.bien_etre.energie <= 1.0:
-		print("IDLE -> DORMIR, energie: ", personnage.stats.bien_etre.energie)
-		personnage.epuise = true
-		personnage.state_machine._changer_etat("Dormir")
+	if _verifier_vitaux():   # Vérifie faim/énergie — change d'état si seuils dépassés
 		return
-		
-	if personnage.stats.bien_etre.faim > 70.0:
-		personnage.state_machine._changer_etat("Faim")
-		return
-	
-	if personnage.stats.bien_etre.energie <= 20.0:
-		personnage.state_machine._changer_etat("Fatigue")
-		return
-
-	duree -= delta
+	duree -= delta           # Décompte le temps restant
 	if duree <= 0:
-		personnage.state_machine._changer_etat(_choisir_prochain())
+		# Durée écoulée : tire un nouvel état au hasard selon les poids
+		personnage.state_machine._changer_etat(_choisir_prochain(POIDS))
 
 func exit() -> void:
-	pass
-
-func _choisir_prochain() -> String:
-	var total := 0
-	for p in POIDS.values():
-		total += p
-	var tirage := randi() % total
-	var cumul := 0
-	for etat in POIDS:
-		cumul += POIDS[etat]
-		if tirage < cumul:
-			return etat
-	return "Idle"
+	pass  # Rien à nettoyer en sortant d'Idle

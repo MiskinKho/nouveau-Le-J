@@ -1,0 +1,59 @@
+extends Node          # Hérite de Node, classe de base légère sans transformation
+class_name State      # Déclare le type global "State" utilisable partout dans le projet
+
+# Référence au personnage propriétaire de cette machine à états.
+# Assignée par StateMachine._ready() pour que chaque état puisse piloter le personnage.
+var personnage: Personnage
+var duree := 0.0  # Durée restante en secondes avant de choisir le prochain état
+# Appelée une fois quand on entre dans cet état (ex: lancer une animation, choisir direction).
+
+# Table de probabilité pour le prochain état après la durée de marche.
+# Équilibre 50/50 entre continuer à marcher ou s'arrêter.
+const POIDS = {
+	"Marcher": 50,
+	"Idle": 50
+}
+
+func enter() -> void:
+	pass
+
+# Appelée chaque frame physique par StateMachine._physics_process().
+# delta = temps écoulé depuis la frame précédente, en secondes.
+func update(delta: float) -> void:
+	pass
+
+# Appelée une fois quand on quitte cet état (ex: arrêter une animation, remettre velocity à zéro).
+func exit() -> void:
+	pass
+
+# Vérifie les stats vitales du personnage et déclenche un changement d'état si nécessaire.
+# Doit être appelée en début de update() dans chaque état concerné.
+# Retourne true si un changement d'état a été lancé — permet au caller de faire "return" immédiatement.
+func _verifier_vitaux() -> bool:
+	if personnage.stats.bien_etre.energie <= 1.0:         # Énergie épuisée : forcer le sommeil
+		personnage.epuise = true                           # Marquer comme épuisé pour Etat_Dormir
+		personnage.state_machine._changer_etat("Dormir")
+		return true
+	if personnage.stats.bien_etre.energie <= 20.0:        # Énergie faible : chercher un coussin
+		personnage.state_machine._changer_etat("Fatigue")
+		return true
+	return false  # Aucun changement : l'état courant peut continuer
+	if personnage.stats.bien_etre.faim > 70.0:           # Seuil de faim critique
+		personnage.state_machine._changer_etat("Faim")
+		return true
+	
+
+# Tire au sort le prochain état selon un dictionnaire de poids probabilistes.
+# poids : { "NomEtat": int } — plus la valeur est haute, plus l'état est probable.
+# Ex: { "Marcher": 30, "Idle": 70 } → 70% de chances de rester Idle.
+func _choisir_prochain(poids: Dictionary) -> String:
+	var total := 0
+	for p in poids.values():   # Calcule la somme totale des poids
+		total += p
+	var tirage := randi() % total  # Nombre aléatoire entre 0 et total-1
+	var cumul := 0
+	for etat in poids:             # Parcourt les états dans l'ordre d'insertion
+		cumul += poids[etat]       # Cumule les poids pour trouver le bon intervalle
+		if tirage < cumul:
+			return etat            # L'état dont l'intervalle contient le tirage est choisi
+	return "Idle"                  # Fallback de sécurité (ne devrait jamais être atteint)

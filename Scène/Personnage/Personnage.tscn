@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://bkhdyrlbjsexo"]
+
+[ext_resource type="Script" path="res://Script/Personnage/Etats/State_Machine.gd" id="1_xlenm"]
+[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Idle.gd" id="2_qgtg1"]
+[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Marcher.gd" id="3_ci16w"]
+[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Faim.gd" id="4_bktge"]
+[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Manger.gd" id="5_67bcd"]
+[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Fatigue.gd" id="6_g8art"]
+[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Dormir.gd" id="7_6y7wa"]
+
+[sub_resource type="Gradient" id="Gradient_l653o"]
+offsets = PackedFloat32Array(0.3, 0.6, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.5, 0.5, 0.5, 1, 0, 0, 0, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_np3k0"]
+gradient = SubResource("Gradient_l653o")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.150862, 0.831897)
+
+[node name="CharacterBody2D2" type="CharacterBody2D"]
+motion_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+animation = &""
+offset = Vector2(0, -23)
+metadata/_edit_lock_ = true
+
+[node name="AudioListener2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(2, -24)
+texture = SubResource("GradientTexture2D_np3k0")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("1_xlenm")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("2_qgtg1")
+
+[node name="Marcher" type="Node" parent="StateMachine"]
+script = ExtResource("3_ci16w")
+
+[node name="Faim" type="Node" parent="StateMachine"]
+script = ExtResource("4_bktge")
+
+[node name="Manger" type="Node" parent="StateMachine"]
+script = ExtResource("5_67bcd")
+
+[node name="Fatigue" type="Node" parent="StateMachine"]
+script = ExtResource("6_g8art")
+
+[node name="Dormir" type="Node" parent="StateMachine"]
+script = ExtResource("7_6y7wa")
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

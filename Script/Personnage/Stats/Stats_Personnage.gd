@@ -1,20 +1,19 @@
 extends Resource
-class_name Creature
+class_name Creature  # Ressource complète d'un personnage : stats + sérialisation save/load
 
 @export var nom: String = "Chat"
 @export var race: String = "Commun"
-@export var combat: Stats_Combat
-@export var bien_etre: Stats_Bien_Etre
-@export var competences: Array = []
-@export var stats: PlayerStats
+@export var combat: Stats_Combat      # Sous-ressource combat (PV, force, etc.)
+@export var bien_etre: Stats_Bien_Etre  # Sous-ressource bien-être (faim, énergie, etc.)
+@export var competences: Array = []   # Liste de compétences (non implémenté)
+@export var stats: PlayerStats        # Stats du joueur liées à cette créature (pour l'entraînement)
 
-
-
+# Sérialise la créature en Dictionary JSON-compatible pour la sauvegarde.
 func to_dict() -> Dictionary:
 	return {
 		"nom": nom,
 		"race": race,
-		"combat": {
+		"combat": {                       # Aplatit les sous-ressources en dictionnaires simples
 			"niveau": combat.niveau,
 			"experience": combat.experience,
 			"pv_max": combat.pv_max,
@@ -33,10 +32,12 @@ func to_dict() -> Dictionary:
 		}
 	}
 
+# Désérialise un Dictionary (issu du JSON) pour reconstruire la créature.
+# Crée de nouvelles instances de Stats_Combat et Stats_Bien_Etre pour éviter les références partagées.
 func from_dict(data: Dictionary):
 	nom = data["nom"]
 	race = data["race"]
-	combat = Stats_Combat.new()
+	combat = Stats_Combat.new()              # Nouvelle instance : pas de référence partagée avec une autre créature
 	combat.niveau = data["combat"]["niveau"]
 	combat.experience = data["combat"]["experience"]
 	combat.pv_max = data["combat"]["pv_max"]

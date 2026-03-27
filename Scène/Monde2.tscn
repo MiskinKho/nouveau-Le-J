@@ -1,7 +1,7 @@
 [gd_scene load_steps=40 format=4 uid="uid://1ww6hq7rd1j8"]
 
 [ext_resource type="Script" path="res://Script/Monde.gd" id="1_74fcq"]
-[ext_resource type="PackedScene" uid="uid://ier1pwmxrxs1" path="res://Scène/LEJ.tscn" id="2_vrkga"]
+[ext_resource type="PackedScene" uid="uid://ier1pwmxrxs1" path="res://Scène/Personnage/LEJ.tscn" id="2_vrkga"]
 [ext_resource type="TileSet" uid="uid://utiuvvyxup8x" path="res://Tileset/Sol.tres" id="3_nfuvp"]
 [ext_resource type="TileSet" uid="uid://dqy07b7nphywe" path="res://Tileset/Monde.tres" id="4_rlpgi"]
 [ext_resource type="Texture2D" uid="uid://lkhrdcnfvk2s" path="res://Asset/Mur/All Mur 32.png" id="5_35htc"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bhs40mq4c8c3a" path="res://Asset/Mur/Porte.png" id="8_il05d"]
 [ext_resource type="Texture2D" uid="uid://d3botajkpc3o6" path="res://Asset/Mur/Barrière.png" id="9_bwqmv"]
 [ext_resource type="TileSet" uid="uid://d1hnqknfk2ki0" path="res://Tileset/Mur2.tres" id="10_grj50"]
-[ext_resource type="PackedScene" uid="uid://t558g0tsuuel" path="res://Scène/Chat.tscn" id="11_lne6m"]
+[ext_resource type="PackedScene" uid="uid://t558g0tsuuel" path="res://Scène/Personnage/Chat/Chat.tscn" id="11_lne6m"]
 [ext_resource type="Script" path="res://Script/UI/Ui_Combat.gd" id="12_3qitg"]
 [ext_resource type="PackedScene" uid="uid://b5vjw3ibltbl5" path="res://Scène/DegatsFlottants.tscn" id="13_hk6gj"]
 [ext_resource type="Texture2D" uid="uid://tdwj5u6kw0xs" path="res://Asset/Icone/IconeEpee.png" id="14_g1mwf"]

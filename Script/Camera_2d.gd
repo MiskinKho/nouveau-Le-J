@@ -1,19 +1,14 @@
 extends Camera2D
 
+@export var target: CharacterBody2D  # Cible à suivre, assignée dans l'éditeur (généralement le Joueur)
 
-
-@export var target: CharacterBody2D
-
+# Suit la cible en arrondissant la position pour éviter le sub-pixel rendering (évite le flou).
 func _physics_process(_delta):
-	global_position = target.global_position.round()
+	global_position = target.global_position.round()  # .round() = aligne sur les pixels entiers
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	pass

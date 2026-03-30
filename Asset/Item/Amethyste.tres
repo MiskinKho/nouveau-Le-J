@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bdktrt301awbw"]
 
 [ext_resource type="Texture2D" uid="uid://dydgoajocnphg" path="res://Asset/Item/Amethyste.png" id="1_0omy1"]
-[ext_resource type="Script" path="res://Script/Item.gd" id="2_ocwap"]
+[ext_resource type="Script" path="res://Script/Inventaire/Item.gd" id="2_ocwap"]
 
 [resource]
 script = ExtResource("2_ocwap")

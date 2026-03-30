@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://dscah634ll8rn"]
 
 [ext_resource type="Texture2D" uid="uid://bakqq6wa5aa8p" path="res://Asset/Item/Pierre de Lune.png" id="1_87tyy"]
-[ext_resource type="Script" path="res://Script/Item.gd" id="1_2755g"]
+[ext_resource type="Script" path="res://Script/Inventaire/Item.gd" id="1_2755g"]
 
 [resource]
 script = ExtResource("1_2755g")

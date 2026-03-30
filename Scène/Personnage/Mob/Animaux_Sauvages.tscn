@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bsk8qi0jv2f4"]
 
-[ext_resource type="Script" path="res://Scène/Personnage/Mob/Animaux_Sauvages.gd" id="1_oti65"]
-[ext_resource type="Script" path="res://Script/Player_Stats.gd" id="2_786hu"]
+[ext_resource type="Script" path="res://Script/Personnage/Personnage/PNJ/Animaux_Sauvages.gd" id="1_oti65"]
+[ext_resource type="Script" path="res://Script/Personnage/Stats/Player_Stats.gd" id="2_786hu"]
 [ext_resource type="Texture2D" uid="uid://tb8jymgty0pg" path="res://Asset/Souris/Souris.png" id="2_pcutq"]
 
 [sub_resource type="Resource" id="Resource_k2cip"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ds2155uyjmkln"]
 
-[ext_resource type="Script" path="res://Script/Gamelle.gd" id="1_4v04e"]
+[ext_resource type="Script" path="res://Script/Mobilier/Gamelle.gd" id="1_4v04e"]
 [ext_resource type="Texture2D" uid="uid://dtfx18wl4fadw" path="res://Asset/Gamelle/Gamelle vide.png" id="2_a7mqs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ix65p"]

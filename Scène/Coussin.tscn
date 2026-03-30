@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b7v0md5v2mqe"]
 
-[ext_resource type="Script" path="res://Script/Coussin.gd" id="1_6qjk4"]
+[ext_resource type="Script" path="res://Script/Mobilier/Coussin.gd" id="1_6qjk4"]
 [ext_resource type="Texture2D" uid="uid://cwtydptpq82tl" path="res://Asset/Meuble/Panier.png" id="1_svual"]
 [ext_resource type="Script" path="res://Script/Personnage/Stats/Stats_Mobilier_Chat.gd" id="2_clsot"]
 [ext_resource type="Script" path="res://Script/Personnage/Stats/Stats_Mobilier_Joueur.gd" id="3_pml3y"]

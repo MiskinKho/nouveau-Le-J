@@ -19,11 +19,11 @@ config/icon="res://icon.svg"
 
 SaveManager="*res://Script/Manager/Save_Manager.gd"
 TimeManager="*res://Script/Manager/Time_Manager.gd"
-InventoryManager="*res://Script/Manager/Inventory_Manager.gd"
-CombatManager="*res://Script/Manager/Combat_Manager.gd"
-CreatureManager="*res://Script/Personnage/Creature_Manager.gd"
+InventoryManager="*res://Script/Inventaire/Inventory_Manager.gd"
+CombatManager="*res://Script/Combat/Combat_Manager.gd"
+CreatureManager="*res://Script/Manager/Creature_Manager.gd"
 DayNightManager="*res://Script/Manager/Day_Night_Manager.gd"
-EventBus="*res://Script/Event_Bus.gd"
+EventBus="*res://Script/Vrac/Event_Bus.gd"
 
 [display]
 

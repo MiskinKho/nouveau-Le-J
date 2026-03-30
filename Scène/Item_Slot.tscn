@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://batn2dnpejd80"]
 
-[ext_resource type="Script" path="res://Script/Item_Slot.gd" id="1_hei7x"]
+[ext_resource type="Script" path="res://Script/Inventaire/Item_Slot.gd" id="1_hei7x"]
 [ext_resource type="Texture2D" uid="uid://b6fx1m7ngwsgn" path="res://Asset/Inventaire/Slot.png" id="1_xe434"]
 
 [node name="ItemSlot" type="NinePatchRect"]

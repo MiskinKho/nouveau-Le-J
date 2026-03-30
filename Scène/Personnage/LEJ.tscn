@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://ier1pwmxrxs1"]
 
-[ext_resource type="Script" path="res://Scène/Personnage/Personnage.gd" id="1_6hd5l"]
+[ext_resource type="Script" path="res://Script/Personnage/Personnage/Personnage.gd" id="1_6hd5l"]
 [ext_resource type="SpriteFrames" uid="uid://bnug3xllfsll6" path="res://Scène/Personnage/Joueur/Animation_Joueur.tres" id="2_ncjbk"]
-[ext_resource type="Script" path="res://Script/Camera_2d.gd" id="17_1beq6"]
+[ext_resource type="Script" path="res://Script/Vrac/Camera_2d.gd" id="17_1beq6"]
 [ext_resource type="AudioStream" uid="uid://cj7ehpkfaj3ha" path="res://Asset/Son/PasBois.ogg" id="18_abwss"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2yedh"]

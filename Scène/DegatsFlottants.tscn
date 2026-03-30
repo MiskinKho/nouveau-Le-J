@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b5vjw3ibltbl5"]
 
-[ext_resource type="Script" path="res://Script/Dégats_flottants.gd" id="1_ftl8m"]
+[ext_resource type="Script" path="res://Script/Combat/Dégats_flottants.gd" id="1_ftl8m"]
 
 [node name="DégatsFlottants" type="Label"]
 offset_right = 40.0

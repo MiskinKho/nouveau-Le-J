@@ -1,6 +1,6 @@
 [gd_scene load_steps=40 format=4 uid="uid://1ww6hq7rd1j8"]
 
-[ext_resource type="Script" path="res://Script/Monde.gd" id="1_74fcq"]
+[ext_resource type="Script" path="res://Script/Vrac/Monde.gd" id="1_74fcq"]
 [ext_resource type="PackedScene" uid="uid://ier1pwmxrxs1" path="res://Scène/Personnage/LEJ.tscn" id="2_vrkga"]
 [ext_resource type="TileSet" uid="uid://utiuvvyxup8x" path="res://Tileset/Sol.tres" id="3_nfuvp"]
 [ext_resource type="TileSet" uid="uid://dqy07b7nphywe" path="res://Tileset/Monde.tres" id="4_rlpgi"]
@@ -20,8 +20,8 @@
 [ext_resource type="Script" path="res://Script/UI/Ui_Inventaire.gd" id="18_omesk"]
 [ext_resource type="Texture2D" uid="uid://cqa8yxtb0hac" path="res://Asset/Inventaire/Fond.png" id="19_2bvd8"]
 [ext_resource type="Script" path="res://Script/UI/Ui_Contexte.gd" id="20_i13ew"]
-[ext_resource type="Script" path="res://Script/Cl_Transition.gd" id="21_jyu3e"]
-[ext_resource type="Script" path="res://Script/Cl_Pause.gd" id="22_02ynu"]
+[ext_resource type="Script" path="res://Script/Vrac/Cl_Transition.gd" id="21_jyu3e"]
+[ext_resource type="Script" path="res://Script/Vrac/Cl_Pause.gd" id="22_02ynu"]
 [ext_resource type="Theme" uid="uid://bbfx42etdoil5" path="res://Asset/Theme/new_theme.tres" id="23_y1y61"]
 [ext_resource type="PackedScene" uid="uid://bfrl32rbfee16" path="res://Scène/Meuble.tscn" id="24_jfohv"]
 [ext_resource type="Script" path="res://Script/Escalier/Collision_Zone_2.gd" id="25_kjqsf"]

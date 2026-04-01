@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://t558g0tsuuel"]
 
-[ext_resource type="Script" path="res://Script/Personnage/Chat/Chat.gd" id="1_itbgo"]
+[ext_resource type="Script" path="res://Script/Personnage/Personnage/Chat.gd" id="1_itbgo"]
 [ext_resource type="SpriteFrames" uid="uid://bfrcy8fxr32ug" path="res://Scène/Personnage/Chat/Animation_Chat.tres" id="2_qtiap"]
 [ext_resource type="Script" path="res://Script/Personnage/Etats/State_Machine.gd" id="7_0fnm7"]
 [ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Idle.gd" id="8_trk2l"]

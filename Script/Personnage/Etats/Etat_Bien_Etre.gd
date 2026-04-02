@@ -12,10 +12,10 @@ func _verifier_vitaux() -> bool:
 	if personnage.stats.bien_etre.energie <= 20.0:        # Énergie faible : chercher un coussin
 		personnage.state_machine._changer_etat("Fatigue")
 		return true
-	return false  # Aucun changement : l'état courant peut continuer
 	if personnage.stats.bien_etre.faim > 70.0:           # Seuil de faim critique
 		personnage.state_machine._changer_etat("Faim")
 		return true
+	return false  # Aucun changement : l'état courant peut continuer
 
 func update(delta: float) -> void:
 	if _verifier_vitaux():   # Vérifie faim/énergie — change d'état si seuils dépassés

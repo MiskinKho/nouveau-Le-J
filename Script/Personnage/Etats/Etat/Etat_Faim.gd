@@ -1,4 +1,4 @@
-extends State  # État déclenché quand la faim dépasse 70 — le chat cherche sa gamelle
+extends StateBienEtre  # État déclenché quand la faim dépasse 70 — le chat cherche sa gamelle
 
 func enter() -> void:
 	pass  # Pas d'initialisation nécessaire : le chat se dirige immédiatement vers la gamelle

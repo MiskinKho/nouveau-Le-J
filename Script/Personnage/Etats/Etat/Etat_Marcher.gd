@@ -1,4 +1,4 @@
-extends State  # Hérite de State, implémente l'état "déplacement aléatoire"
+extends StateBienEtre  # Hérite de StateBienEtre, implémente l'état "déplacement aléatoire"
 
 
 

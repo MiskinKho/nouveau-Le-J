@@ -1,11 +1,21 @@
-extends Node
+extends PNJ  # Le chat du joueur hérite de PNJ pour les animations, navigation et state machine
+class_name Chat
 
+@export var gamelle: StaticBody2D  # Surcharge la var gamelle de PNJ (assignée dans l'éditeur)
+var sur_coussin := false       # True quand le PNJ a atteint physiquement le coussin (utilisé par Chat)
+var coussin = null             # Référence coussin (assignée dans Chat via @export)var coussin: Mobilier      # Surcharge la var coussin de PNJ (assignée dans l'éditeur)
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+signal chat_clique  # Émis quand on clique sur le chat EN COMBAT (déclenche l'attaque du joueur)
 
+func _ready():
+	super()  # Appelle PNJ._ready() pour initialiser nav_agent, state_machine, stats, survol
+	add_to_group("chats")  # Groupe utilisé par la gamelle pour détecter l'entrée du chat
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+# Surcharge le clic : en combat émet chat_clique, hors combat ouvre le menu contextuel
+func _on_click(_viewport, event, _shape_idx):
+	if event is InputEventMouseButton and event.pressed:
+		if en_combat:
+			chat_clique.emit()  # En combat : signal direct pour l'UI de combat
+		else:
+			# Hors combat : ouvre le menu contextuel à la position de la souris
+			EventBus.menu_contexte_ouvert.emit(get_viewport().get_mouse_position(), self)

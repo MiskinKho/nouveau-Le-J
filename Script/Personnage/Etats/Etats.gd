@@ -26,22 +26,10 @@ func update(delta: float) -> void:
 func exit() -> void:
 	pass
 
-# Vérifie les stats vitales du personnage et déclenche un changement d'état si nécessaire.
-# Doit être appelée en début de update() dans chaque état concerné.
-# Retourne true si un changement d'état a été lancé — permet au caller de faire "return" immédiatement.
+# Vérifie les stats vitales — implémentation dans StateBienEtre.
+# Les états qui ne sont pas de type bien-être n'ont pas besoin de cette vérification.
 func _verifier_vitaux() -> bool:
-	if personnage.stats.bien_etre.energie <= 1.0:         # Énergie épuisée : forcer le sommeil
-		personnage.epuise = true                           # Marquer comme épuisé pour Etat_Dormir
-		personnage.state_machine._changer_etat("Dormir")
-		return true
-	if personnage.stats.bien_etre.energie <= 20.0:        # Énergie faible : chercher un coussin
-		personnage.state_machine._changer_etat("Fatigue")
-		return true
-	return false  # Aucun changement : l'état courant peut continuer
-	if personnage.stats.bien_etre.faim > 70.0:           # Seuil de faim critique
-		personnage.state_machine._changer_etat("Faim")
-		return true
-	
+	return false
 
 # Tire au sort le prochain état selon un dictionnaire de poids probabilistes.
 # poids : { "NomEtat": int } — plus la valeur est haute, plus l'état est probable.

@@ -1,7 +1,6 @@
 extends State   # Hérite de State, implémente l'état "repos/attente"
 
-# Table de probabilité pour le prochain état après la durée d'idle.
-# Idle est favorisé (70%) pour donner une impression de chat calme et contemplatif.
+# Utilise POIDS hérité de State : { "Marcher": 50, "Idle": 50 } → 50/50 entre marcher et rester idle.
 
 
 

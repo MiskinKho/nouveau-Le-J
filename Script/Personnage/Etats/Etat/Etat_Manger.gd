@@ -1,4 +1,4 @@
-extends State  # État actif pendant que le chat mange à la gamelle
+extends StateBienEtre  # État actif pendant que le chat mange à la gamelle
 
 func enter() -> void:
 	personnage.mange = true  # Flag utilisé par CreatureManager pour ne pas augmenter la faim pendant ce temps

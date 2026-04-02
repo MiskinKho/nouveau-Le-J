@@ -28,10 +28,10 @@ var sas := false:
 		elif not sas and etage == 1:    # Etat D : à l'étage, hors sas
 			z_index = 3
 			EventBus.faux_etage_change.emit(false)
-			EventBus.etage_change.emit(true)
+			EventBus.etage_change.emit(etage, true)
 		elif sas and etage == 1:        # Etat C : à l'étage, dans le sas
 			z_index = 2
-			EventBus.etage_change.emit(false)
+			EventBus.etage_change.emit(etage, false)
 			EventBus.faux_etage_change.emit(true)
 
 func _physics_process(_delta: float) -> void:

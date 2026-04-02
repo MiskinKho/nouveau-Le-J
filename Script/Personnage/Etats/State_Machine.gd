@@ -3,6 +3,8 @@ class_name StateMachine  # Gestionnaire d'états finis (FSM) générique pour le
 
 signal etat_change(etat)  # Émis quand l'état actif change (utile pour le debug ou l'UI)
 
+@export var initial_state: Node  # État initial (assignable dans l'éditeur). Si null, utilise le premier enfant.
+
 var etat_actuel: Node = null    # Référence à l'état Node actuellement actif
 var etat_precedent: Node = null # Référence à l'état précédent (permet des transitions de retour)
 
@@ -14,11 +16,11 @@ func _ready() -> void:
 
 	# Attend une frame pour que tous les noeuds soient initialisés avant d'activer le premier état
 	await get_tree().process_frame
-	_changer_etat(get_child(0))  # Démarre avec le premier enfant de la scène (ordre dans l'arbre)
+	var premier_etat = initial_state if initial_state else get_child(0)
+	_changer_etat(premier_etat)  # Démarre avec l'état initial configuré ou le premier enfant
 
 # Appelée chaque frame physique : délègue la mise à jour à l'état actif
 func _physics_process(delta: float) -> void:
-	print("SM update, etat: ", get_etat_nom())
 	if etat_actuel:
 		etat_actuel.update(delta)
 

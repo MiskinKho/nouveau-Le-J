@@ -1,8 +1,5 @@
-extends Personnage  # Le chat IA hérite de Personnage (move_and_slide, animations, stats)
-class_name PNJ      # Classe nommée PNJ (utilisée aussi par Animaux_Sauvages qui extends PNJ)
-
-@export var gamelle: StaticBody2D  # Référence à la gamelle de ce chat (assignée dans l'éditeur)
-@export var coussin: Mobilier      # Référence au coussin de ce chat (pour le sommeil)
+extends Personnage  # Base commune pour tous les personnages IA (chats, mobs, humains)
+class_name PNJ      # Classe nommée PNJ (utilisée par Chat, Mob, Humain)
 
 @onready var nav_agent = $NavigationAgent2D          # Agent de navigation pour path-finding
 @onready var state_machine: StateMachine = $StateMachine  # Machine à états enfant
@@ -10,17 +7,13 @@ class_name PNJ      # Classe nommée PNJ (utilisée aussi par Animaux_Sauvages q
 var direction := Vector2.ZERO  # Direction de déplacement actuelle (choisie par _choisir_direction)
 var mange := false             # True pendant Etat_Manger : bloque l'accumulation de faim
 var epuise := false            # True quand épuisé : modifie la logique de Etat_Dormir
-var sur_coussin := false  # True uniquement quand le chat a atteint physiquement le coussin
 
-signal chat_clique  # Émis quand on clique sur le chat EN COMBAT (déclenche l'attaque du joueur)
 
 func _ready():
-	add_to_group("chats")   # Groupe utilisé par la gamelle pour détecter l'entrée du chat
-
 	# Connexion des signaux de la zone de clic (Area2D enfant)
 	$ZoneClick.input_event.connect(_on_click)
-	$ZoneClick.mouse_exited.connect(_on_survol_entrer)    # Note : noms inversés dans le code original
-	$ZoneClick.mouse_entered.connect(_on_survol_sortir)
+	$ZoneClick.mouse_entered.connect(_on_survol_entrer)   # Survol entrant : éclaircit le sprite
+	$ZoneClick.mouse_exited.connect(_on_survol_sortir)   # Survol sortant : remet la couleur normale
 
 	# Crée des stats par défaut si aucune ressource n'est assignée dans l'éditeur
 	if stats == null:
@@ -30,17 +23,14 @@ func _ready():
 func _on_survol_entrer():
 	modulate = Color(1.5, 1.5, 1.5)   # Teinte lumineuse (blanc amplifié)
 
-# Fin de survol : teinte rouge (probablement un reste de debug — à revoir)
+# Fin de survol : remet la couleur par défaut (blanc normal)
 func _on_survol_sortir():
-	modulate = Color(1, 0, 0)
+	modulate = Color(1, 1, 1)
 
 func _on_click(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
-		if en_combat:
-			chat_clique.emit()  # En combat : signal direct pour l'UI de combat (pas le menu contextuel)
-		else:
-			# Hors combat : ouvre le menu contextuel à la position de la souris
-			EventBus.menu_contexte_ouvert.emit(get_viewport().get_mouse_position(), self)
+		# Ouvre le menu contextuel à la position de la souris
+		EventBus.menu_contexte_ouvert.emit(get_viewport().get_mouse_position(), self)
 
 # Choisit une direction de marche libre (sans obstacle).
 # Délègue à CompDeplacementIA si disponible, sinon effectue le raycast directement.

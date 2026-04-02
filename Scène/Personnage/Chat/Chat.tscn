@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://t558g0tsuuel"]
 
-[ext_resource type="Script" path="res://Script/Personnage/Personnage/Chat.gd" id="1_itbgo"]
 [ext_resource type="SpriteFrames" uid="uid://bfrcy8fxr32ug" path="res://Scène/Personnage/Chat/Animation_Chat.tres" id="2_qtiap"]
+[ext_resource type="Script" path="res://Script/Personnage/Deplacement/Comp_Deplacement_IA.gd" id="5_j55lu"]
 [ext_resource type="Script" path="res://Script/Personnage/Etats/State_Machine.gd" id="7_0fnm7"]
 [ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Idle.gd" id="8_trk2l"]
 [ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Marcher.gd" id="9_jawt8"]
@@ -19,7 +19,9 @@ size = Vector2(21.125, 7)
 [node name="Chat" type="CharacterBody2D"]
 position = Vector2(-1, 0)
 motion_mode = 1
-script = ExtResource("1_itbgo")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("5_j55lu")
 
 [node name="ZoneClick" type="Area2D" parent="."]
 

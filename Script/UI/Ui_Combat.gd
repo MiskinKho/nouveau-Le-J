@@ -42,7 +42,6 @@ func _ready():
 	EventBus.combat_demarre.connect(_on_combat_demarre)
 	EventBus.attaque_effectuee.connect(_on_attaque_effectuee)
 	EventBus.combat_termine.connect(_on_combat_termine)
-	print("combat_termine connecté")
 	EventBus.tour_joueur_commence.connect(_on_tour_joueur_commence)
 
 func afficher(p_stats_chat: Creature):
@@ -110,7 +109,6 @@ func _on_attaque_effectuee(attaquant_nom, cible_nom, degats):
 	degats_label.afficher(degats, position_cible + Vector2(0, -32))
 
 func _on_combat_termine(victoire: bool):
-	print("_terminer_combat appelé, victoire : ", victoire)
 	if CombatManager.mode_actuel == CombatManager.Mode.AUTO:
 		if victoire:
 			label_degats.text = "Victoire !"
@@ -119,9 +117,7 @@ func _on_combat_termine(victoire: bool):
 		else:
 			label_degats.text = "%s est KO..." % CombatManager.stats_combattant_1.nom
 			CombatManager.stats_combattant_1.pv_actuel = 1
-		print("avant await")
 		await get_tree().create_timer(1.5).timeout
-		print("avant await")
 		cacher()
 	else:
 		var gain_pv_max = max(1, CombatManager.stats_combattant_2.force / 5)
@@ -137,7 +133,6 @@ func _on_tour_joueur_commence():
 	_afficher_menu(menu_principal)
 
 func cacher():
-	print("cacher appelé, chat_node : ", chat_node)
 	panel.visible = false
 	btn_attaquer.visible = true
 	btn_competence.visible = true

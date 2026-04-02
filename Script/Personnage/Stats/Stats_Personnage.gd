@@ -3,10 +3,9 @@ class_name Creature  # Ressource complète d'un personnage : stats + sérialisat
 
 @export var nom: String = "Chat"
 @export var race: String = "Commun"
-@export var combat: Stats_Combat      # Sous-ressource combat (PV, force, etc.)
-@export var bien_etre: Stats_Bien_Etre  # Sous-ressource bien-être (faim, énergie, etc.)
+@export var combat: Stats_Combat = Stats_Combat.new()            # Sous-ressource combat (PV, force, etc.)
+@export var bien_etre: Stats_Bien_Etre = Stats_Bien_Etre.new()  # Sous-ressource bien-être (faim, énergie, etc.)
 @export var competences: Array = []   # Liste de compétences (non implémenté)
-@export var stats: PlayerStats        # Stats du joueur liées à cette créature (pour l'entraînement)
 
 # Sérialise la créature en Dictionary JSON-compatible pour la sauvegarde.
 func to_dict() -> Dictionary:

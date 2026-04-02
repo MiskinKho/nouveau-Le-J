@@ -190,6 +190,12 @@ Managers (Autoloads)                  ← CreatureManager, SaveManager, TimeMana
 
 ## 4. Instructions de travail
 
+### Contexte du refactoring
+
+Le projet a été construit de façon organique, sans architecture définie au départ. Chaque système a été implémenté de façon isolée, en dupliquant la logique existante à chaque nouveau besoin plutôt qu'en l'abstraisant. C'est l'origine des doublons actuels et des scripts partiellement vidés sans nettoyage cohérent.
+
+Le refactoring documenté ici n'est pas une réécriture arbitraire : c'est la consolidation progressive vers l'architecture cible définie a posteriori. **La règle absolue est : refactoring avant nouvelle feature** — on ne construit pas sur de la dette technique.
+
 ### Avant de commencer
 - Lire ce fichier `CLAUDE.md` en entier
 - Cloner ou relire le repo GitHub sur la branche `Test` : https://github.com/MiskinKho/nouveau-Le-J (branche de travail principale)

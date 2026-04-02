@@ -1,4 +1,4 @@
-extends State  # État intermédiaire : énergie faible, le chat cherche son coussin pour dormir
+extends StateBienEtre  # État intermédiaire : énergie faible, le chat cherche son coussin pour dormir
 
 func enter() -> void:
 	pass
@@ -13,7 +13,7 @@ func update(_delta: float) -> void:
 	if personnage.coussin:
 		var distance = (personnage.coussin.global_position - personnage.global_position).length()
 		if distance > 12: # Encore loin du coussin : s'y déplacer via navigation
-			
+
 			personnage._se_deplacer_vers(personnage.coussin.global_position)
 		else:
 			personnage.sur_coussin = true       # Arrivé sur le coussin : active le flag avant de dormir

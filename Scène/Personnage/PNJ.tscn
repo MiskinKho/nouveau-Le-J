@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn0vkilomwk7q"]
+
+[ext_resource type="PackedScene" uid="uid://bkhdyrlbjsexo" path="res://Scène/Personnage/Personnage.tscn" id="1_753qq"]
+[ext_resource type="Shape2D" uid="uid://c3ap2bh7wv2rq" path="res://Scène/Personnage/Chat/Collision_ZoneClick_Chat.tres" id="2_2muss"]
+
+[node name="PNJ" instance=ExtResource("1_753qq")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(100, -4)
+
+[node name="ZoneClick" type="Area2D" parent="." index="2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneClick" index="0"]
+position = Vector2(-1.125, -20.75)
+shape = ExtResource("2_2muss")
+
+[node name="Raycast" type="RayCast2D" parent="." index="5"]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="6"]

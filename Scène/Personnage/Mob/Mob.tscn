@@ -33,6 +33,7 @@ size = Vector2(9, 20)
 
 [node name="Animaux_Sauvages" type="CharacterBody2D"]
 script = ExtResource("1_oti65")
+zone_deplacement = null
 stats = SubResource("Resource_creature")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

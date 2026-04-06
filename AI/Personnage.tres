@@ -1,0 +1,18 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://bjvmevrxnsuit"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_o75ba"]
+
+[sub_resource type="BTSequence" id="BTSequence_8w5iy"]
+
+[sub_resource type="BTSequence" id="BTSequence_p6x4h"]
+
+[sub_resource type="BTSequence" id="BTSequence_xdm6u"]
+
+[sub_resource type="BTSequence" id="BTSequence_n6ul4"]
+
+[sub_resource type="BTSelector" id="BTSelector_eyfbc"]
+children = [SubResource("BTSequence_8w5iy"), SubResource("BTSequence_p6x4h"), SubResource("BTSequence_xdm6u"), SubResource("BTSequence_n6ul4")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_o75ba")
+root_task = SubResource("BTSelector_eyfbc")

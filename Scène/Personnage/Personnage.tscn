@@ -1,12 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://bkhdyrlbjsexo"]
+[gd_scene format=3 uid="uid://bkhdyrlbjsexo"]
 
-[ext_resource type="Script" path="res://Script/Personnage/Etats/State_Machine.gd" id="1_xlenm"]
-[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Idle.gd" id="2_qgtg1"]
-[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Marcher.gd" id="3_ci16w"]
-[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Faim.gd" id="4_bktge"]
-[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Manger.gd" id="5_67bcd"]
-[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Fatigue.gd" id="6_g8art"]
-[ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Dormir.gd" id="7_6y7wa"]
+[ext_resource type="BehaviorTree" uid="uid://bjvmevrxnsuit" path="res://AI/Personnage.tres" id="1_o2r4a"]
 
 [sub_resource type="Gradient" id="Gradient_l653o"]
 offsets = PackedFloat32Array(0.3, 0.6, 1)
@@ -19,43 +13,57 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.150862, 0.831897)
 
-[node name="CharacterBody2D2" type="CharacterBody2D"]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_0kmr7"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_0mx2u"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_8g54n"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_yalm2"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_vppkj"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_g8mhs"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ueceh"]
+
+[node name="Personnage" type="CharacterBody2D" unique_id=803536379]
 motion_mode = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1875962328]
 position = Vector2(-1, -5)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2013304795]
 animation = &""
 offset = Vector2(0, -23)
 metadata/_edit_lock_ = true
 
-[node name="AudioListener2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioListener2D" type="AudioStreamPlayer2D" parent="." unique_id=1499758918]
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-visible = false
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=119987284]
 position = Vector2(2, -24)
 texture = SubResource("GradientTexture2D_np3k0")
 
-[node name="StateMachine" type="Node" parent="."]
-script = ExtResource("1_xlenm")
+[node name="StateMachine" type="BTPlayer" parent="." unique_id=96914205]
+behavior_tree = ExtResource("1_o2r4a")
+blackboard_plan = SubResource("BlackboardPlan_0kmr7")
 
-[node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource("2_qgtg1")
+[node name="Idle" type="BTState" parent="StateMachine" unique_id=445235750]
+blackboard_plan = SubResource("BlackboardPlan_0mx2u")
 
-[node name="Marcher" type="Node" parent="StateMachine"]
-script = ExtResource("3_ci16w")
+[node name="Marcher" type="BTState" parent="StateMachine" unique_id=869888909]
+blackboard_plan = SubResource("BlackboardPlan_8g54n")
 
-[node name="Faim" type="Node" parent="StateMachine"]
-script = ExtResource("4_bktge")
+[node name="Faim" type="BTState" parent="StateMachine" unique_id=1605513887]
+blackboard_plan = SubResource("BlackboardPlan_yalm2")
 
-[node name="Manger" type="Node" parent="StateMachine"]
-script = ExtResource("5_67bcd")
+[node name="Manger" type="BTState" parent="StateMachine" unique_id=1729486156]
+blackboard_plan = SubResource("BlackboardPlan_vppkj")
 
-[node name="Fatigue" type="Node" parent="StateMachine"]
-script = ExtResource("6_g8art")
+[node name="Fatigue" type="BTState" parent="StateMachine" unique_id=1691719412]
+blackboard_plan = SubResource("BlackboardPlan_g8mhs")
 
-[node name="Dormir" type="Node" parent="StateMachine"]
-script = ExtResource("7_6y7wa")
+[node name="Dormir" type="BTState" parent="StateMachine" unique_id=949399080]
+blackboard_plan = SubResource("BlackboardPlan_ueceh")
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

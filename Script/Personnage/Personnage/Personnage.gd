@@ -4,7 +4,7 @@ class_name Personnage    # Classe de base partagée par Joueur et PNJ (Chat)
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D  # Sprite animé enfant, chargé au _ready()
 
 @export var stats: Creature  # Ressource contenant toutes les stats (combat + bien-être)
-@export var speed := 100.0   # Vitesse de déplacement en pixels/seconde (configurable dans l'éditeur)
+
 
 var last_dir := "S"            # Dernière direction regardée (utilisée pour l'animation idle)
 var en_combat := false         # Bloque les déplacements et inputs pendant un combat
@@ -18,12 +18,6 @@ func _play_idle(dir: String = "S") -> void:
 	var anim_name := "Idle " + dir            # Ex: "Idle S", "Idle NE"
 	if sprite.animation != anim_name:          # Guard : ne remet pas à zéro si déjà correcte
 		sprite.play(anim_name)
-
-# Applique un déplacement isométrique : l'axe Y est compressé à 0.5 pour simuler la perspective.
-func _deplacer(input: Vector2) -> void:
-	var iso := Vector2(input.x, input.y * 0.5).normalized()  # Normalise après compression
-	velocity = iso * speed
-	move_and_slide()
 
 # Lance l'animation de marche dans la direction donnée (même guard que _play_idle).
 func _play_walk(dir: String) -> void:

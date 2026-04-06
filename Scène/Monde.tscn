@@ -30,7 +30,7 @@
 [ext_resource type="Script" path="res://Script/Vrac/Cl_Transition.gd" id="17_l7q5u"]
 [ext_resource type="FontFile" uid="uid://ci0b5r1351m8g" path="res://Asset/Font/fibberish.ttf" id="17_rn0bc"]
 [ext_resource type="Texture2D" uid="uid://cqa8yxtb0hac" path="res://Asset/Inventaire/Fond.png" id="17_uw6da"]
-[ext_resource type="PackedScene" uid="uid://bsk8qi0jv2f4" path="res://Scène/Personnage/Mob/Animaux_Sauvages.tscn" id="20_4bgbo"]
+[ext_resource type="PackedScene" uid="uid://bsk8qi0jv2f4" path="res://Scène/Personnage/Mob/Mob.tscn" id="20_4bgbo"]
 [ext_resource type="PackedScene" uid="uid://ds2155uyjmkln" path="res://Scène/Gamelle.tscn" id="20_qmcaj"]
 [ext_resource type="Script" path="res://Script/Vrac/Cl_Pause.gd" id="21_0otel"]
 [ext_resource type="Texture2D" uid="uid://d3014u3ageu7o" path="res://Asset/Gamelle/Gamelle2.png" id="21_eyt5v"]
@@ -844,6 +844,7 @@ tile_map_data = PackedByteArray("AAARABUAAgAAAAEAAAASABYAAgAAAAEAAAATABYAAgAAAAE
 tile_set = SubResource("TileSet_vl6ef")
 
 [node name="FauxEtage" type="Node2D" parent="."]
+visible = false
 z_index = 1
 y_sort_enabled = true
 
@@ -878,6 +879,7 @@ tile_map_data = PackedByteArray("AAARABUAAwAAAAEAAAASABYAAwAAAAEAAAATABYAAwAAAAE
 tile_set = ExtResource("5_m5ndx")
 
 [node name="Etage 1" type="Node2D" parent="."]
+visible = false
 visibility_layer = 2
 y_sort_enabled = true
 
@@ -1011,6 +1013,7 @@ stats = SubResource("Resource_m8pcb")
 
 [node name="Animaux_Sauvages" parent="." instance=ExtResource("20_4bgbo")]
 position = Vector2(567, 289)
+zone_deplacement = null
 stats = SubResource("Resource_u8i6f")
 
 [node name="Gamelle" parent="." instance=ExtResource("20_qmcaj")]

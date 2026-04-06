@@ -11,6 +11,8 @@ func traiter_deplacement() -> void:
 	else:
 		deplacer(input)
 
+
+
 # Retourne uniquement le vecteur d'input sans l'appliquer (utile pour les animations, checks, etc.)
 func get_direction() -> Vector2:
 	return Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")

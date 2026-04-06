@@ -18,7 +18,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.150862, 0.831897)
 
-[node name="CharacterBody2D2" type="CharacterBody2D"]
+[node name="Joueur" type="CharacterBody2D"]
 motion_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -27,7 +27,7 @@ shape = SubResource("CircleShape2D_2yedh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_ncjbk")
-animation = &"Walk SO"
+animation = &"ATK SE"
 offset = Vector2(0, -23)
 metadata/_edit_lock_ = true
 

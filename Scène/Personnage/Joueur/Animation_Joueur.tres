@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=78 format=3 uid="uid://bnug3xllfsll6"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://bnug3xllfsll6"]
 
 [ext_resource type="Texture2D" uid="uid://b0vjx22d0a6q5" path="res://Asset/Le J/ATK/ATK SE.png" id="1_i8mjn"]
 [ext_resource type="Texture2D" uid="uid://bg3nie7msjxsl" path="res://Asset/Le J/IDLE/Le J E.png" id="2_kgmpa"]

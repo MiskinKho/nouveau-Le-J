@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://dqy07b7nphywe"]
+[gd_resource type="TileSet" format=3 uid="uid://dqy07b7nphywe"]
 
 [ext_resource type="Texture2D" uid="uid://u7sx618q68y3" path="res://Asset/Sol/Carlage.png" id="1_oy6d1"]
 [ext_resource type="Texture2D" uid="uid://dc4hj2fl38ar6" path="res://Asset/Sol/Planché Bois (2).png" id="2_e1ude"]

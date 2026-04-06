@@ -147,44 +147,19 @@ Managers (Autoloads)                  ← CreatureManager, SaveManager, TimeMana
 
 ---
 
-## 3. État actuel du projet
+## 3. Documents de référence
 
-### Systèmes implémentés
-- Inventaire (24 slots, extensible par paliers de 8)
-- Sauvegarde JSON complète
-- Cycle jour/nuit (900s = 1 jour de jeu)
-- Gamelle (états VIDE/MOITIE/PLEINE)
-- Combat entraînement joueur vs chat (tour par tour)
-- State Machine du chat (Idle, Marcher, Faim, Manger, Fatigue, Dormir)
-- Système d'étages A/B/C/D
-- Menu contextuel, menu pause, HUD
+| Fichier | Rôle |
+|---|---|---|---|
+| `Claude.md` | Contexte, Architecture, Instructions et règles de travail |
+| `Rapport.md`| Log des modifications apportées |
+| `Journal.md`| État des lieux global du jeu |
+| `Carnet.md` | Historique cumulatif des features |
 
-### Déjà fait
-- `Personnage.gd` nettoyé — ne contient plus la logique spécifique au joueur
-- `Chat.gd` → renommé `class_name PNJ`, hérite de `Personnage`
-- `Animaux_Sauvages.gd` → renommé `class_name Mob`, hérite de `PNJ`
-- `Joueur.gd` complété — `etage`, `sas`, `_play_footstep`, `_physics_process`
-- `Monde.gd` — connexions doubles corrigées
-- `Etat_Dormir` — logique `sur_coussin` et régénération corrigée
-
-### En cours / À faire
-- Refactoring `Chat.gd` (PNJ) — déléguer `_choisir_direction` et `_se_deplacer_vers` à `CompDeplacementIA`
-- `sur_coussin: bool` — présent dans `PNJ.gd` et utilisé dans `Etat_Fatigue` et `Etat_Dormir` ✅
-- Supprimer `Player_Stats.gd` et nettoyer la référence dans `Stats_Personnage.gd`
-- `Etat_Deplacement` à créer — hérite de `Etat_Marcher`, surcharge `_get_direction()` pour input joueur
-- État Combat pour le chat via State Machine
-- Système de compétences du chat
-- Affichage description items au survol
-- Filtrage par catégorie dans l'inventaire
-- `process_mode = PROCESS_MODE_DISABLED` sur les états inactifs (performance)
-- `duplicate()` sur les Resources au runtime (éviter partage entre personnages)
-- `@export var initial_state` dans `StateMachine` au lieu de `get_child(0)`
-
-### Doublons restants à corriger
-- `_choisir_direction()` — dans `PNJ` (Chat.gd) ET `Mob` (Animaux_Sauvages.gd) → centraliser dans `CompDeplacementIA`
-- `_se_deplacer_vers()` — dans `PNJ` (Chat.gd) → doit déléguer à `CompDeplacementIA.se_deplacer_vers()`
-- `Player_Stats.gd` — doublon de `Stats_Combat.gd`, à supprimer
-- `_choisir_prochain()` — encore dupliquée dans `Etat_Idle.gd` et `Etat_Marcher.gd` → à déplacer dans `State.gd`
+**Ordre de lecture en début de session :**
+1. `Claude.md` — ce fichier
+2. `Rapport.md` — priorités et directives de la session
+3. `Journal.md` — ce qui fonctionne, ce qui est cassé, Futur implémentation
 
 ---
 
@@ -197,8 +172,9 @@ Le projet a été construit de façon organique, sans architecture définie au d
 Le refactoring documenté ici n'est pas une réécriture arbitraire : c'est la consolidation progressive vers l'architecture cible définie a posteriori. **La règle absolue est : refactoring avant nouvelle feature** — on ne construit pas sur de la dette technique.
 
 ### Avant de commencer
-- Lire ce fichier `CLAUDE.md` en entier
-- Cloner ou relire le repo GitHub sur la branche `Test` : https://github.com/MiskinKho/nouveau-Le-J (branche de travail principale)
+- Lire ce fichier `Claude.md` en entier
+- Lire `INSTRUCTIONS.md` pour connaître les priorités de la session
+- Cloner ou relire le repo GitHub sur la branche `test` : https://github.com/MiskinKho/nouveau-Le-J
 - Consulter la skill Godot 4 avant de réfléchir à une logique ou modifier un script
 - Lancer `analyse_projet.sh` pour avoir l'état actuel du projet
 
@@ -223,7 +199,7 @@ Le refactoring documenté ici n'est pas une réécriture arbitraire : c'est la c
 - Ne pas créer de nouveaux scripts sans vérifier les doublons existants
 - Réutiliser et hériter des scripts existants au maximum
 - Toujours ajouter un commentaire par ligne — ne jamais retirer ni remplacer un commentaire existant
-- Priorité : refactoring avant nouvelles features
+- Priorité : corriger les bugs listés dans INSTRUCTIONS.md avant toute nouvelle feature
 
 ### Règles de communication
 - Toujours proposer un plan et attendre validation avant de modifier le code
@@ -231,3 +207,24 @@ Le refactoring documenté ici n'est pas une réécriture arbitraire : c'est la c
 - Ne pas poser de questions avant d'avoir répondu
 - Traiter une chose à la fois
 - En cas de doute sur une API ou syntaxe Godot 4.3, consulter docs.godotengine.org
+
+---
+
+## 5. Obligations de fin de session
+
+### 1. Rédiger le rapport
+
+Mettre à jour le fichier Rapport.md en suivant le format existant du document .
+
+Inclure obligatoirement :
+- Les fichiers modifiés, créés ou supprimés
+- Les changements logiques importants et leur justification
+- Les points d'attention pour le Compte 2 (bugs potentiels, dérives architecturales, choix discutables)
+
+### 2. Pusher sur la branche `test`
+
+```bash
+git add -A
+git commit -m "Session [N] — [description courte]"
+git push origin test
+```

@@ -1,9 +1,5 @@
 extends StateBienEtre  # Hérite de StateBienEtre, implémente l'état "déplacement aléatoire"
 
-
-
-
-
 func enter() -> void:
 	duree = randf_range(1.0, 3.0)   # Durée plus courte qu'Idle : le chat marche par courtes séquences
 	personnage._choisir_direction()  # Choisit une direction libre (sans mur devant, via raycast)

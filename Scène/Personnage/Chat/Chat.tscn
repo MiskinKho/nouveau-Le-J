@@ -1,6 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://t558g0tsuuel"]
 
+[ext_resource type="Shape2D" uid="uid://c3ap2bh7wv2rq" path="res://Scène/Personnage/Chat/Collision_ZoneClick_Chat.tres" id="1_vwocl"]
 [ext_resource type="SpriteFrames" uid="uid://bfrcy8fxr32ug" path="res://Scène/Personnage/Chat/Animation_Chat.tres" id="2_qtiap"]
+[ext_resource type="Shape2D" uid="uid://1rtug0wr05ys" path="res://Scène/Personnage/Chat/Collision_Chat.tres" id="3_8hhak"]
 [ext_resource type="Script" path="res://Script/Personnage/Deplacement/Comp_Deplacement_IA.gd" id="5_j55lu"]
 [ext_resource type="Script" path="res://Script/Personnage/Etats/State_Machine.gd" id="7_0fnm7"]
 [ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Idle.gd" id="8_trk2l"]
@@ -10,24 +12,15 @@
 [ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Fatigue.gd" id="12_dbw1l"]
 [ext_resource type="Script" path="res://Script/Personnage/Etats/Etat/Etat_Dormir.gd" id="13_yb7aq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s47pu"]
-size = Vector2(24.25, 29.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_earec"]
-size = Vector2(21.125, 7)
-
 [node name="Chat" type="CharacterBody2D"]
 position = Vector2(-1, 0)
 motion_mode = 1
-
-[node name="Node" type="Node" parent="."]
-script = ExtResource("5_j55lu")
 
 [node name="ZoneClick" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneClick"]
 position = Vector2(-1.125, -20.75)
-shape = SubResource("RectangleShape2D_s47pu")
+shape = ExtResource("1_vwocl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_qtiap")
@@ -37,11 +30,10 @@ offset = Vector2(0, -24)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 y_sort_enabled = true
 position = Vector2(0.4375, -9.5)
-shape = SubResource("RectangleShape2D_earec")
+shape = ExtResource("3_8hhak")
 
-[node name="Raycast" type="RayCast2D" parent="."]
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+[node name="Node" type="Node" parent="."]
+script = ExtResource("5_j55lu")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("7_0fnm7")

@@ -1,18 +1,126 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://bjvmevrxnsuit"]
 
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_o75ba"]
+[ext_resource type="Script" uid="uid://do6qwgd3jvp2f" path="res://ai/tasks/BTC_EnergieEpuise.gd" id="1_0uisl"]
+[ext_resource type="Script" uid="uid://bpp0tey1bwtgv" path="res://ai/tasks/BTA_Dormir.gd" id="2_i6n4d"]
+[ext_resource type="Script" uid="uid://wkilufhhwtbc" path="res://ai/tasks/BTC_CoussinExiste.gd" id="2_yuh4d"]
+[ext_resource type="Script" uid="uid://cnbl7bmqntsav" path="res://ai/tasks/BTC_EnergieFaible.gd" id="3_3ehoj"]
+[ext_resource type="Script" uid="uid://b7xbddabilb0c" path="res://ai/tasks/BTA_DormirCoussin.gd" id="3_iirp6"]
+[ext_resource type="Script" uid="uid://bbook71soh3y8" path="res://ai/tasks/BTA_SeDeplacerVers.gd" id="5_plmqe"]
+[ext_resource type="Script" uid="uid://h1g0hwlh2f2m" path="res://ai/tasks/BTC_FaimCritique.gd" id="7_785fp"]
+[ext_resource type="Script" uid="uid://bhotsux6ho5bp" path="res://ai/tasks/BTC_GamelleRemplie.gd" id="8_npxpb"]
+[ext_resource type="Script" uid="uid://dg51t31s5jyjo" path="res://ai/tasks/BTA_Manger.gd" id="9_rsx0g"]
+[ext_resource type="Script" uid="uid://d2ndsk6350vnr" path="res://ai/tasks/BTA_Idle.gd" id="10_qh0op"]
+[ext_resource type="Script" uid="uid://cm8hyn36wr5fb" path="res://ai/tasks/BTC_Probabilite.gd" id="11_13u7e"]
+[ext_resource type="Script" uid="uid://be55qe4e0p8u6" path="res://ai/tasks/BTA_ChoisirDirection.gd" id="12_ip6b7"]
+[ext_resource type="Script" uid="uid://bwt20kc3xn4sm" path="res://ai/tasks/BTA_MarcheDuree.gd" id="13_f45dk"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_8w5iy"]
+var/cible/name = &"cible"
+var/cible/type = 24
+var/cible/hint = 34
+var/cible/hint_string = ""
+
+[sub_resource type="BTCondition" id="BTCondition_0j005"]
+script = ExtResource("3_3ehoj")
+
+[sub_resource type="BTCondition" id="BTCondition_4lh8f"]
+script = ExtResource("1_0uisl")
+
+[sub_resource type="BTAction" id="BTAction_4i742"]
+script = ExtResource("2_i6n4d")
 
 [sub_resource type="BTSequence" id="BTSequence_8w5iy"]
+custom_name = "Epuise"
+children = [SubResource("BTCondition_4lh8f"), SubResource("BTAction_4i742")]
 
-[sub_resource type="BTSequence" id="BTSequence_p6x4h"]
+[sub_resource type="BTCondition" id="BTCondition_2whi1"]
+script = ExtResource("2_yuh4d")
+
+[sub_resource type="BTAction" id="BTAction_sek6l"]
+script = ExtResource("5_plmqe")
+
+[sub_resource type="BTAction" id="BTAction_4f6m8"]
+script = ExtResource("3_iirp6")
+
+[sub_resource type="BTSequence" id="BTSequence_f8hl2"]
+custom_name = "Fatigue"
+children = [SubResource("BTCondition_2whi1"), SubResource("BTAction_sek6l"), SubResource("BTAction_4f6m8")]
+
+[sub_resource type="BTAction" id="BTAction_uiefc"]
+script = ExtResource("2_i6n4d")
+
+[sub_resource type="BTSelector" id="BTSelector_4lh8f"]
+custom_name = "ChercheRepos"
+children = [SubResource("BTSequence_8w5iy"), SubResource("BTSequence_f8hl2"), SubResource("BTAction_uiefc")]
+
+[sub_resource type="BTSequence" id="BTSequence_i6n4d"]
+custom_name = "Sommeil"
+children = [SubResource("BTCondition_0j005"), SubResource("BTSelector_4lh8f")]
+
+[sub_resource type="BTCondition" id="BTCondition_dsebv"]
+script = ExtResource("7_785fp")
+
+[sub_resource type="BTCondition" id="BTCondition_figb8"]
+script = ExtResource("8_npxpb")
+
+[sub_resource type="BTAction" id="BTAction_4a71u"]
+script = ExtResource("5_plmqe")
+
+[sub_resource type="BTAction" id="BTAction_lpkfk"]
+script = ExtResource("9_rsx0g")
+
+[sub_resource type="BTSequence" id="BTSequence_wtatq"]
+custom_name = "AllerManger"
+children = [SubResource("BTCondition_figb8"), SubResource("BTAction_4a71u"), SubResource("BTAction_lpkfk")]
+
+[sub_resource type="BTAction" id="BTAction_5wjyq"]
+script = ExtResource("10_qh0op")
+
+[sub_resource type="BTSelector" id="BTSelector_4danx"]
+custom_name = "ChercheNourriture"
+children = [SubResource("BTSequence_wtatq"), SubResource("BTAction_5wjyq")]
 
 [sub_resource type="BTSequence" id="BTSequence_xdm6u"]
+custom_name = "Faim"
+children = [SubResource("BTCondition_dsebv"), SubResource("BTSelector_4danx")]
+
+[sub_resource type="BTSelector" id="BTSelector_3ehoj"]
+custom_name = "BesoinVitaux"
+children = [SubResource("BTSequence_i6n4d"), SubResource("BTSequence_xdm6u")]
+
+[sub_resource type="BTCondition" id="BTCondition_4qqf5"]
+script = ExtResource("11_13u7e")
+
+[sub_resource type="BTAction" id="BTAction_0bf6a"]
+script = ExtResource("12_ip6b7")
+
+[sub_resource type="BTAction" id="BTAction_3nn56"]
+script = ExtResource("13_f45dk")
+
+[sub_resource type="BTSequence" id="BTSequence_rpn0g"]
+custom_name = "Marcher"
+children = [SubResource("BTCondition_4qqf5"), SubResource("BTAction_0bf6a"), SubResource("BTAction_3nn56")]
+
+[sub_resource type="BTAction" id="BTAction_2etvt"]
+script = ExtResource("10_qh0op")
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_nbood"]
+max_duration = 5.0
+
+[sub_resource type="BTSequence" id="BTSequence_ofdnv"]
+custom_name = "Idles"
+children = [SubResource("BTAction_2etvt"), SubResource("BTRandomWait_nbood")]
 
 [sub_resource type="BTSequence" id="BTSequence_n6ul4"]
+custom_name = "IdleMarche"
+children = [SubResource("BTSequence_rpn0g"), SubResource("BTSequence_ofdnv")]
 
-[sub_resource type="BTSelector" id="BTSelector_eyfbc"]
-children = [SubResource("BTSequence_8w5iy"), SubResource("BTSequence_p6x4h"), SubResource("BTSequence_xdm6u"), SubResource("BTSequence_n6ul4")]
+[sub_resource type="BTSequence" id="BTSequence_plmqe"]
+custom_name = "Combat"
+
+[sub_resource type="BTSelector" id="BTSelector_p6x4h"]
+children = [SubResource("BTSelector_3ehoj"), SubResource("BTSequence_n6ul4"), SubResource("BTSequence_plmqe")]
 
 [resource]
-blackboard_plan = SubResource("BlackboardPlan_o75ba")
-root_task = SubResource("BTSelector_eyfbc")
+blackboard_plan = SubResource("BlackboardPlan_8w5iy")
+root_task = SubResource("BTSelector_p6x4h")

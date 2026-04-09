@@ -1,5 +1,14 @@
 [gd_scene format=3 uid="uid://7ykw05j0j52p"]
 
 [ext_resource type="PackedScene" uid="uid://cn0vkilomwk7q" path="res://Scène/Personnage/PNJ.tscn" id="1_nngvi"]
+[ext_resource type="Shape2D" uid="uid://1rtug0wr05ys" path="res://Scène/Personnage/Chat/Collision_Chat.tres" id="2_rsvle"]
+[ext_resource type="SpriteFrames" uid="uid://bfrcy8fxr32ug" path="res://Scène/Personnage/Chat/Animation_Chat.tres" id="3_7wxel"]
 
 [node name="Chat" unique_id=1931301638 instance=ExtResource("1_nngvi")]
+
+[node name="CollisionShape2D" parent="." index="0" unique_id=1875962328]
+shape = ExtResource("2_rsvle")
+
+[node name="AnimatedSprite2D" parent="." index="1" unique_id=2013304795]
+sprite_frames = ExtResource("3_7wxel")
+animation = &"Idle NE"

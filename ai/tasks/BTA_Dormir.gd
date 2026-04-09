@@ -1,3 +1,4 @@
+@tool
 extends BTAction                             # Classe LimboAI pour les actions (retourne SUCCESS, FAILURE ou RUNNING)
 class_name BTAction_Dormir          # Nom global pour l'éditeur BT
 

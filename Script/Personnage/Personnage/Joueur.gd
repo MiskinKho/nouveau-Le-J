@@ -59,19 +59,9 @@ func _physics_process(_delta: float) -> void:
 				_play_idle(last_dir)
 		else:
 			_play_idle(last_dir)
-		_deplacer(input)
+		$CompDeplacementJoueur._deplacer(input)
 		return
 
-	# Déplacement normal au sol
-	if input == Vector2.ZERO:
-		velocity = Vector2.ZERO
-		_play_idle(last_dir)
-		move_and_slide()
-		return
-
-	last_dir = _dir8_from_vector(input)  # Met à jour la dernière direction regardée
-	_deplacer(input)
-	_play_walk(last_dir)
 
 func _process(_delta):
 	# Chaque frame : détecte la touche Entrée pour interagir avec le chat proche

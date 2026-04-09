@@ -1,40 +1,27 @@
-[gd_scene load_steps=7 format=3 uid="uid://brx4cr7slpu57"]
+[gd_scene format=3 uid="uid://bewglviufrga5"]
 
-[ext_resource type="Texture2D" path="res://Asset/Chat/Idle/Chat1.png" id="1_a60r5"]
-[ext_resource type="Script" path="res://Script/Personnage/Personnage/PNJ.gd" id="1_ods7p"]
-[ext_resource type="Script" path="res://Script/Personnage/Stats/Stats_Personnage.gd" id="2_kbe0w"]
+[ext_resource type="PackedScene" uid="uid://bkhdyrlbjsexo" path="res://Scène/Personnage/Personnage.tscn" id="1_8b4uh"]
+[ext_resource type="Shape2D" uid="uid://br5brk34uss4k" path="res://Scène/Personnage/Joueur/Collision_Joueur.tres" id="2_fgp5e"]
+[ext_resource type="SpriteFrames" uid="uid://bnug3xllfsll6" path="res://Scène/Personnage/Joueur/Animation_Joueur.tres" id="3_20j66"]
+[ext_resource type="AudioStream" uid="uid://cj7ehpkfaj3ha" path="res://Asset/Son/PasBois.ogg" id="4_mvpyb"]
+[ext_resource type="Script" uid="uid://c4qpn5cxmrh50" path="res://Script/Vrac/Camera_2d.gd" id="5_xf4ye"]
+[ext_resource type="Script" uid="uid://dmj4mwm5yy4aa" path="res://Script/Personnage/Deplacement/Comp_Deplacement_Joueur.gd" id="6_fgp5e"]
 
-[sub_resource type="Resource" id="Resource_62mea"]
-script = ExtResource("2_kbe0w")
-nom = "Chat"
-pv_max = 50
-pv_actuel = 50
-force = 10
+[node name="Joueur" unique_id=803536379 instance=ExtResource("1_8b4uh")]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_4pqkc"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_a60r5")
-}],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
-}]
+[node name="CollisionShape2D" parent="." index="0" unique_id=1875962328]
+shape = ExtResource("2_fgp5e")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_earec"]
-size = Vector2(19, 6)
+[node name="AnimatedSprite2D" parent="." index="1" unique_id=2013304795]
+sprite_frames = ExtResource("3_20j66")
+animation = &"ATK SE"
 
-[node name="Chat" type="CharacterBody2D"]
-motion_mode = 1
-script = ExtResource("1_ods7p")
-stats = SubResource("Resource_62mea")
+[node name="AudioListener2D" parent="." index="2" unique_id=1499758918]
+stream = ExtResource("4_mvpyb")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
-sprite_frames = SubResource("SpriteFrames_4pqkc")
-animation = &"new_animation"
+[node name="Camera2D" type="Camera2D" parent="." index="4" unique_id=467813614 node_paths=PackedStringArray("target")]
+script = ExtResource("5_xf4ye")
+target = NodePath("")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(7.5, 9)
-shape = SubResource("RectangleShape2D_earec")
+[node name="CompDeplacementJoueur" type="Node" parent="." index="6" unique_id=395789724]
+script = ExtResource("6_fgp5e")

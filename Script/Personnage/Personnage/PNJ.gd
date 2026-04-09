@@ -31,36 +31,3 @@ func _on_click(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		# Ouvre le menu contextuel à la position de la souris
 		EventBus.menu_contexte_ouvert.emit(get_viewport().get_mouse_position(), self)
-
-# Choisit une direction de marche libre (sans obstacle).
-# Délègue à CompDeplacementIA si disponible, sinon effectue le raycast directement.
-func _choisir_direction():
-	var directions = [
-		Vector2(1, 1), Vector2(-1, 1),
-		Vector2(1, -1), Vector2(-1, -1)
-	]
-	directions.shuffle()  # Ordre aléatoire pour ne pas favoriser une diagonale
-	for dir in directions:
-		var iso = Vector2(dir.x, dir.y * 0.5).normalized()
-		$Raycast.target_position = iso * 50        # Projette le rayon à 50px dans la direction iso
-		$Raycast.force_raycast_update()             # Calcul immédiat (pas d'attente de frame physique)
-		if not $Raycast.is_colliding():
-			direction = dir                         # Aucun obstacle : direction retenue
-			return
-	direction = Vector2.ZERO  # Toutes directions bloquées : reste immobile
-
-# Déplace le personnage vers une position cible via NavigationAgent2D (évite les obstacles).
-func _se_deplacer_vers(cible_position: Vector2):
-	nav_agent.target_position = cible_position                         # Définit la destination
-	var direction_nav = nav_agent.get_next_path_position() - global_position  # Prochain waypoint du chemin
-	if direction_nav.length() > 1:
-		# Encore loin du waypoint : applique la vitesse iso
-		var iso = Vector2(direction_nav.x, direction_nav.y * 0.5).normalized()
-		velocity = iso * speed
-		move_and_slide()
-		_play_walk(_dir8_from_vector(direction_nav))  # Animation de marche dans la bonne direction
-	else:
-		# Arrivé au waypoint : s'arrête et joue idle
-		velocity = Vector2.ZERO
-		move_and_slide()
-		_play_idle()

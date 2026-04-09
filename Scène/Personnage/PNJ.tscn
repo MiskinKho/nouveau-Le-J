@@ -1,19 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://cn0vkilomwk7q"]
+[gd_scene format=3 uid="uid://cn0vkilomwk7q"]
 
 [ext_resource type="PackedScene" uid="uid://bkhdyrlbjsexo" path="res://Scène/Personnage/Personnage.tscn" id="1_753qq"]
 [ext_resource type="Shape2D" uid="uid://c3ap2bh7wv2rq" path="res://Scène/Personnage/Chat/Collision_ZoneClick_Chat.tres" id="2_2muss"]
+[ext_resource type="Script" uid="uid://b5bsutwfy3gq4" path="res://Script/Personnage/Deplacement/Comp_Deplacement_IA.gd" id="3_mlw1o"]
 
-[node name="PNJ" instance=ExtResource("1_753qq")]
+[node name="PNJ" unique_id=1105716802 instance=ExtResource("1_753qq")]
 
-[node name="CollisionShape2D" parent="." index="0"]
+[node name="CollisionShape2D" parent="." index="0" unique_id=1875962328]
 position = Vector2(100, -4)
 
-[node name="ZoneClick" type="Area2D" parent="." index="2"]
+[node name="ZoneClick" type="Area2D" parent="." index="2" unique_id=1695351370]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneClick" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneClick" index="0" unique_id=1953491125]
 position = Vector2(-1.125, -20.75)
 shape = ExtResource("2_2muss")
 
-[node name="Raycast" type="RayCast2D" parent="." index="5"]
+[node name="CompDeplacementIA" type="Node" parent="." index="5" unique_id=126933558]
+script = ExtResource("3_mlw1o")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="6"]
+[node name="Raycast" type="RayCast2D" parent="CompDeplacementIA" index="0" unique_id=769021190]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CompDeplacementIA" index="1" unique_id=1324081825]

@@ -3,7 +3,7 @@ class_name Chat
 
 @export var gamelle: StaticBody2D  # Surcharge la var gamelle de PNJ (assignée dans l'éditeur)
 var sur_coussin := false       # True quand le PNJ a atteint physiquement le coussin (utilisé par Chat)
-var coussin = null             # Référence coussin (assignée dans Chat via @export)var coussin: Mobilier      # Surcharge la var coussin de PNJ (assignée dans l'éditeur)
+var coussin = Mobilier             # Référence coussin (assignée dans Chat via @export)var coussin: Mobilier      # Surcharge la var coussin de PNJ (assignée dans l'éditeur)
 
 signal chat_clique  # Émis quand on clique sur le chat EN COMBAT (déclenche l'attaque du joueur)
 

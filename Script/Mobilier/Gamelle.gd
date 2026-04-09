@@ -52,18 +52,6 @@ func _on_body_entered(body):
 	if body.is_in_group("chats"):
 		emit_signal("chat_peut_manger")  # Non connecté actuellement — la logique est dans Etat_Faim
 
-# Méthode de nourrissage direct (ancien système, non utilisée par la FSM actuelle — à nettoyer).
-func _nourrir_chat(chat):
-	print("chat mange, nourriture : ", nourriture, " faim : ", chat.stats.faim)
-	if nourriture <= 0:
-		return
-	var portion = 10.0
-	nourriture = max(0.0, nourriture - portion)
-	chat.stats.faim = min(100.0, chat.stats.faim + portion * 2)
-	_mettre_a_jour_etat()
-	if chat.stats.faim >= 80.0:
-		chat.etat_actuel = chat.Etat.IDLE  # Référence à l'ancien système d'états (à supprimer)
-
 # Clic sur la zone de détection de la gamelle : ouvre le menu de remplissage
 func _on_click(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:

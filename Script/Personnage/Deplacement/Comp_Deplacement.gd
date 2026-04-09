@@ -7,6 +7,9 @@ var personnage: CharacterBody2D  # Référence au parent CharacterBody2D, assign
 func _ready() -> void:
 	personnage = get_parent()  # Récupère le CharacterBody2D parent au démarrage
 
+
+
+
 # Applique un déplacement isométrique dans la direction donnée.
 # La projection Y * 0.5 simule la perspective isométrique (sol en angle 30°).
 func deplacer(direction: Vector2) -> void:

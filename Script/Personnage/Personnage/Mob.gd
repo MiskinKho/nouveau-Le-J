@@ -21,9 +21,7 @@ func _physics_process(delta):
 		_choisir_direction()                      # Change de direction quand le timer expire
 		temps_changement = randf_range(1.0, 3.0)  # Recharge le timer aléatoirement
 
-	var iso := Vector2(direction.x, direction.y * 0.5)  # Projection isométrique
-	velocity = iso.normalized() * speed if direction != Vector2.ZERO else Vector2.ZERO
-	move_and_slide()
+
 
 	# Leash : si trop loin de la position initiale, oriente vers elle
 	if global_position.distance_to(position_depart) > zone_deplacement:

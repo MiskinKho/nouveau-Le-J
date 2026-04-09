@@ -34,37 +34,8 @@ var sas := false:
 			EventBus.etage_change.emit(etage, false)
 			EventBus.faux_etage_change.emit(true)
 
-func _physics_process(_delta: float) -> void:
-	var input := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")  # Axes WASD/flèches
-
-	# Bloque tout mouvement en combat ou menu (sauf repositionnement automatique)
-	if en_combat or menu_ouvert or en_repositionnement:
-		if not en_repositionnement:
-			velocity = Vector2.ZERO
-			move_and_slide()
-			if not sprite.animation.begins_with("ATK"):  # Ne coupe pas une animation d'attaque
-				_play_idle(last_dir)
-		return
-
-	# Mode escalier (sas) : restreint aux directions NE/SO (axe de l'escalier isométrique)
-	if sas:
-		if input != Vector2.ZERO:
-			if input.x > 0:
-				last_dir = "NE"
-				_play_walk("NE")
-			elif input.x < 0:
-				last_dir = "SO"
-				_play_walk("SO")
-			else:
-				_play_idle(last_dir)
-		else:
-			_play_idle(last_dir)
-		$CompDeplacementJoueur._deplacer(input)
-		return
-
-
+# Chaque frame : détecte la touche Entrée pour interagir avec le chat proche
 func _process(_delta):
-	# Chaque frame : détecte la touche Entrée pour interagir avec le chat proche
 	if Input.is_action_just_pressed("ui_accept") and not en_combat:
 		if global_position.distance_to(chat.global_position) < 50:
 			# Ouvre le menu contextuel à la position écran du chat (transformée canvas → écran)

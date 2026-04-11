@@ -1,10 +1,14 @@
 [gd_scene format=3 uid="uid://cn0vkilomwk7q"]
 
 [ext_resource type="PackedScene" uid="uid://bkhdyrlbjsexo" path="res://Scène/Personnage/Personnage.tscn" id="1_753qq"]
-[ext_resource type="Shape2D" uid="uid://c3ap2bh7wv2rq" path="res://Scène/Personnage/Chat/Collision_ZoneClick_Chat.tres" id="2_2muss"]
+[ext_resource type="Script" uid="uid://116x67req3wx" path="res://Script/Personnage/Personnage/PNJ.gd" id="2_xxqbm"]
 [ext_resource type="Script" uid="uid://b5bsutwfy3gq4" path="res://Script/Personnage/Deplacement/Comp_Deplacement_IA.gd" id="3_mlw1o"]
+[ext_resource type="BehaviorTree" uid="uid://bjvmevrxnsuit" path="res://ai/Personnage.tres" id="4_xxqbm"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_2borq"]
 
 [node name="PNJ" unique_id=1105716802 instance=ExtResource("1_753qq")]
+script = ExtResource("2_xxqbm")
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=1875962328]
 position = Vector2(100, -4)
@@ -13,11 +17,15 @@ position = Vector2(100, -4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneClick" index="0" unique_id=1953491125]
 position = Vector2(-1.125, -20.75)
-shape = ExtResource("2_2muss")
 
 [node name="CompDeplacementIA" type="Node" parent="." index="5" unique_id=126933558]
 script = ExtResource("3_mlw1o")
 
 [node name="Raycast" type="RayCast2D" parent="CompDeplacementIA" index="0" unique_id=769021190]
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CompDeplacementIA" index="1" unique_id=1324081825]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="6" unique_id=1324081825]
+
+[node name="BTPlayer" type="BTPlayer" parent="." index="7" unique_id=693886285]
+behavior_tree = ExtResource("4_xxqbm")
+blackboard_plan = SubResource("BlackboardPlan_2borq")
+monitor_performance = true

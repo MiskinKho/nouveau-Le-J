@@ -15,7 +15,8 @@ func _physics_process(_delta: float) -> void:
 		return                                                            # Bloqué → on sort
 
 	# Mode escalier (sas) : restreint aux directions NE/SO uniquement
-	if personnage.sas:
+	var joueur := personnage as Joueur
+	if joueur.sas:
 		if input != Vector2.ZERO:
 			if input.x > 0:                                               # Input vers la droite → monte (NE)
 				personnage.last_dir = "NE"

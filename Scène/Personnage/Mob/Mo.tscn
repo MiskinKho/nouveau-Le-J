@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://rgyyrrs4ndug"]
+
+[ext_resource type="PackedScene" uid="uid://cn0vkilomwk7q" path="res://Scène/Personnage/PNJ.tscn" id="1_em2w8"]
+[ext_resource type="Shape2D" uid="uid://bu6ebj342insl" path="res://Scène/Personnage/Mob/Souris/Collision_Souris.tres" id="2_qp5pw"]
+[ext_resource type="SpriteFrames" uid="uid://dab2678t3jdbd" path="res://Scène/Personnage/Mob/Souris/Animation_Souris.tres" id="3_c1034"]
+[ext_resource type="Shape2D" uid="uid://cy1pjbt2i234p" path="res://Scène/Personnage/Mob/Souris/ZoneClick_Souris.tres" id="4_fw8yy"]
+
+[node name="Mob" unique_id=1105716802 instance=ExtResource("1_em2w8")]
+script = null
+
+[node name="CollisionShape2D" parent="." index="0" unique_id=1875962328]
+position = Vector2(-1, -13)
+shape = ExtResource("2_qp5pw")
+
+[node name="AnimatedSprite2D" parent="." index="1" unique_id=2013304795]
+sprite_frames = ExtResource("3_c1034")
+animation = &"Idle S"
+
+[node name="CollisionShape2D" parent="ZoneClick" parent_id_path=PackedInt32Array(1695351370) index="0" unique_id=1953491125]
+position = Vector2(-0.75, -18)
+shape = ExtResource("4_fw8yy")
+
+[node name="PointLight2D" parent="." index="4" unique_id=119987284]
+metadata/_edit_lock_ = true
+
+[node name="BTPlayer" parent="." index="7" unique_id=693886285]
+active = false

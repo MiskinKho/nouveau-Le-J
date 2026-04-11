@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dab2678t3jdbd"]
+
+[ext_resource type="Texture2D" uid="uid://tb8jymgty0pg" path="res://Asset/Souris/Souris.png" id="1_slxg8"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_slxg8")
+}],
+"loop": true,
+"name": &"Idle S",
+"speed": 5.0
+}]

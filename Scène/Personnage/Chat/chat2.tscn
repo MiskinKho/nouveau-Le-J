@@ -1,14 +1,21 @@
 [gd_scene format=3 uid="uid://7ykw05j0j52p"]
 
 [ext_resource type="PackedScene" uid="uid://cn0vkilomwk7q" path="res://Scène/Personnage/PNJ.tscn" id="1_nngvi"]
+[ext_resource type="Script" uid="uid://bbhf6g0eh47fm" path="res://Script/Personnage/Personnage/Chat.gd" id="2_osx5m"]
 [ext_resource type="Shape2D" uid="uid://1rtug0wr05ys" path="res://Scène/Personnage/Chat/Collision_Chat.tres" id="2_rsvle"]
 [ext_resource type="SpriteFrames" uid="uid://bfrcy8fxr32ug" path="res://Scène/Personnage/Chat/Animation_Chat.tres" id="3_7wxel"]
+[ext_resource type="Shape2D" uid="uid://c3ap2bh7wv2rq" path="res://Scène/Personnage/Chat/Collision_ZoneClick_Chat.tres" id="4_p2h0w"]
 
-[node name="Chat" unique_id=1931301638 instance=ExtResource("1_nngvi")]
+[node name="Chat2" unique_id=1931301638 instance=ExtResource("1_nngvi")]
+script = ExtResource("2_osx5m")
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=1875962328]
+position = Vector2(-2, -14)
 shape = ExtResource("2_rsvle")
 
 [node name="AnimatedSprite2D" parent="." index="1" unique_id=2013304795]
 sprite_frames = ExtResource("3_7wxel")
 animation = &"Idle NE"
+
+[node name="CollisionShape2D" parent="ZoneClick" parent_id_path=PackedInt32Array(1695351370) index="0" unique_id=1953491125]
+shape = ExtResource("4_p2h0w")

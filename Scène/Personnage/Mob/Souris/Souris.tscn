@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://6s5nx6y26i54"]
+
+[ext_resource type="PackedScene" uid="uid://rgyyrrs4ndug" path="res://Scène/Personnage/Mob/Mo.tscn" id="1_7pj3l"]
+[ext_resource type="Texture2D" uid="uid://tb8jymgty0pg" path="res://Asset/Souris/Souris.png" id="2_04651"]
+[ext_resource type="Script" uid="uid://bucov8hak1twr" path="res://Script/Personnage/Personnage/Mob.gd" id="2_pmaj6"]
+[ext_resource type="Script" uid="uid://t0sefxba4he5" path="res://Script/Personnage/Stats/Stats_Personnage.gd" id="3_2bpkw"]
+[ext_resource type="Shape2D" uid="uid://c3ap2bh7wv2rq" path="res://Scène/Personnage/Chat/Collision_ZoneClick_Chat.tres" id="3_gnfk8"]
+
+[sub_resource type="Resource" id="Resource_hlxus"]
+script = ExtResource("3_2bpkw")
+metadata/_custom_type_script = "uid://t0sefxba4he5"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pmaj6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_04651")
+}],
+"loop": true,
+"name": &"Idle S",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="Souris" unique_id=1105716802 instance=ExtResource("1_7pj3l")]
+script = ExtResource("2_pmaj6")
+zone_deplacement = 100.0
+stats = SubResource("Resource_hlxus")
+
+[node name="AnimatedSprite2D" parent="." index="1" unique_id=2013304795]
+sprite_frames = SubResource("SpriteFrames_pmaj6")
+
+[node name="CollisionShape2D" parent="ZoneClick" parent_id_path=PackedInt32Array(1695351370) index="0" unique_id=1953491125]
+shape = ExtResource("3_gnfk8")

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bewglviufrga5"]
 
 [ext_resource type="PackedScene" uid="uid://bkhdyrlbjsexo" path="res://Scène/Personnage/Personnage.tscn" id="1_8b4uh"]
+[ext_resource type="Script" uid="uid://qb53n3qxmfd6" path="res://Script/Personnage/Personnage/Joueur.gd" id="2_20j66"]
 [ext_resource type="Shape2D" uid="uid://br5brk34uss4k" path="res://Scène/Personnage/Joueur/Collision_Joueur.tres" id="2_fgp5e"]
 [ext_resource type="SpriteFrames" uid="uid://bnug3xllfsll6" path="res://Scène/Personnage/Joueur/Animation_Joueur.tres" id="3_20j66"]
 [ext_resource type="AudioStream" uid="uid://cj7ehpkfaj3ha" path="res://Asset/Son/PasBois.ogg" id="4_mvpyb"]
@@ -8,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dmj4mwm5yy4aa" path="res://Script/Personnage/Deplacement/Comp_Deplacement_Joueur.gd" id="6_fgp5e"]
 
 [node name="Joueur" unique_id=803536379 instance=ExtResource("1_8b4uh")]
+script = ExtResource("2_20j66")
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=1875962328]
 shape = ExtResource("2_fgp5e")
@@ -21,7 +23,7 @@ stream = ExtResource("4_mvpyb")
 
 [node name="Camera2D" type="Camera2D" parent="." index="4" unique_id=467813614 node_paths=PackedStringArray("target")]
 script = ExtResource("5_xf4ye")
-target = NodePath("")
+target = NodePath("..")
 
-[node name="CompDeplacementJoueur" type="Node" parent="." index="6" unique_id=395789724]
+[node name="CompDeplacementJoueur" type="Node" parent="." index="5" unique_id=395789724]
 script = ExtResource("6_fgp5e")

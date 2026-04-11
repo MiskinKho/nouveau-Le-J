@@ -1,10 +1,7 @@
 extends Personnage  # Base commune pour tous les personnages IA (chats, mobs, humains)
 class_name PNJ      # Classe nommée PNJ (utilisée par Chat, Mob, Humain)
 
-@onready var nav_agent = $NavigationAgent2D          # Agent de navigation pour path-finding
-@onready var bt_player: BTPlayer = $StateMachine   # BTPlayer a remplacé la StateMachine
 
-var direction := Vector2.ZERO  # Direction de déplacement actuelle (choisie par _choisir_direction)
 var mange := false             # True pendant Etat_Manger : bloque l'accumulation de faim
 var epuise := false            # True quand épuisé : modifie la logique de Etat_Dormir
 

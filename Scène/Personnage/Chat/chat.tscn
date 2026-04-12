@@ -6,7 +6,7 @@
 [ext_resource type="SpriteFrames" uid="uid://bfrcy8fxr32ug" path="res://Scène/Personnage/Chat/Animation_Chat.tres" id="3_7wxel"]
 [ext_resource type="Shape2D" uid="uid://c3ap2bh7wv2rq" path="res://Scène/Personnage/Chat/Collision_ZoneClick_Chat.tres" id="4_p2h0w"]
 
-[node name="Chat2" unique_id=1931301638 instance=ExtResource("1_nngvi")]
+[node name="Chat" unique_id=1931301638 instance=ExtResource("1_nngvi")]
 script = ExtResource("2_osx5m")
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=1875962328]

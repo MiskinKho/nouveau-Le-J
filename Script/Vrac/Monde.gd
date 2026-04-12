@@ -26,7 +26,7 @@ func _ready():
 	# Charge la sauvegarde si elle existe, sinon démarre un nouveau jeu
 	var creature_sauvegardee = SaveManager.charger()
 	if creature_sauvegardee != null:
-		$Chat2.stats = creature_sauvegardee  # Applique les stats sauvegardées au noeud Chat
+		$Chat.stats = creature_sauvegardee  # Applique les stats sauvegardées au noeud Chat
 	else:
 		TimeManager.heure = 8.0  # Nouveau jeu : démarre à 8h du matin
 		TimeManager.jour = 1

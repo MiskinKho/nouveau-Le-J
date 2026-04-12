@@ -1,6 +1,8 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://bjvmevrxnsuit"]
 
 [ext_resource type="Script" uid="uid://do6qwgd3jvp2f" path="res://ai/tasks/BTC_EnergieEpuise.gd" id="1_0uisl"]
+[ext_resource type="Script" uid="uid://c6tl4tuaij46y" path="res://ai/tasks/BTC_EnCombat.gd" id="1_plmqe"]
+[ext_resource type="Script" uid="uid://bet6w8m4yuxbl" path="res://ai/tasks/BTA_Combat.gd" id="2_785fp"]
 [ext_resource type="Script" uid="uid://bpp0tey1bwtgv" path="res://ai/tasks/BTA_Dormir.gd" id="2_i6n4d"]
 [ext_resource type="Script" uid="uid://wkilufhhwtbc" path="res://ai/tasks/BTC_CoussinExiste.gd" id="2_yuh4d"]
 [ext_resource type="Script" uid="uid://cnbl7bmqntsav" path="res://ai/tasks/BTC_EnergieFaible.gd" id="3_3ehoj"]
@@ -25,6 +27,16 @@ var/Comp_DeplacementIA/value = NodePath("CompDeplacementIA")
 var/Comp_DeplacementIA/hint = 0
 var/Comp_DeplacementIA/hint_string = ""
 
+[sub_resource type="BTCondition" id="BTCondition_npxpb"]
+script = ExtResource("1_plmqe")
+
+[sub_resource type="BTAction" id="BTAction_rsx0g"]
+script = ExtResource("2_785fp")
+
+[sub_resource type="BTSequence" id="BTSequence_plmqe"]
+custom_name = "Combat"
+children = [SubResource("BTCondition_npxpb"), SubResource("BTAction_rsx0g")]
+
 [sub_resource type="BTCondition" id="BTCondition_0j005"]
 script = ExtResource("3_3ehoj")
 
@@ -43,7 +55,6 @@ script = ExtResource("2_yuh4d")
 
 [sub_resource type="BTAction" id="BTAction_sek6l"]
 script = ExtResource("5_plmqe")
-comp_var = &"comp_deplacement"
 
 [sub_resource type="BTAction" id="BTAction_4f6m8"]
 script = ExtResource("3_iirp6")
@@ -71,7 +82,6 @@ script = ExtResource("8_npxpb")
 
 [sub_resource type="BTAction" id="BTAction_4a71u"]
 script = ExtResource("5_plmqe")
-comp_var = &"comp_deplacement"
 
 [sub_resource type="BTAction" id="BTAction_lpkfk"]
 script = ExtResource("9_rsx0g")
@@ -97,11 +107,9 @@ script = ExtResource("11_13u7e")
 
 [sub_resource type="BTAction" id="BTAction_0bf6a"]
 script = ExtResource("12_ip6b7")
-comp_var = &"comp_deplacement"
 
 [sub_resource type="BTAction" id="BTAction_3nn56"]
 script = ExtResource("13_f45dk")
-comp_var = &"comp_deplacement"
 
 [sub_resource type="BTSequence" id="BTSequence_rpn0g"]
 custom_name = "Marcher"
@@ -121,11 +129,8 @@ children = [SubResource("BTAction_2etvt"), SubResource("BTRandomWait_nbood")]
 custom_name = "IdleMarche"
 children = [SubResource("BTSequence_rpn0g"), SubResource("BTSequence_ofdnv")]
 
-[sub_resource type="BTSequence" id="BTSequence_plmqe"]
-custom_name = "Combat"
-
 [sub_resource type="BTSelector" id="BTSelector_p6x4h"]
-children = [SubResource("BTSelector_3ehoj"), SubResource("BTSequence_n6ul4"), SubResource("BTSequence_plmqe")]
+children = [SubResource("BTSequence_plmqe"), SubResource("BTSelector_3ehoj"), SubResource("BTSequence_n6ul4")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_8w5iy")

@@ -31,7 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://ds2155uyjmkln" path="res://Scène/Gamelle.tscn" id="20_qmcaj"]
 [ext_resource type="Script" uid="uid://b1v60j7k5daju" path="res://Script/Vrac/Cl_Pause.gd" id="21_0otel"]
 [ext_resource type="Texture2D" uid="uid://d3014u3ageu7o" path="res://Asset/Gamelle/Gamelle2.png" id="21_eyt5v"]
-[ext_resource type="PackedScene" uid="uid://7ykw05j0j52p" path="res://Scène/Personnage/Chat/chat.tscn" id="21_slabp"]
+[ext_resource type="PackedScene" uid="uid://7ykw05j0j52p" path="res://Scène/Personnage/Chat/chat2.tscn" id="21_slabp"]
 [ext_resource type="Script" uid="uid://bi43n55tjoff2" path="res://Script/Personnage/Stats/Stats_Combat.gd" id="21_w1ifc"]
 [ext_resource type="PackedScene" uid="uid://6s5nx6y26i54" path="res://Scène/Personnage/Mob/Souris/Souris.tscn" id="22_0lhwn"]
 [ext_resource type="Script" uid="uid://bg0nttxsjbpc2" path="res://Script/Personnage/Stats/Stats_Bien_Etre.gd" id="22_j3f0v"]
@@ -980,10 +980,8 @@ position = Vector2(501, 248)
 position = Vector2(443, 298)
 stats_chat = SubResource("Resource_0dpj1")
 
-[node name="Ui_Combat" type="CanvasLayer" parent="." unique_id=2006731589 node_paths=PackedStringArray("joueur", "chat_node", "monde")]
+[node name="Ui_Combat" type="CanvasLayer" parent="." unique_id=2006731589 node_paths=PackedStringArray("monde")]
 script = ExtResource("10_ke4uf")
-joueur = NodePath("../Joueur")
-chat_node = NodePath("../Chat")
 scene_degats = ExtResource("11_nytw3")
 monde = NodePath("..")
 
@@ -1157,9 +1155,8 @@ offset_right = 246.0
 offset_bottom = 139.0
 text = "PV"
 
-[node name="UI_HUD" type="CanvasLayer" parent="." unique_id=1346309225 node_paths=PackedStringArray("chat")]
+[node name="UI_HUD" type="CanvasLayer" parent="." unique_id=1346309225]
 script = ExtResource("12_vsbwj")
-chat = NodePath("../Chat")
 
 [node name="Btn_Sauvgarder" type="Button" parent="UI_HUD" unique_id=1554279992]
 visible = false

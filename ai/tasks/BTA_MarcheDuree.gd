@@ -14,7 +14,8 @@ func _enter() -> void:
 
 # _tick() déplace le personnage dans la direction choisie via le composant
 func _tick(delta: float) -> Status:
-	var comp = blackboard.get_var(&"Comp_DeplacementIA")
+	var comp = blackboard.get_var(comp_var)
+	print("comp_var = ", comp_var, " | comp = ", comp, " | type = ", typeof(comp))
 	duree -= delta
 	if duree <= 0:
 		comp.arreter()
@@ -24,5 +25,5 @@ func _tick(delta: float) -> Status:
 	return RUNNING
 
 func _exit() -> void:
-	var comp = blackboard.get_var(&"Comp_DeplacementIA")
+	var comp = blackboard.get_var(comp_var)
 	comp.arreter()               # Encore en train de marcher

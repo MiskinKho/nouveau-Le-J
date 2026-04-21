@@ -48,7 +48,7 @@ Le joueur arrive dans une nouvelle maison et découvre qu'il est lié à un hér
 ### Principe fondamental
 - **Héritage** pour ce qu'un objet EST
 - **Composition** pour ce qu'un objet FAIT (composants opt-in)
-- **State Machine** pour l'IA des personnages
+- **Behaviour Tree** pour l'IA des personnages
 - **EventBus** pour les signaux globaux découplés
 - **Resources** pour les données et stats
 
@@ -173,17 +173,36 @@ Le refactoring documenté ici n'est pas une réécriture arbitraire : c'est la c
 
 ### Avant de commencer
 - Lire ce fichier `Claude.md` en entier
-- Lire `INSTRUCTIONS.md` pour connaître les priorités de la session
+- Lire `Rapport.md` pour connaître les priorités de la session
+- Lire `Journal.md` — Etat actuel du jeu
 - Cloner ou relire le repo GitHub sur la branche `test` : https://github.com/MiskinKho/nouveau-Le-J
-- Consulter la skill Godot 4 avant de réfléchir à une logique ou modifier un script
+- Consulter la skill Godot 4 et LimboAI 
 - Lancer `analyse_projet.sh` pour avoir l'état actuel du projet
+
+### Règles de code
+- Considérer la cohérence de l'ensemble de la structure des scripts avant toute modification
+- Vérifier si la solution proposée n'entre pas en conflit avec la logique global de la structure/hiérarchie des scripts
+- Ne pas créer de scripts/fonctions doublons 
+- Réutiliser et hériter des scripts existants au maximum
+- Toujours ajouter un commentaire par ligne — ne jamais retirer ni remplacer un commentaire existant
+- Priorité : refactoring avant nouvelle feature
+- Ne pas générer un script entier pour corriger seulement quelques lignes
+
+
+### Analyse Global
+- Consulter la skill Godot 4 et LimboAI avant de réfléchir à une logique, de créer/générer un script
+- Vérifier s'il n'existe pas de script doublon
+
+### Avant de créer un nouveau script
+- Utiliser `grep` pour vérifier qu'un script similaire n'existe pas déjà
+- Vérifier la cohérence avec la structure/Hiérarchie
 
 ### Avant de modifier une fonction ou un script
 - Utiliser `grep -rn "nom_fonction" Script/` pour identifier tous les scripts impactés
 - Analyser si d'autres scripts ont un lien avec le script concerné
-- Vérifier que la solution proposée n'entre pas en conflit avec la logique globale des autres scripts
-- Considérer la cohérence de l'ensemble des scripts avant toute modification
 - Adapter tous les scripts impactés en même temps
+- Vérifier que toutes les références et appels vers le script/la fonction sont mis à jour
+- Vérifier la cohérence avec la structure/Hiérarchie
 
 ### Avant de supprimer un script ou une fonction
 - Utiliser `grep -rn "nom_script"` pour vérifier qu'il n'est référencé nulle part
@@ -191,23 +210,21 @@ Le refactoring documenté ici n'est pas une réécriture arbitraire : c'est la c
 ### Avant de fusionner deux fonctions supposément identiques
 - Utiliser `diff fichier1.gd fichier2.gd` pour confirmer qu'elles sont bien identiques
 
-### Avant de créer un nouveau script
-- Utiliser `grep` pour vérifier qu'un script similaire n'existe pas déjà
+### Après création/modification/Suppression d'un script ou d'une fonction 
+- Analyser les erreurs et dysfonctionnement possibles dû à un changement, 
+- Proposer une solution pour les corriger
+- Vérifier que toutes les références et appels vers le script/la fonction sont mis à jour
 
-### Règles de code
-- Ne pas générer un script entier pour corriger seulement quelques lignes
-- Ne pas créer de nouveaux scripts sans vérifier les doublons existants
-- Réutiliser et hériter des scripts existants au maximum
-- Toujours ajouter un commentaire par ligne — ne jamais retirer ni remplacer un commentaire existant
-- Priorité : corriger les bugs listés dans INSTRUCTIONS.md avant toute nouvelle feature
+
 
 ### Règles de communication
 - Toujours proposer un plan et attendre validation avant de modifier le code
 - Lister explicitement les erreurs potentielles avant d'appliquer un changement
 - Ne pas poser de questions avant d'avoir répondu
+- Ne pas générer de script avant d'être sûre que la logique me convienne
 - Traiter une chose à la fois
 - En cas de doute sur une API ou syntaxe Godot 4.3, consulter docs.godotengine.org
-
+- Toujours ajouter un commentaire sur chaque lignes pour expliquer ce qu'elle fait ou comment elle fonctionne, si un commentaires est déjà présent, ne pas le retirer ni le remplacer
 ---
 
 ## 5. Obligations de fin de session

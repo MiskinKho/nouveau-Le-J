@@ -2,10 +2,6 @@ extends Personnage  # Base commune pour tous les personnages IA (chats, mobs, hu
 class_name PNJ      # Classe nommée PNJ (utilisée par Chat, Mob, Humain)
 
 
-var mange := false             # True pendant Etat_Manger : bloque l'accumulation de faim
-var epuise := false            # True quand épuisé : modifie la logique de Etat_Dormir
-
-
 func _ready():
 	# Connexion des signaux de la zone de clic (Area2D enfant)
 	$ZoneClick.input_event.connect(_on_click)

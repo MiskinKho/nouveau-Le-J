@@ -1,4 +1,4 @@
-extends Mobilier  # Hérite de Mobilier (StaticBody2D avec stats_chat et stats_joueur)
+extends MobilierDormable  # Hérite de MobilierDormable (s'inscrit automatiquement dans le groupe mobilier_sommeil)
 
 @export var bonus_regeneration: float = 2.0  # Multiplicateur de vitesse de régénération d'énergie
 

@@ -104,6 +104,6 @@ func _terminer_combat(victoire: bool):
 		creature_complete.combat.pv_max += gain_pv_max
 		creature_complete.combat.force += gain_force
 		creature_complete.combat.pv_actuel = creature_complete.combat.pv_max  # Restaure les PV après entraînement
-		creature_complete.bien_etre.energie = max(0.0, creature_complete.bien_etre.energie - 37                                                                               )  # Coût énergétique
+		creature_complete.bien_etre.energie = max(0.0, creature_complete.bien_etre.energie - 35                                                                             )  # Coût énergétique
 
 	EventBus.combat_termine.emit(victoire)

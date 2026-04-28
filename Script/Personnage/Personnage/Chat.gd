@@ -1,11 +1,12 @@
 extends PNJ  # Le chat du joueur hérite de PNJ pour les animations, navigation et state machine
 class_name Chat
 
-@export var coussin: Mobilier   # True quand le PNJ a atteint physiquement le coussin (utilisé par Chat)
+@export var coussin: Mobilier   # Référence au coussin cible (assignée dans l'éditeur)
 
 @export var gamelle: StaticBody2D  # Surcharge la var gamelle de PNJ (assignée dans l'éditeur)
 var mange := false             # True pendant Etat_Manger : bloque l'accumulation de faim
 var epuise := false            # True quand épuisé : modifie la logique de Etat_Dormir
+var sur_coussin := false  # True quand le chat a atteint physiquement le coussin (utilisé par BTA_DormirCoussin)
 signal chat_clique  # Émis quand on clique sur le chat EN COMBAT (déclenche l'attaque du joueur)
 
 func _ready():

@@ -4,10 +4,16 @@
 [ext_resource type="Script" uid="uid://bbhf6g0eh47fm" path="res://Script/Personnage/Personnage/Chat.gd" id="2_osx5m"]
 [ext_resource type="Shape2D" uid="uid://1rtug0wr05ys" path="res://Scène/Personnage/Chat/Collision_Chat.tres" id="2_rsvle"]
 [ext_resource type="SpriteFrames" uid="uid://bfrcy8fxr32ug" path="res://Scène/Personnage/Chat/Animation_Chat.tres" id="3_7wxel"]
+[ext_resource type="Script" uid="uid://t0sefxba4he5" path="res://Script/Personnage/Stats/Stats_Personnage.gd" id="3_mchbw"]
 [ext_resource type="Shape2D" uid="uid://c3ap2bh7wv2rq" path="res://Scène/Personnage/Chat/Collision_ZoneClick_Chat.tres" id="4_p2h0w"]
+
+[sub_resource type="Resource" id="Resource_jsli0"]
+script = ExtResource("3_mchbw")
+metadata/_custom_type_script = "uid://t0sefxba4he5"
 
 [node name="Chat" unique_id=1931301638 instance=ExtResource("1_nngvi")]
 script = ExtResource("2_osx5m")
+stats = SubResource("Resource_jsli0")
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=1875962328]
 position = Vector2(-2, -14)

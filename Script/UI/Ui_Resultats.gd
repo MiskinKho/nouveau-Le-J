@@ -12,7 +12,7 @@ func _ready():
 func _on_combat_termine(creature, gain_pv_max, gain_force):
 	afficher(creature, gain_pv_max, gain_force)
 
-func afficher(stats: Creature, gain_pv_max: int, gain_force: int):
+func afficher(stats: Resource, gain_pv_max: int, gain_force: int):  # Personnage_Data_Chat (duck typing : .combat)
 	visible = true
 	label_stats.text = "+%d PV Max  →  %d\n+%d Force  →  %d\nDéfense : %d\nAgilité : %d\nPrécision : %d" % [
 		gain_pv_max, stats.combat.pv_max,

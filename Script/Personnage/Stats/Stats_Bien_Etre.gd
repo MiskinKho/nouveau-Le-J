@@ -6,3 +6,21 @@ class_name Stats_Bien_Etre  # Type global pour le typage fort dans les autres sc
 @export var sommeil: float = 100.0   # Réservé (non utilisé activement dans la logique actuelle)
 @export var confort: float = 50.0    # Augmente avec le mobilier et les caresses
 @export var confiance: float = 50.0  # Augmente quand le joueur caresse le chat (voir Monde.gd)
+
+# Serialise toutes les stats de bien-etre en Dictionary JSON-compatible.
+func to_dict() -> Dictionary:
+	return {
+		"faim": faim,            # Niveau de faim actuel
+		"energie": energie,      # Niveau d'energie actuel
+		"sommeil": sommeil,      # Niveau de sommeil (reserve)
+		"confort": confort,      # Niveau de confort
+		"confiance": confiance   # Niveau de confiance envers le joueur
+	}
+
+# Deserialise un Dictionary. Utilise get() pour la robustesse des anciennes saves.
+func from_dict(data: Dictionary):
+	faim = data.get("faim", 0.0)            # Fallback rassasie
+	energie = data.get("energie", 100.0)    # Fallback plein d'energie
+	sommeil = data.get("sommeil", 100.0)    # Fallback repose
+	confort = data.get("confort", 50.0)     # Fallback confort moyen
+	confiance = data.get("confiance", 50.0) # Fallback confiance moyenne

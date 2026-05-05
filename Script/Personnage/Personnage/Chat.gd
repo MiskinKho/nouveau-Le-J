@@ -10,8 +10,10 @@ var sur_coussin := false  # True quand le chat a atteint physiquement le coussin
 signal chat_clique  # Émis quand on clique sur le chat EN COMBAT (déclenche l'attaque du joueur)
 
 func _ready():
-	super()  # Appelle PNJ._ready() pour initialiser nav_agent, state_machine, stats, survol
+	super()  # Appelle PNJ._ready() pour les signaux ZoneClick et le survol
 	add_to_group("chats")  # Groupe utilisé par la gamelle pour détecter l'entrée du chat
+	if stats == null:
+		stats = Personnage_Data_Chat.new()  # Instancie la Resource specifique chat
 
 # Surcharge le clic : en combat émet chat_clique, hors combat ouvre le menu contextuel
 func _on_click(_viewport, event, _shape_idx):

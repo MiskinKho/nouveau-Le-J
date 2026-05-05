@@ -3,7 +3,7 @@ class_name Personnage    # Classe de base partagée par Joueur et PNJ (Chat)
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D  # Sprite animé enfant, chargé au _ready()
 
-@export var stats: Creature  # Ressource contenant toutes les stats (combat + bien-être)
+@export var stats: Resource  # Personnage_Data_Chat / Mob / Joueur selon la sous-classe (duck typing : combat, etc.)
 
 
 var last_dir := "S"            # Dernière direction regardée (utilisée pour l'animation idle)

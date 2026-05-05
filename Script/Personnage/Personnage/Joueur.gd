@@ -5,6 +5,11 @@ class_name Joueur
 @export var tilemap_sol: TileMapLayer  # TileMap du sol pour détecter le type de surface sous les pieds
 @export var chat: CharacterBody2D      # Référence au chat (pour le menu contextuel à proximité)
 
+# Initialisation du joueur : instancie sa Resource specifique si aucune n'est assignee dans l'editeur
+func _ready():
+	if stats == null:
+		stats = Personnage_Data_Joueur.new()  # Instancie la Resource specifique joueur
+
 # Étage actuel du joueur (0 = rez-de-chaussée, 1 = étage).
 # Le setter gère les changements de calques de collision et la visibilité des couches.
 var etage := 0:

@@ -8,9 +8,7 @@ func _ready():
 	$ZoneClick.mouse_entered.connect(_on_survol_entrer)   # Survol entrant : éclaircit le sprite
 	$ZoneClick.mouse_exited.connect(_on_survol_sortir)   # Survol sortant : remet la couleur normale
 
-	# Crée des stats par défaut si aucune ressource n'est assignée dans l'éditeur
-	if stats == null:
-		stats = Creature.new()
+	# Chaque sous-classe (Chat, Mob, Joueur) instancie sa propre Personnage_Data dans son _ready()
 
 # Survol souris : éclaircit le sprite pour indiquer l'interactivité
 func _on_survol_entrer():

@@ -44,11 +44,11 @@ func _ready():
 	EventBus.combat_termine.connect(_on_combat_termine)
 	EventBus.tour_joueur_commence.connect(_on_tour_joueur_commence)
 
-func afficher(p_stats_chat: Creature):
+func afficher(p_stats_chat: Resource):  # Personnage_Data_Chat (duck typing : .combat)
 	chat_node.en_combat = true  # Assurez-vous que cette ligne est présente
 	CombatManager.lancer_combat(p_stats_chat, _creer_stats_joueur(), CombatManager.Mode.JOUEUR)
 
-func afficher_auto(p_stats_chat: Creature, p_stats_ennemi: Stats_Combat, p_ennemi_node: Node):
+func afficher_auto(p_stats_chat: Resource, p_stats_ennemi: Stats_Combat, p_ennemi_node: Node):  # duck typing
 	ennemi_node = p_ennemi_node
 	chat_node.en_combat = true
 	await _repositionner_joueur()

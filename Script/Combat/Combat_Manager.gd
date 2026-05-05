@@ -10,13 +10,13 @@ signal tour_joueur_commence  # Émis quand c'est au joueur d'agir (mode JOUEUR)
 var mode_actuel: Mode
 var stats_combattant_1: Stats_Combat  # Toujours le chat
 var stats_combattant_2: Stats_Combat  # Joueur (mode JOUEUR) ou ennemi sauvage (mode AUTO)
-var creature_complete: Creature       # Référence complète pour accéder aux stats bien_être post-combat
+var creature_complete: Resource       # Personnage_Data_Chat en pratique (duck typing : .combat et .bien_etre)
 var en_combat := false
 var tour_joueur := true  # True = le joueur peut agir, false = attente de la riposte
 
 # Initialise et lance un combat.
 # p_mode détermine si c'est interactif (joueur choisit les attaques) ou automatique.
-func lancer_combat(p_creature: Creature, p_stats_ennemi: Stats_Combat, p_mode: Mode):
+func lancer_combat(p_creature: Resource, p_stats_ennemi: Stats_Combat, p_mode: Mode):
 	creature_complete = p_creature
 	stats_combattant_1 = p_creature.combat
 	stats_combattant_2 = p_stats_ennemi

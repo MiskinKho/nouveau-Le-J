@@ -4,7 +4,7 @@ const SAVE_PATH = "user://save.json"  # Chemin de sauvegarde dans le dossier uti
 
 # Sérialise l'état complet du jeu en JSON et l'écrit sur disque.
 # Sauvegarde : créature, inventaire, capacité inventaire, heure et jour.
-func sauvegarder(creature: Creature):
+func sauvegarder(creature: Resource):  # Personnage_Data_Chat en pratique (duck typing : to_dict())
 	var data = {
 		"creature": creature.to_dict(),                    # Stats complètes de la créature
 		"inventaire": InventoryManager.to_dict(),           # Contenu de l'inventaire
@@ -20,7 +20,7 @@ func sauvegarder(creature: Creature):
 
 # Charge le fichier de sauvegarde et reconstruit l'état du jeu.
 # Retourne null si aucune sauvegarde n'existe (première partie).
-func charger() -> Creature:
+func charger() -> Resource:  # Retourne Personnage_Data_Chat (seul type sauvegarde actuellement)
 	if not FileAccess.file_exists(SAVE_PATH):
 		return null  # Pas de sauvegarde : le jeu démarre avec les valeurs par défaut
 
@@ -28,8 +28,8 @@ func charger() -> Creature:
 	var data = JSON.parse_string(fichier.get_as_text())  # Parse le JSON en Dictionary
 	fichier.close()
 
-	var creature = Creature.new()
-	creature.from_dict(data["creature"])  # Reconstruit la créature depuis le Dictionary
+	var creature = Personnage_Data_Chat.new()  # Le SaveManager ne sauvegarde que les chats actuellement
+	creature.from_dict(data["creature"])       # Reconstruit les stats depuis le Dictionary
 
 	# Restaure l'inventaire si présent (compatibilité avec les sauvegardes sans inventaire)
 	if data.has("inventaire"):

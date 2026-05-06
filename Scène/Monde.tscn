@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://d60my1km6onj" path="res://Script/Vrac/Monde.gd" id="1_w6god"]
 [ext_resource type="PackedScene" uid="uid://bewglviufrga5" path="res://Scène/Personnage/Joueur/Joueur.tscn" id="2_ghje1"]
 [ext_resource type="TileSet" uid="uid://utiuvvyxup8x" path="res://Tileset/Sol.tres" id="3_arxu3"]
-[ext_resource type="Script" path="res://Script/Personnage/Resource/Personnage_Data_Chat.gd" id="5_7t486"]
-[ext_resource type="Script" path="res://Script/Personnage/Resource/Personnage_Data_Joueur.gd" id="5_joueur"]
+[ext_resource type="Script" uid="uid://doxrwanmgemq3" path="res://Script/Personnage/Resource/Personnage_Data_Chat.gd" id="5_7t486"]
+[ext_resource type="Script" uid="uid://bdm2emwpa0a8x" path="res://Script/Personnage/Resource/Personnage_Data_Joueur.gd" id="5_joueur"]
 [ext_resource type="TileSet" uid="uid://d1hnqknfk2ki0" path="res://Tileset/Mur2.tres" id="5_m5ndx"]
 [ext_resource type="TileSet" uid="uid://dqy07b7nphywe" path="res://Tileset/Monde.tres" id="6_6bqup"]
 [ext_resource type="Texture2D" uid="uid://lkhrdcnfvk2s" path="res://Asset/Mur/All Mur 32.png" id="6_7hbd6"]
@@ -44,10 +44,6 @@
 [ext_resource type="Script" uid="uid://pew0y6elin7p" path="res://Script/Personnage/Stats/Stats_Mobilier_Chat.gd" id="26_xlv25"]
 [ext_resource type="Script" uid="uid://bsxob2uhiaima" path="res://Script/UI/Ui_Resultats.gd" id="33_hcvl1"]
 [ext_resource type="Script" uid="uid://cuk5ppvdu00up" path="res://Script/UI/Ui_Gamelle.gd" id="35_4rjdm"]
-
-[sub_resource type="Resource" id="Resource_0lhwn"]
-script = ExtResource("22_j3f0v")
-metadata/_custom_type_script = "uid://bg0nttxsjbpc2"
 
 [sub_resource type="Resource" id="Resource_ghje1"]
 script = ExtResource("21_w1ifc")

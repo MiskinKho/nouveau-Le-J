@@ -37,6 +37,14 @@
 | Fichier | Raison |
 |---|---|
 | `Script/Personnage/Stats/Stats_Personnage.gd` | Remplacé par les 3 Personnage_Data_* |
+| `Script/Personnage/Stats/Stats_Personnage.gd.uid` | UID orphelin du script supprimé |
+| `Resource/Personnage.tres` | Resource Creature orpheline (non référencée) pointant vers le script supprimé |
+
+## Fix post-refactor (commit `f188d4b`)
+
+`Scène/Personnage/Chat/chat.tscn` référençait encore `Stats_Personnage.gd` supprimé → l'instanciation de la scène échouait silencieusement → `$Chat` devenait `null` dans `Monde.gd:29` → erreur runtime `Invalid assignment ... on a base object of type 'null instance'`.
+
+**Correction** : ext_resource `Stats_Personnage.gd` → `Personnage_Data_Chat.gd` dans `chat.tscn`.
 
 ---
 

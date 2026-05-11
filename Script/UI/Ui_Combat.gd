@@ -28,7 +28,6 @@ extends CanvasLayer
 @export var monde: Node2D
 
 var ennemi_node: Node
-var mode_auto := false
 
 func _ready():
 	btn_attaquer.pressed.connect(_on_attaquer)
@@ -45,19 +44,15 @@ func _ready():
 	EventBus.tour_joueur_commence.connect(_on_tour_joueur_commence)
 
 func afficher(p_stats_chat: Resource):  # Personnage_Data_Chat (duck typing : .combat)
-	chat_node.en_combat = true  # Assurez-vous que cette ligne est présente
-	CombatManager.lancer_combat(p_stats_chat, _creer_stats_joueur(), CombatManager.Mode.JOUEUR)
+	# Le flag chat_node.en_combat est posé automatiquement par Personnage via le signal EventBus.combat_demarre
+	# Passe directement la référence aux stats joueur (et non une copie) pour que les dégâts subis persistent dans le Resource Personnage_Data_Joueur
+	CombatManager.lancer_combat(p_stats_chat, joueur.stats.combat, CombatManager.Mode.JOUEUR)
 
 func afficher_auto(p_stats_chat: Resource, p_stats_ennemi: Stats_Combat, p_ennemi_node: Node):  # duck typing
 	ennemi_node = p_ennemi_node
-	chat_node.en_combat = true
-	await _repositionner_joueur()
-	joueur.en_combat = true
+	await joueur.repositionner_pour_combat(ennemi_node)  # Délègue le repositionnement physique au Joueur (responsabilité gameplay)
+	# Les flags en_combat (joueur, chat_node, ennemi) sont posés automatiquement par Personnage via le signal EventBus.combat_demarre
 	CombatManager.lancer_combat(p_stats_chat, p_stats_ennemi, CombatManager.Mode.AUTO)
-
-func _creer_stats_joueur() -> Stats_Combat:
-	# Retourne directement la ref des stats du joueur : les dégâts subis pendant le combat persistent
-	return joueur.stats.combat
 
 func _on_combat_demarre(combattant_1, combattant_2, mode):
 	panel.visible = true
@@ -68,15 +63,20 @@ func _on_combat_demarre(combattant_1, combattant_2, mode):
 		barre_pv_ennemi.value = combattant_2.pv_actuel
 		label_pv_ennemi.text = "%d / %d" % [combattant_2.pv_actuel, combattant_2.pv_max]
 		label_nom_ennemi.text = combattant_2.nom
+		# Mode AUTO : la barre joueur reflète l'état hors combat (le joueur ne participe pas)
+		barre_pv_joueur.max_value = joueur.stats.combat.pv_max
+		barre_pv_joueur.value = joueur.stats.combat.pv_actuel
+		label_pv_joueur.text = "%d / %d" % [joueur.stats.combat.pv_actuel, joueur.stats.combat.pv_max]
 	else:
 		btn_attaquer.visible = true
 		btn_competence.visible = true
+		# Mode JOUEUR : combattant_2 EST joueur.stats.combat (référence), on lit depuis le Manager pour cohérence avec _on_attaque_effectuee
+		barre_pv_joueur.max_value = combattant_2.pv_max
+		barre_pv_joueur.value = combattant_2.pv_actuel
+		label_pv_joueur.text = "%d / %d" % [combattant_2.pv_actuel, combattant_2.pv_max]
 	barre_pv_chat.max_value = combattant_1.pv_max
 	barre_pv_chat.value = combattant_1.pv_actuel
-	barre_pv_joueur.max_value = joueur.stats.combat.pv_max
-	barre_pv_joueur.value = joueur.stats.combat.pv_actuel
 	label_pv_chat.text = "%d / %d" % [combattant_1.pv_actuel, combattant_1.pv_max]
-	label_pv_joueur.text = "%d / %d" % [joueur.stats.combat.pv_actuel, joueur.stats.combat.pv_max]
 	label_degats.text = ""
 	_afficher_menu(menu_principal)
 
@@ -92,8 +92,9 @@ func _on_attaque_effectuee(attaquant_nom, cible_nom, degats):
 		barre_pv_ennemi.value = stats_ennemi.pv_actuel
 		label_pv_ennemi.text = "%d / %d" % [stats_ennemi.pv_actuel, stats_ennemi.pv_max]
 	else:
-		barre_pv_joueur.value = joueur.stats.combat.pv_actuel
-		label_pv_joueur.text = "%d / %d" % [joueur.stats.combat.pv_actuel, joueur.stats.combat.pv_max]
+		# Mode JOUEUR : stats_ennemi EST joueur.stats.combat (référence), on lit depuis le Manager pour une seule source de vérité
+		barre_pv_joueur.value = stats_ennemi.pv_actuel
+		label_pv_joueur.text = "%d / %d" % [stats_ennemi.pv_actuel, stats_ennemi.pv_max]
 	
 	# Dégâts flottants
 	var degats_label = scene_degats.instantiate()
@@ -103,24 +104,17 @@ func _on_attaque_effectuee(attaquant_nom, cible_nom, degats):
 		position_cible = ennemi_node.global_position
 	degats_label.afficher(degats, position_cible + Vector2(0, -32))
 
-func _on_combat_termine(victoire: bool):
-	if CombatManager.mode_actuel == CombatManager.Mode.AUTO:
+func _on_combat_termine(victoire: bool, mode: int, _gain_pv_max: int, _gain_force: int):
+	if mode == CombatManager.Mode.AUTO:
 		if victoire:
 			label_degats.text = "Victoire !"
-			if ennemi_node:
-				ennemi_node.queue_free()
+			# Le queue_free de l'ennemi est géré par Monde.gd qui écoute aussi combat_termine
 		else:
 			label_degats.text = "%s est KO..." % CombatManager.stats_combattant_1.nom
 			CombatManager.stats_combattant_1.pv_actuel = 1
 		await get_tree().create_timer(1.5).timeout
 		cacher()
-	else:
-		var gain_pv_max = max(1, CombatManager.stats_combattant_2.force / 5)
-		var gain_force = max(1, CombatManager.stats_combattant_1.force / 5)
-		EventBus.transition_demandee.emit(joueur, chat_node, func():
-			cacher()
-			EventBus.combat_entrainement_termine.emit(CombatManager.creature_complete, gain_pv_max, gain_force)
-		)
+	# Mode JOUEUR : la transition de fin + cacher() + émission combat_entrainement_termine sont gérés par Monde.gd (orchestrateur des transitions)
 
 func _on_tour_joueur_commence():
 	btn_attaquer.disabled = false
@@ -132,11 +126,9 @@ func cacher():
 	btn_attaquer.visible = true
 	btn_competence.visible = true
 	btn_attaquer.disabled = false
-	joueur.stats.combat.pv_actuel = joueur.stats.combat.pv_max
-	barre_pv_joueur.value = joueur.stats.combat.pv_max
-	joueur.en_combat = false
-	chat_node.en_combat = false
-	SaveManager.sauvegarder(CombatManager.creature_complete)
+	# Note : les PV du joueur ne sont PAS restaurés à 100% — les dégâts subis persistent (game design : récupération via repos/items/etc. à concevoir)
+	# Les flags en_combat sont retirés automatiquement par Personnage via le signal EventBus.combat_termine
+	# La sauvegarde est centralisée dans Monde._on_combat_termine (listener du même signal)
 
 func _afficher_menu(menu: Panel):
 	menu_principal.visible = false
@@ -171,25 +163,5 @@ func _on_cible_chat():
 		return
 	btn_attaquer.disabled = true
 	panel.visible = false
-	joueur.sprite.play("ATK SE")
-	await joueur.sprite.animation_finished
-	joueur.sprite.play("Idle " + joueur.last_dir)
+	await joueur.jouer_animation_attaque()  # Délègue l'animation au Joueur (responsabilité gameplay)
 	CombatManager.attaque_joueur()
-
-func _repositionner_joueur() -> void:
-	var distance_cible = 112.0
-	var distance_actuelle = joueur.global_position.distance_to(ennemi_node.global_position)
-	joueur.en_repositionnement = true
-	if distance_actuelle < distance_cible:
-		var direction_recul = (joueur.global_position - ennemi_node.global_position).normalized()
-		while joueur.global_position.distance_to(ennemi_node.global_position) < distance_cible:
-			joueur.velocity = Vector2(direction_recul.x, direction_recul.y * 0.5) * 100.0
-			joueur.move_and_slide()
-			joueur._play_walk(joueur._dir8_from_vector(direction_recul))
-			await get_tree().process_frame
-	var direction_ennemi = (ennemi_node.global_position - joueur.global_position).normalized()
-	var dir = joueur._dir8_from_vector(direction_ennemi)
-	joueur._play_idle(dir)
-	joueur.last_dir = dir
-	await get_tree().create_timer(0.3).timeout
-	joueur.en_repositionnement = false

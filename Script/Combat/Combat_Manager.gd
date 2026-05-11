@@ -4,7 +4,7 @@ enum Mode { JOUEUR, AUTO }  # JOUEUR = entraînement interactif, AUTO = combat c
 
 signal combat_demarre(combattant_1, combattant_2, mode)
 signal attaque_effectuee(attaquant_nom, cible_nom, degats)
-signal combat_termine(victoire: bool)
+signal combat_termine(victoire: bool, mode: int, gain_pv_max: int, gain_force: int)  # Aligné sur EventBus.combat_termine (mode + gains pour Ui_Resultats)
 signal tour_joueur_commence  # Émis quand c'est au joueur d'agir (mode JOUEUR)
 
 var mode_actuel: Mode
@@ -38,7 +38,6 @@ func attaque_joueur():
 
 	# Dégâts = force joueur - défense chat, minimum 1 (toujours au moins 1 dégât)
 	var degats: int = max(1, stats_combattant_2.force - stats_combattant_1.defense)
-	print("[DEBUG] attaque_joueur appelée, degats=", degats, " pv_actuel chat=", stats_combattant_1.pv_actuel)
 	stats_combattant_1.pv_actuel -= degats
 	stats_combattant_1.pv_actuel = max(0, stats_combattant_1.pv_actuel)  # Clamp à 0
 
@@ -51,7 +50,6 @@ func attaque_joueur():
 
 # Riposte du chat après l'attaque du joueur (mode entraînement).
 func _riposte_chat():
-	print("[DEBUG] riposte_chat appelée")
 	var degats: int = max(1, stats_combattant_1.force - stats_combattant_2.defense)
 	stats_combattant_2.pv_actuel -= degats
 	stats_combattant_2.pv_actuel = max(0, stats_combattant_2.pv_actuel)
@@ -81,7 +79,7 @@ func _tour_auto():
 		return
 
 	await get_tree().create_timer(1.0).timeout  # Délai entre les tours pour lisibilité
-	
+
 	# Tour de l'ennemi
 	var degats_ennemi: int = max(1, stats_combattant_2.force - stats_combattant_1.defense)
 	stats_combattant_1.pv_actuel -= degats_ennemi
@@ -99,13 +97,16 @@ func _tour_auto():
 func _terminer_combat(victoire: bool):
 	en_combat = false
 
+	var gain_pv_max: int = 0                                                  # Gain par défaut 0 (mode AUTO : pas de gains)
+	var gain_force: int = 0                                                   # Gain par défaut 0 (mode AUTO : pas de gains)
+
 	# Gains d'entraînement uniquement en mode JOUEUR (pas de gains contre les ennemis sauvages)
 	if mode_actuel == Mode.JOUEUR:
-		var gain_pv_max: int = max(1, stats_combattant_2.force / 5)   # Gain PV basé sur la force du joueur
-		var gain_force: int = max(1, stats_combattant_1.force / 5)    # Gain force basé sur la force du chat
+		gain_pv_max = max(1, stats_combattant_2.force / 5)                    # Gain PV basé sur la force du joueur
+		gain_force = max(1, stats_combattant_1.force / 5)                     # Gain force basé sur la force du chat
 		creature_complete.combat.pv_max += gain_pv_max
 		creature_complete.combat.force += gain_force
 		creature_complete.combat.pv_actuel = creature_complete.combat.pv_max  # Restaure les PV après entraînement
-		creature_complete.bien_etre.energie = max(0.0, creature_complete.bien_etre.energie - 15)  # Réduit l'énergie après un combat                                                                          )  # Coût énergétique
+		creature_complete.bien_etre.energie = max(0.0, creature_complete.bien_etre.energie - 30                                                                             )  # Coût énergétique
 
-	EventBus.combat_termine.emit(victoire)
+	EventBus.combat_termine.emit(victoire, mode_actuel, gain_pv_max, gain_force)  # Émet avec mode et gains pour les listeners (UI, Monde)

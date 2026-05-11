@@ -8,7 +8,7 @@ signal jour_change(jour: int)
 # --- Combat ---
 signal combat_demarre(combattant_1, combattant_2, mode)
 signal attaque_effectuee(attaquant_nom: String, cible_nom: String, degats: int)
-signal combat_termine(victoire: bool)
+signal combat_termine(victoire: bool, mode: int, gain_pv_max: int, gain_force: int)  # mode = CombatManager.Mode ; gains à 0 en mode AUTO
 signal tour_joueur_commence
 
 # --- UI ---

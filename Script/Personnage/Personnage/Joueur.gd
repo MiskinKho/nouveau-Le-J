@@ -7,6 +7,7 @@ class_name Joueur
 
 # Initialisation du joueur : instancie sa Resource specifique si aucune n'est assignee dans l'editeur
 func _ready():
+	super()  # Appelle Personnage._ready() pour connecter les signaux combat (en_combat auto-géré)
 	if stats == null:
 		stats = Personnage_Data_Joueur.new()  # Instancie la Resource specifique joueur
 
@@ -58,3 +59,31 @@ func _play_footstep():
 	var tile_pos = tilemap_sol.local_to_map(tilemap_sol.to_local(global_position))  # Coordonnées de tuile
 	var _tile_data = tilemap_sol.get_cell_tile_data(tile_pos)  # Données de la tuile (non utilisées ici, prévu pour variations)
 	pas_bois.play()  # Joue le son de pas bois (seul son implémenté pour l'instant)
+
+# Repositionne le joueur à une distance fixe d'une cible avant un combat automatique.
+# Si le joueur est trop proche, recule jusqu'à atteindre distance_cible, puis tourne face à la cible.
+# Posé/retire le flag en_repositionnement pour bloquer Comp_Deplacement_Joueur pendant l'opération.
+func repositionner_pour_combat(cible: Node2D) -> void:
+	var distance_cible = 112.0                                                # Distance souhaitée entre joueur et cible avant combat
+	var distance_actuelle = global_position.distance_to(cible.global_position)  # Distance actuelle
+	en_repositionnement = true                                                # Bloque l'input/déplacement normal pendant le repositionnement
+	if distance_actuelle < distance_cible:                                    # Trop proche : recule
+		var direction_recul = (global_position - cible.global_position).normalized()  # Vecteur de fuite normalisé
+		while global_position.distance_to(cible.global_position) < distance_cible:    # Recule tant que pas assez loin
+			velocity = Vector2(direction_recul.x, direction_recul.y * 0.5) * 100.0    # Projection iso (y * 0.5) + vitesse 100
+			move_and_slide()                                                  # Applique la physique
+			_play_walk(_dir8_from_vector(direction_recul))                    # Animation de marche dans la direction du recul
+			await get_tree().process_frame                                    # Cède la main, prochain frame physique
+	var direction_ennemi = (cible.global_position - global_position).normalized()  # Vecteur joueur → cible (pour orientation finale)
+	var dir = _dir8_from_vector(direction_ennemi)                             # Direction sur 8 points cardinaux
+	_play_idle(dir)                                                           # Idle face à la cible
+	last_dir = dir                                                            # Mémorise la direction (pour les anims suivantes)
+	await get_tree().create_timer(0.3).timeout                                # Petit délai pour la lisibilité avant le combat
+	en_repositionnement = false                                               # Libère le déplacement normal
+
+# Joue l'animation d'attaque du joueur, attend qu'elle se termine et retourne en Idle.
+# Utilisée par Ui_Combat lors d'une attaque en mode JOUEUR (entraînement).
+func jouer_animation_attaque() -> void:
+	sprite.play("ATK SE")                                                     # Animation d'attaque (direction SE en dur, à généraliser plus tard via last_dir)
+	await sprite.animation_finished                                           # Bloque jusqu'à la fin de l'animation
+	sprite.play("Idle " + last_dir)                                           # Retour à l'idle dans la dernière direction

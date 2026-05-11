@@ -12,6 +12,23 @@ var en_attaque = false         # Indique qu'une animation d'attaque est en cours
 var menu_ouvert := false       # Bloque les actions quand un menu contextuel est affiché
 var en_repositionnement := false  # Bloque le joueur pendant le repositionnement avant un combat
 
+# Connecte les signaux globaux de combat dès le démarrage du personnage.
+# Chaque sous-classe (Joueur, PNJ) doit appeler super() dans son _ready() pour bénéficier de cette connexion.
+func _ready():
+	EventBus.combat_demarre.connect(_on_combat_demarre_global)    # Pose en_combat = true si ce personnage est un des combattants
+	EventBus.combat_termine.connect(_on_combat_termine_global)    # Retire en_combat = false à la fin du combat
+
+# Callback global combat_demarre : pose en_combat = true uniquement si ce personnage participe au combat.
+# Comparaison par référence sur stats.combat (chaque Resource est unique par personnage instancié).
+func _on_combat_demarre_global(combattant_1, combattant_2, _mode):
+	if stats != null and (stats.combat == combattant_1 or stats.combat == combattant_2):
+		en_combat = true
+
+# Callback global combat_termine : retire en_combat = false pour tous les personnages (pas de check d'identité nécessaire).
+# Les personnages non concernés avaient déjà en_combat = false, le set est idempotent.
+func _on_combat_termine_global(_victoire, _mode, _gain_pv_max, _gain_force):
+	en_combat = false
+
 # Lance l'animation idle dans la direction donnée.
 # Évite de relancer l'animation si elle est déjà la bonne (évite le clignotement).
 func _play_idle(dir: String = "S") -> void:
@@ -32,7 +49,3 @@ func _dir8_from_vector(v: Vector2) -> String:
 	var idx := int(round(ang / (PI / 4.0))) & 7       # Quantifie en 8 secteurs, modulo 8 avec masque binaire
 	var dirs := ["E", "SE", "S", "SO", "O", "NO", "N", "NE"]  # Ordre correspondant aux angles
 	return dirs[idx]
-
-# Réinitialise le flag de combat (appelé depuis CombatManager après la fin d'un combat)
-func fin_combat():
-	en_combat = false

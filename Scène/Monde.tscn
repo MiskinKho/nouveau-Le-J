@@ -774,7 +774,6 @@ chat = NodePath("../Chat")
 stats = SubResource("Resource_tca78")
 
 [node name="Etage 0" type="Node2D" parent="." unique_id=253338084]
-visible = false
 y_sort_enabled = true
 
 [node name="Sol" type="TileMapLayer" parent="Etage 0" unique_id=653817106]
@@ -793,7 +792,6 @@ tile_map_data = PackedByteArray("AAARABUAAgAAAAEAAAASABYAAgAAAAEAAAATABYAAgAAAAE
 tile_set = SubResource("TileSet_vl6ef")
 
 [node name="FauxEtage" type="Node2D" parent="." unique_id=1498816233]
-visible = false
 z_index = 1
 y_sort_enabled = true
 
@@ -828,7 +826,6 @@ tile_map_data = PackedByteArray("AAARABUAAwAAAAEAAAASABYAAwAAAAEAAAATABYAAwAAAAE
 tile_set = ExtResource("5_m5ndx")
 
 [node name="Etage 1" type="Node2D" parent="." unique_id=666432595]
-visible = false
 visibility_layer = 2
 y_sort_enabled = true
 

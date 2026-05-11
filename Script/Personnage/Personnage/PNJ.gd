@@ -3,6 +3,7 @@ class_name PNJ      # Classe nommée PNJ (utilisée par Chat, Mob, Humain)
 
 
 func _ready():
+	super()  # Appelle Personnage._ready() pour connecter les signaux combat (en_combat auto-géré)
 	# Connexion des signaux de la zone de clic (Area2D enfant)
 	$ZoneClick.input_event.connect(_on_click)
 	$ZoneClick.mouse_entered.connect(_on_survol_entrer)   # Survol entrant : éclaircit le sprite

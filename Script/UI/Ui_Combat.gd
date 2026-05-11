@@ -56,13 +56,8 @@ func afficher_auto(p_stats_chat: Resource, p_stats_ennemi: Stats_Combat, p_ennem
 	CombatManager.lancer_combat(p_stats_chat, p_stats_ennemi, CombatManager.Mode.AUTO)
 
 func _creer_stats_joueur() -> Stats_Combat:
-	var stats = Stats_Combat.new()
-	stats.nom = "Joueur"
-	stats.force = joueur.stats.combat.force
-	stats.defense = joueur.stats.combat.defense
-	stats.pv_max = joueur.stats.combat.pv_max
-	stats.pv_actuel = joueur.stats.combat.pv_actuel
-	return stats
+	# Retourne directement la ref des stats du joueur : les dégâts subis pendant le combat persistent
+	return joueur.stats.combat
 
 func _on_combat_demarre(combattant_1, combattant_2, mode):
 	panel.visible = true

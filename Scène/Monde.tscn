@@ -774,6 +774,7 @@ chat = NodePath("../Chat")
 stats = SubResource("Resource_tca78")
 
 [node name="Etage 0" type="Node2D" parent="." unique_id=253338084]
+visible = false
 y_sort_enabled = true
 
 [node name="Sol" type="TileMapLayer" parent="Etage 0" unique_id=653817106]
@@ -792,6 +793,7 @@ tile_map_data = PackedByteArray("AAARABUAAgAAAAEAAAASABYAAgAAAAEAAAATABYAAgAAAAE
 tile_set = SubResource("TileSet_vl6ef")
 
 [node name="FauxEtage" type="Node2D" parent="." unique_id=1498816233]
+visible = false
 z_index = 1
 y_sort_enabled = true
 
@@ -826,6 +828,7 @@ tile_map_data = PackedByteArray("AAARABUAAwAAAAEAAAASABYAAwAAAAEAAAATABYAAwAAAAE
 tile_set = ExtResource("5_m5ndx")
 
 [node name="Etage 1" type="Node2D" parent="." unique_id=666432595]
+visible = false
 visibility_layer = 2
 y_sort_enabled = true
 
@@ -1072,7 +1075,6 @@ offset_bottom = 81.0
 metadata/_edit_lock_ = true
 
 [node name="Barre_PV_Joueur" type="ProgressBar" parent="Ui_Combat/Panel_Combat" unique_id=1452641413]
-visible = false
 layout_mode = 0
 offset_left = -139.0
 offset_top = 288.0
@@ -1080,7 +1082,6 @@ offset_right = -129.0
 offset_bottom = 315.0
 
 [node name="Barre_PV_Chat" type="ProgressBar" parent="Ui_Combat/Panel_Combat" unique_id=1964615620]
-visible = false
 layout_mode = 0
 offset_left = -117.0
 offset_top = -1.0
@@ -1089,10 +1090,10 @@ offset_bottom = 26.0
 
 [node name="Label_PV_Joueur" type="Label" parent="Ui_Combat/Panel_Combat" unique_id=1136780837]
 layout_mode = 0
-offset_left = -267.0
-offset_top = 305.0
-offset_right = -224.0
-offset_bottom = 328.0
+offset_left = -325.12
+offset_top = 297.12
+offset_right = -282.12
+offset_bottom = 320.12
 
 [node name="Label_PV_Chat" type="Label" parent="Ui_Combat/Panel_Combat" unique_id=92633674]
 layout_mode = 1

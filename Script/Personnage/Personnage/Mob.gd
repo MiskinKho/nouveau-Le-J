@@ -12,6 +12,7 @@ signal creature_cliquee(creature)  # Émis au clic : déclenche le combat automa
 
 func _ready():
 	super()  # Appelle PNJ._ready() pour les signaux ZoneClick, survol
+	add_to_group("creatures_sauvages")  # Groupe utilisé par Monde.gd pour connecter le signal de clic combat auto
 	if stats == null:
 		stats = Personnage_Data_Mob.new()  # Instancie la Resource specifique mob
 

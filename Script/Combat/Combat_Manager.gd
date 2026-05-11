@@ -38,6 +38,7 @@ func attaque_joueur():
 
 	# Dégâts = force joueur - défense chat, minimum 1 (toujours au moins 1 dégât)
 	var degats: int = max(1, stats_combattant_2.force - stats_combattant_1.defense)
+	print("[DEBUG] attaque_joueur appelée, degats=", degats, " pv_actuel chat=", stats_combattant_1.pv_actuel)
 	stats_combattant_1.pv_actuel -= degats
 	stats_combattant_1.pv_actuel = max(0, stats_combattant_1.pv_actuel)  # Clamp à 0
 
@@ -50,6 +51,7 @@ func attaque_joueur():
 
 # Riposte du chat après l'attaque du joueur (mode entraînement).
 func _riposte_chat():
+	print("[DEBUG] riposte_chat appelée")
 	var degats: int = max(1, stats_combattant_1.force - stats_combattant_2.defense)
 	stats_combattant_2.pv_actuel -= degats
 	stats_combattant_2.pv_actuel = max(0, stats_combattant_2.pv_actuel)
@@ -79,7 +81,7 @@ func _tour_auto():
 		return
 
 	await get_tree().create_timer(1.0).timeout  # Délai entre les tours pour lisibilité
-
+	
 	# Tour de l'ennemi
 	var degats_ennemi: int = max(1, stats_combattant_2.force - stats_combattant_1.defense)
 	stats_combattant_1.pv_actuel -= degats_ennemi
@@ -104,6 +106,6 @@ func _terminer_combat(victoire: bool):
 		creature_complete.combat.pv_max += gain_pv_max
 		creature_complete.combat.force += gain_force
 		creature_complete.combat.pv_actuel = creature_complete.combat.pv_max  # Restaure les PV après entraînement
-		creature_complete.bien_etre.energie = max(0.0, creature_complete.bien_etre.energie - 30                                                                             )  # Coût énergétique
+		creature_complete.bien_etre.energie = max(0.0, creature_complete.bien_etre.energie - 15)  # Réduit l'énergie après un combat                                                                          )  # Coût énergétique
 
 	EventBus.combat_termine.emit(victoire)

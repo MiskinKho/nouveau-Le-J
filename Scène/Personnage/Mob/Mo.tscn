@@ -13,11 +13,12 @@ position = Vector2(-1, -13)
 shape = ExtResource("2_qp5pw")
 
 [node name="AnimatedSprite2D" parent="." index="1" unique_id=2013304795]
+position = Vector2(2, 1)
 sprite_frames = ExtResource("3_c1034")
 animation = &"Idle S"
 
 [node name="CollisionShape2D" parent="ZoneClick" parent_id_path=PackedInt32Array(1695351370) index="0" unique_id=1953491125]
-position = Vector2(-0.75, -18)
+position = Vector2(2, -18)
 shape = ExtResource("4_fw8yy")
 
 [node name="PointLight2D" parent="." index="4" unique_id=119987284]

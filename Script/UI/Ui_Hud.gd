@@ -23,9 +23,9 @@ func _on_heure_change(_heure):
 func _mettre_a_jour_hud():
 	var stats = chat.stats
 	label_nom_chat.text = stats.nom
-	barre_pv.max_value = stats.combat.pv_max
+	barre_pv.max_value = stats.combat.get_pv_max()                          # PV max reel (base race + bonus)
 	barre_pv.value = stats.combat.pv_actuel
-	label_pv.text = "%d / %d" % [stats.combat.pv_actuel, stats.combat.pv_max]
+	label_pv.text = "%d / %d" % [stats.combat.pv_actuel, stats.combat.get_pv_max()]  # PV actuels / max reel
 	barre_energie.max_value = 100
 	barre_energie.value = stats.bien_etre.energie
 	label_energie.text = "%d / 100" % stats.bien_etre.energie

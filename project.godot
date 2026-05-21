@@ -28,6 +28,8 @@ CombatManager="*res://Script/Combat/Combat_Manager.gd"
 CreatureManager="*res://Script/Manager/Creature_Manager.gd"
 DayNightManager="*res://Script/Manager/Day_Night_Manager.gd"
 EventBus="*res://Script/Vrac/Event_Bus.gd"
+RaceManager="*uid://jfs7p8eea6yv"
+RaceRegistre="*uid://d10qesk75di0a"
 
 [display]
 

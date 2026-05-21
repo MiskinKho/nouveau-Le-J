@@ -47,6 +47,15 @@
 
 [sub_resource type="Resource" id="Resource_ghje1"]
 script = ExtResource("21_w1ifc")
+nom = null
+niveau = null
+experience = null
+pv_max = null
+pv_actuel = null
+force = null
+defense = null
+agilite = null
+precision = null
 metadata/_custom_type_script = "uid://bi43n55tjoff2"
 
 [sub_resource type="Resource" id="Resource_tca78"]
@@ -730,6 +739,15 @@ metadata/_custom_type_script = "uid://bg0nttxsjbpc2"
 
 [sub_resource type="Resource" id="Resource_xqwqp"]
 script = ExtResource("21_w1ifc")
+nom = null
+niveau = null
+experience = null
+pv_max = null
+pv_actuel = null
+force = null
+defense = null
+agilite = null
+precision = null
 metadata/_custom_type_script = "uid://bi43n55tjoff2"
 
 [sub_resource type="Resource" id="Resource_81b1k"]
@@ -958,6 +976,7 @@ stats = SubResource("Resource_81b1k")
 
 [node name="Souris" parent="." unique_id=1105716802 instance=ExtResource("22_0lhwn")]
 position = Vector2(538, 296)
+zone_deplacement = null
 
 [node name="Gamelle" parent="." unique_id=54886999 instance=ExtResource("20_qmcaj")]
 position = Vector2(376, 346)

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Stats_Combat_Base" format=3 uid="uid://bcoptjm100rhu"]
+
+[ext_resource type="Script" uid="uid://buvbhi13u5cqp" path="res://Script/Combat/Stats_Combat_Base.gd" id="1_6ncib"]
+
+[resource]
+script = ExtResource("1_6ncib")
+nom_race = "Souris"
+metadata/_custom_type_script = "uid://buvbhi13u5cqp"

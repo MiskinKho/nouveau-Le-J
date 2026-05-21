@@ -1,38 +1,43 @@
 extends Resource
 class_name Stats_Combat  # Stats de combat d'un combattant (chat, joueur, ennemi)
 
-@export var nom: String = ""        # Nom affiché dans l'UI de combat
-@export var niveau: int = 1         # Niveau (non utilisé activement dans le calcul actuel)
-@export var experience: int = 0     # XP accumulée (non utilisée, prévu pour évolution)
-@export var pv_max: int = 50        # Points de vie maximum
-@export var pv_actuel: int = 50     # Points de vie actuels (modifiés pendant le combat)
-@export var force: int = 10         # Détermine les dégâts infligés : max(1, force - défense_cible)
-@export var defense: int = 5        # Réduit les dégâts reçus
-@export var agilite: int = 10       # Non utilisé activement (prévu pour esquive/vitesse)
-@export var precision: int = 10     # Non utilisé activement (prévu pour taux de touche)
+@export var base: Stats_Combat_Base = null   # Archetype de race (PV/force/defense de base) — assigne par setup() via RaceRegistry
+@export var pv_actuel: int = 0               # Points de vie actuels (runtime) — rempli par setup() a la creation
+@export var bonus_pv_max: int = 0            # Bonus permanents de PV max accumules par l'individu (entrainement)
+@export var bonus_force: int = 0             # Bonus permanents de force accumules par l'individu
+@export var bonus_defense: int = 0           # Bonus permanents de defense accumules par l'individu
 
-# Serialise toutes les stats de combat en Dictionary JSON-compatible.
+# Branche la race et remplit les PV au maximum. Point d'entree unique a la creation d'un combattant.
+func setup(race: Stats_Combat_Base) -> void:
+	base = race                              # Assigne l'archetype de race (source unique : RaceRegistry)
+	pv_actuel = get_pv_max()                 # Demarre a pleins PV (base prete, get_pv_max() fiable)
+
+# PV maximum reel : base de race + bonus accumules par l'individu.
+func get_pv_max() -> int:
+	return base.pv_max_base + bonus_pv_max   # Somme race + bonus individuels
+
+# Force reelle : base de race + bonus accumules.
+func get_force() -> int:
+	return base.force_base + bonus_force     # Somme race + bonus individuels
+
+# Defense reelle : base de race + bonus accumules.
+func get_defense() -> int:
+	return base.defense_base + bonus_defense # Somme race + bonus individuels
+
+# Serialise uniquement le runtime + l'id de race. Les valeurs de base ne sont PAS sauvees (elles vivent dans le .tres).
 func to_dict() -> Dictionary:
 	return {
-		"nom": nom,                # Nom du combattant
-		"niveau": niveau,          # Niveau actuel
-		"experience": experience,  # XP accumulee
-		"pv_max": pv_max,          # Points de vie maximum
-		"pv_actuel": pv_actuel,    # Points de vie actuels
-		"force": force,            # Force d'attaque
-		"defense": defense,        # Reduction de degats
-		"agilite": agilite,        # Esquive/vitesse (reserve)
-		"precision": precision     # Taux de touche (reserve)
+		"race_id": RaceRegistre.get_id(base),  # Id stable de la race (pour retrouver le .tres au chargement)
+		"pv_actuel": pv_actuel,                # Points de vie actuels
+		"bonus_pv_max": bonus_pv_max,          # Bonus PV max accumules
+		"bonus_force": bonus_force,            # Bonus force accumules
+		"bonus_defense": bonus_defense         # Bonus defense accumules
 	}
 
-# Deserialise un Dictionary. Utilise get() pour la robustesse des anciennes saves.
+# Deserialise un Dictionary. Restaure la race via son id, puis le runtime. get() pour robustesse.
 func from_dict(data: Dictionary):
-	nom = data.get("nom", "")              # Fallback chaine vide si absent
-	niveau = data.get("niveau", 1)         # Fallback niveau 1
-	experience = data.get("experience", 0) # Fallback 0 XP
-	pv_max = data.get("pv_max", 50)        # Fallback 50 PV max
-	pv_actuel = data.get("pv_actuel", 50)  # Fallback 50 PV actuels
-	force = data.get("force", 10)          # Fallback force 10
-	defense = data.get("defense", 5)       # Fallback defense 5
-	agilite = data.get("agilite", 10)      # Fallback agilite 10
-	precision = data.get("precision", 10)  # Fallback precision 10
+	base = RaceRegistre.get_race(data.get("race_id", ""))  # Recharge l'archetype depuis l'id (null si id inconnu)
+	pv_actuel = data.get("pv_actuel", 0)                   # Fallback 0
+	bonus_pv_max = data.get("bonus_pv_max", 0)             # Fallback 0
+	bonus_force = data.get("bonus_force", 0)               # Fallback 0
+	bonus_defense = data.get("bonus_defense", 0)           # Fallback 0

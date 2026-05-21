@@ -59,24 +59,24 @@ func _on_combat_demarre(combattant_1, combattant_2, mode):
 	if mode == CombatManager.Mode.AUTO:
 		btn_attaquer.visible = false
 		btn_competence.visible = false
-		barre_pv_ennemi.max_value = combattant_2.pv_max
+		barre_pv_ennemi.max_value = combattant_2.get_pv_max()
 		barre_pv_ennemi.value = combattant_2.pv_actuel
-		label_pv_ennemi.text = "%d / %d" % [combattant_2.pv_actuel, combattant_2.pv_max]
-		label_nom_ennemi.text = combattant_2.nom
+		label_pv_ennemi.text = "%d / %d" % [combattant_2.pv_actuel, combattant_2.get_pv_max()]
+		label_nom_ennemi.text = combattant_2.base.nom_race
 		# Mode AUTO : la barre joueur reflète l'état hors combat (le joueur ne participe pas)
-		barre_pv_joueur.max_value = joueur.stats.combat.pv_max
+		barre_pv_joueur.max_value = joueur.stats.combat.get_pv_max()
 		barre_pv_joueur.value = joueur.stats.combat.pv_actuel
-		label_pv_joueur.text = "%d / %d" % [joueur.stats.combat.pv_actuel, joueur.stats.combat.pv_max]
+		label_pv_joueur.text = "%d / %d" % [joueur.stats.combat.pv_actuel, joueur.stats.combat.get_pv_max()]
 	else:
 		btn_attaquer.visible = true
 		btn_competence.visible = true
 		# Mode JOUEUR : combattant_2 EST joueur.stats.combat (référence), on lit depuis le Manager pour cohérence avec _on_attaque_effectuee
-		barre_pv_joueur.max_value = combattant_2.pv_max
+		barre_pv_joueur.max_value = combattant_2.get_pv_max()
 		barre_pv_joueur.value = combattant_2.pv_actuel
-		label_pv_joueur.text = "%d / %d" % [combattant_2.pv_actuel, combattant_2.pv_max]
-	barre_pv_chat.max_value = combattant_1.pv_max
+		label_pv_joueur.text = "%d / %d" % [combattant_2.pv_actuel, combattant_2.get_pv_max()]
+	barre_pv_chat.max_value = combattant_1.get_pv_max()
 	barre_pv_chat.value = combattant_1.pv_actuel
-	label_pv_chat.text = "%d / %d" % [combattant_1.pv_actuel, combattant_1.pv_max]
+	label_pv_chat.text = "%d / %d" % [combattant_1.pv_actuel, combattant_1.get_pv_max()]
 	label_degats.text = ""
 	_afficher_menu(menu_principal)
 
@@ -87,20 +87,21 @@ func _on_attaque_effectuee(attaquant_nom, cible_nom, degats):
 	var stats_chat = CombatManager.stats_combattant_1
 	var stats_ennemi = CombatManager.stats_combattant_2
 	barre_pv_chat.value = stats_chat.pv_actuel
-	label_pv_chat.text = "%d / %d" % [stats_chat.pv_actuel, stats_chat.pv_max]
+	label_pv_chat.text = "%d / %d" % [stats_chat.pv_actuel, stats_chat.get_pv_max()]
 	if CombatManager.mode_actuel == CombatManager.Mode.AUTO:
 		barre_pv_ennemi.value = stats_ennemi.pv_actuel
-		label_pv_ennemi.text = "%d / %d" % [stats_ennemi.pv_actuel, stats_ennemi.pv_max]
+		label_pv_ennemi.text = "%d / %d" % [stats_ennemi.pv_actuel, stats_ennemi.get_pv_max()]
 	else:
 		# Mode JOUEUR : stats_ennemi EST joueur.stats.combat (référence), on lit depuis le Manager pour une seule source de vérité
 		barre_pv_joueur.value = stats_ennemi.pv_actuel
-		label_pv_joueur.text = "%d / %d" % [stats_ennemi.pv_actuel, stats_ennemi.pv_max]
+		label_pv_joueur.text = "%d / %d" % [stats_ennemi.pv_actuel, stats_ennemi.get_pv_max()]
 	
 	# Dégâts flottants
 	var degats_label = scene_degats.instantiate()
 	monde.add_child(degats_label)
-	var position_cible = chat_node.global_position if cible_nom == CombatManager.stats_combattant_1.nom else joueur.global_position
-	if ennemi_node and is_instance_valid(ennemi_node) and cible_nom == CombatManager.stats_combattant_2.nom:
+	# DETTE NOTEE : identification du combattant par nom de race (fragile si deux combattants partagent la meme race). A remplacer par comparaison de references Stats_Combat en session combat dediee.
+	var position_cible = chat_node.global_position if cible_nom == CombatManager.stats_combattant_1.base.nom_race else joueur.global_position
+	if ennemi_node and is_instance_valid(ennemi_node) and cible_nom == CombatManager.stats_combattant_2.base.nom_race:
 		position_cible = ennemi_node.global_position
 	degats_label.afficher(degats, position_cible + Vector2(0, -32))
 
@@ -110,7 +111,7 @@ func _on_combat_termine(victoire: bool, mode: int, _gain_pv_max: int, _gain_forc
 			label_degats.text = "Victoire !"
 			# Le queue_free de l'ennemi est géré par Monde.gd qui écoute aussi combat_termine
 		else:
-			label_degats.text = "%s est KO..." % CombatManager.stats_combattant_1.nom
+			label_degats.text = "%s est KO..." % CombatManager.stats_combattant_1.base.nom_race
 			CombatManager.stats_combattant_1.pv_actuel = 1
 		await get_tree().create_timer(1.5).timeout
 		cacher()

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Stats_Combat_Base" format=3 uid="uid://cdu8u07vfftg6"]
+
+[ext_resource type="Script" uid="uid://buvbhi13u5cqp" path="res://Script/Combat/Stats_Combat_Base.gd" id="1_g0ua4"]
+
+[resource]
+script = ExtResource("1_g0ua4")
+nom_race = "Chat_Commun"
+metadata/_custom_type_script = "uid://buvbhi13u5cqp"

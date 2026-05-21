@@ -37,7 +37,7 @@ func attaque_joueur():
 	tour_joueur = false  # Bloque les nouvelles attaques jusqu'à la riposte
 
 	# Dégâts = force joueur - défense chat, minimum 1 (toujours au moins 1 dégât)
-	var degats: int = max(1, stats_combattant_2.force - stats_combattant_1.defense)
+	var degats: int = max(1, stats_combattant_2.get_force() - stats_combattant_1.get_defense())
 	stats_combattant_1.pv_actuel -= degats
 	stats_combattant_1.pv_actuel = max(0, stats_combattant_1.pv_actuel)  # Clamp à 0
 
@@ -50,10 +50,10 @@ func attaque_joueur():
 
 # Riposte du chat après l'attaque du joueur (mode entraînement).
 func _riposte_chat():
-	var degats: int = max(1, stats_combattant_1.force - stats_combattant_2.defense)
+	var degats: int = max(1, stats_combattant_1.get_force() - stats_combattant_2.get_defense())
 	stats_combattant_2.pv_actuel -= degats
 	stats_combattant_2.pv_actuel = max(0, stats_combattant_2.pv_actuel)
-	EventBus.attaque_effectuee.emit(stats_combattant_1.nom, "Joueur", degats)
+	EventBus.attaque_effectuee.emit(stats_combattant_1.base.nom_race, "Joueur", degats)
 
 	if stats_combattant_2.pv_actuel <= 0:
 		_terminer_combat(false)  # Joueur à 0 PV : défaite
@@ -69,10 +69,10 @@ func _tour_auto():
 		return
 
 	# Tour du chat
-	var degats_chat: int = max(1, stats_combattant_1.force - stats_combattant_2.defense)
+	var degats_chat: int = max(1, stats_combattant_1.get_force() - stats_combattant_2.get_defense())
 	stats_combattant_2.pv_actuel -= degats_chat
 	stats_combattant_2.pv_actuel = max(0, stats_combattant_2.pv_actuel)
-	EventBus.attaque_effectuee.emit(stats_combattant_1.nom, stats_combattant_2.nom, degats_chat)
+	EventBus.attaque_effectuee.emit(stats_combattant_1.base.nom_race, stats_combattant_2.base.nom_race, degats_chat)
 
 	if stats_combattant_2.pv_actuel <= 0:
 		_terminer_combat(true)
@@ -81,10 +81,10 @@ func _tour_auto():
 	await get_tree().create_timer(1.0).timeout  # Délai entre les tours pour lisibilité
 
 	# Tour de l'ennemi
-	var degats_ennemi: int = max(1, stats_combattant_2.force - stats_combattant_1.defense)
+	var degats_ennemi: int = max(1, stats_combattant_2.get_force() - stats_combattant_1.get_defense())
 	stats_combattant_1.pv_actuel -= degats_ennemi
 	stats_combattant_1.pv_actuel = max(0, stats_combattant_1.pv_actuel)
-	EventBus.attaque_effectuee.emit(stats_combattant_2.nom, stats_combattant_1.nom, degats_ennemi)
+	EventBus.attaque_effectuee.emit(stats_combattant_2.base.nom_race, stats_combattant_1.base.nom_race, degats_ennemi)
 
 	if stats_combattant_1.pv_actuel <= 0:
 		_terminer_combat(false)
@@ -102,11 +102,11 @@ func _terminer_combat(victoire: bool):
 
 	# Gains d'entraînement uniquement en mode JOUEUR (pas de gains contre les ennemis sauvages)
 	if mode_actuel == Mode.JOUEUR:
-		gain_pv_max = max(1, stats_combattant_2.force / 5)                    # Gain PV basé sur la force du joueur
-		gain_force = max(1, stats_combattant_1.force / 5)                     # Gain force basé sur la force du chat
-		creature_complete.combat.pv_max += gain_pv_max
-		creature_complete.combat.force += gain_force
-		creature_complete.combat.pv_actuel = creature_complete.combat.pv_max  # Restaure les PV après entraînement
-		creature_complete.bien_etre.energie = max(0.0, creature_complete.bien_etre.energie - 30                                                                             )  # Coût énergétique
+		gain_pv_max = max(1, stats_combattant_2.get_force() / 5)                    # Gain PV basé sur la force du joueur
+		gain_force = max(1, stats_combattant_1.get_force() / 5)                     # Gain force basé sur la force du chat
+		creature_complete.combat.bonus_pv_max += gain_pv_max                        # Ajoute le gain en bonus individuel (race intacte)
+		creature_complete.combat.bonus_force += gain_force                          # Ajoute le gain en bonus individuel (race intacte)
+		creature_complete.combat.pv_actuel = creature_complete.combat.get_pv_max()  # Restaure les PV au max réel après entraînement
+		creature_complete.bien_etre.energie = max(0.0, creature_complete.bien_etre.energie - 30)  # Coût énergétique
 
 	EventBus.combat_termine.emit(victoire, mode_actuel, gain_pv_max, gain_force)  # Émet avec mode et gains pour les listeners (UI, Monde)

@@ -38,10 +38,9 @@ func attaque_joueur():
 
 	# Dégâts = force joueur - défense chat, minimum 1 (toujours au moins 1 dégât)
 	var degats: int = max(1, stats_combattant_2.get_force() - stats_combattant_1.get_defense())
-	stats_combattant_1.pv_actuel -= degats
-	stats_combattant_1.pv_actuel = max(0, stats_combattant_1.pv_actuel)  # Clamp à 0
+	stats_combattant_1.subir_degats(degats)  # La Resource applique les degats et gere le plancher a 0
 
-	if stats_combattant_1.pv_actuel <= 0:
+	if stats_combattant_1.est_ko():
 		_terminer_combat(true)  # Chat à 0 PV : victoire de l'entraînement
 		return
 
@@ -51,11 +50,10 @@ func attaque_joueur():
 # Riposte du chat après l'attaque du joueur (mode entraînement).
 func _riposte_chat():
 	var degats: int = max(1, stats_combattant_1.get_force() - stats_combattant_2.get_defense())
-	stats_combattant_2.pv_actuel -= degats
-	stats_combattant_2.pv_actuel = max(0, stats_combattant_2.pv_actuel)
+	stats_combattant_2.subir_degats(degats)  # La Resource applique les degats et gere le plancher a 0
 	EventBus.attaque_effectuee.emit(stats_combattant_1.base.nom_race, "Joueur", degats)
 
-	if stats_combattant_2.pv_actuel <= 0:
+	if stats_combattant_2.est_ko():
 		_terminer_combat(false)  # Joueur à 0 PV : défaite
 		return
 
@@ -70,11 +68,10 @@ func _tour_auto():
 
 	# Tour du chat
 	var degats_chat: int = max(1, stats_combattant_1.get_force() - stats_combattant_2.get_defense())
-	stats_combattant_2.pv_actuel -= degats_chat
-	stats_combattant_2.pv_actuel = max(0, stats_combattant_2.pv_actuel)
+	stats_combattant_2.subir_degats(degats_chat)  # La Resource applique les degats et gere le plancher a 0
 	EventBus.attaque_effectuee.emit(stats_combattant_1.base.nom_race, stats_combattant_2.base.nom_race, degats_chat)
 
-	if stats_combattant_2.pv_actuel <= 0:
+	if stats_combattant_2.est_ko():
 		_terminer_combat(true)
 		return
 
@@ -82,11 +79,10 @@ func _tour_auto():
 
 	# Tour de l'ennemi
 	var degats_ennemi: int = max(1, stats_combattant_2.get_force() - stats_combattant_1.get_defense())
-	stats_combattant_1.pv_actuel -= degats_ennemi
-	stats_combattant_1.pv_actuel = max(0, stats_combattant_1.pv_actuel)
+	stats_combattant_1.subir_degats(degats_ennemi)  # La Resource applique les degats et gere le plancher a 0
 	EventBus.attaque_effectuee.emit(stats_combattant_2.base.nom_race, stats_combattant_1.base.nom_race, degats_ennemi)
 
-	if stats_combattant_1.pv_actuel <= 0:
+	if stats_combattant_1.est_ko():
 		_terminer_combat(false)
 		return
 
@@ -104,9 +100,8 @@ func _terminer_combat(victoire: bool):
 	if mode_actuel == Mode.JOUEUR:
 		gain_pv_max = max(1, stats_combattant_2.get_force() / 5)                    # Gain PV basé sur la force du joueur
 		gain_force = max(1, stats_combattant_1.get_force() / 5)                     # Gain force basé sur la force du chat
-		creature_complete.combat.bonus_pv_max += gain_pv_max                        # Ajoute le gain en bonus individuel (race intacte)
-		creature_complete.combat.bonus_force += gain_force                          # Ajoute le gain en bonus individuel (race intacte)
-		creature_complete.combat.pv_actuel = creature_complete.combat.get_pv_max()  # Restaure les PV au max réel après entraînement
-		creature_complete.bien_etre.energie = max(0.0, creature_complete.bien_etre.energie - 30)  # Coût énergétique
+		creature_complete.combat.appliquer_gain_entrainement(gain_pv_max, gain_force)  # Applique les bonus individuels (race intacte)
+		creature_complete.combat.restaurer_pv()                                    # Restaure les PV au max réel après entraînement
+		creature_complete.bien_etre.depenser_energie(30)                           # Coût énergétique (la Resource gere le plancher a 0)
 
 	EventBus.combat_termine.emit(victoire, mode_actuel, gain_pv_max, gain_force)  # Émet avec mode et gains pour les listeners (UI, Monde)

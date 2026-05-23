@@ -7,6 +7,11 @@ class_name Stats_Bien_Etre  # Type global pour le typage fort dans les autres sc
 @export var confort: float = 50.0    # Augmente avec le mobilier et les caresses
 @export var confiance: float = 50.0  # Augmente quand le joueur caresse le chat (voir Monde.gd)
 
+
+# Depense de l'energie en restant borne a 0. La Resource gere sa propre mutation (appele par Combat_Manager).
+func depenser_energie(cout: float) -> void:
+	energie = max(0.0, energie - cout)   # Retire le cout, plancher a 0 (pas d'energie negative)
+
 # Serialise toutes les stats de bien-etre en Dictionary JSON-compatible.
 func to_dict() -> Dictionary:
 	return {

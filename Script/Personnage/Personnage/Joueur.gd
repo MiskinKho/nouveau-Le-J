@@ -10,8 +10,8 @@ func _ready():
 	super()  # Appelle Personnage._ready() pour connecter les signaux combat (en_combat auto-géré)
 	if stats == null:
 		stats = Personnage_Data_Joueur.new()  # Instancie la Resource specifique joueur
-	stats.combat.setup(RaceRegistre.get_race("joueur"))  # Branche la race + remplit les PV au max
-	print("DEBUG race joueur = ", stats.combat.base)
+	stats.combat.setup(RaceManager.get_race("joueur"))  # Branche la race + remplit les PV au max
+
 # Étage actuel du joueur (0 = rez-de-chaussée, 1 = étage).
 # Le setter gère les changements de calques de collision et la visibilité des couches.
 var etage := 0:

@@ -15,8 +15,8 @@ func _ready():
 	add_to_group("creatures_sauvages")  # Groupe utilisé par Monde.gd pour connecter le signal de clic combat auto
 	if stats == null:
 		stats = Personnage_Data_Mob.new()  # Instancie la Resource specifique mob
-	stats.combat.setup(RaceRegistre.get_race("souris"))  # Branche la race + remplit les PV au max
-	print("DEBUG race mob = ", stats.combat.base)
+	stats.combat.setup(RaceManager.get_race("souris"))  # Branche la race + remplit les PV au max
+	
 func _on_click(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		creature_cliquee.emit(self)  # Envoie la référence à l'animal pour le combat auto

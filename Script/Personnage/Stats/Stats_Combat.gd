@@ -12,6 +12,23 @@ func setup(race: Stats_Combat_Base) -> void:
 	base = race                              # Assigne l'archetype de race (source unique : RaceRegistry)
 	pv_actuel = get_pv_max()                 # Demarre a pleins PV (base prete, get_pv_max() fiable)
 
+# Applique des degats : retire les PV en restant borne a 0. Centralise la mutation des PV (auparavant dispersee dans Combat_Manager).
+func subir_degats(degats: int) -> void:
+	pv_actuel = max(0, pv_actuel - degats)   # Retire les degats, plancher a 0 (pas de PV negatifs)
+
+# True si le combattant est hors combat (PV epuises). Point d'extension futur (bouclier, esquive).
+func est_ko() -> bool:
+	return pv_actuel <= 0                    # KO des que les PV atteignent 0
+
+# Restaure les PV au maximum reel (base de race + bonus). Appele en fin d'entrainement.
+func restaurer_pv() -> void:
+	pv_actuel = get_pv_max()                 # Remet a pleins PV en tenant compte des bonus
+
+# Applique les gains permanents d'un entrainement (bonus individuels, la race reste intacte).
+func appliquer_gain_entrainement(gain_pv_max: int, gain_force: int) -> void:
+	bonus_pv_max += gain_pv_max              # Ajoute le gain de PV max au bonus individuel
+	bonus_force += gain_force                # Ajoute le gain de force au bonus individuel
+
 # PV maximum reel : base de race + bonus accumules par l'individu.
 func get_pv_max() -> int:
 	return base.pv_max_base + bonus_pv_max   # Somme race + bonus individuels
@@ -27,7 +44,7 @@ func get_defense() -> int:
 # Serialise uniquement le runtime + l'id de race. Les valeurs de base ne sont PAS sauvees (elles vivent dans le .tres).
 func to_dict() -> Dictionary:
 	return {
-		"race_id": RaceRegistre.get_id(base),  # Id stable de la race (pour retrouver le .tres au chargement)
+		"race_id": RaceManager.get_id(base),  # Id stable de la race (pour retrouver le .tres au chargement)
 		"pv_actuel": pv_actuel,                # Points de vie actuels
 		"bonus_pv_max": bonus_pv_max,          # Bonus PV max accumules
 		"bonus_force": bonus_force,            # Bonus force accumules
@@ -36,7 +53,7 @@ func to_dict() -> Dictionary:
 
 # Deserialise un Dictionary. Restaure la race via son id, puis le runtime. get() pour robustesse.
 func from_dict(data: Dictionary):
-	base = RaceRegistre.get_race(data.get("race_id", ""))  # Recharge l'archetype depuis l'id (null si id inconnu)
+	base = RaceManager.get_race(data.get("race_id", ""))  # Recharge l'archetype depuis l'id (null si id inconnu)
 	pv_actuel = data.get("pv_actuel", 0)                   # Fallback 0
 	bonus_pv_max = data.get("bonus_pv_max", 0)             # Fallback 0
 	bonus_force = data.get("bonus_force", 0)               # Fallback 0

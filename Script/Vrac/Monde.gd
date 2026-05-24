@@ -16,7 +16,6 @@ func _ready():
 	EventBus.menu_pause_ouvert.connect(func(): $Cl_Pause.ouvrir())
 	EventBus.menu_gamelle_ouvert.connect(func(gamelle): $UI_Gamelle.ouvrir(gamelle))
 	EventBus.menu_contexte_ouvert.connect(func(pos, cible): $Ui_Contexte.ouvrir(pos, cible))
-	EventBus.hud_chat_visible.connect(_on_hud_chat_visible)
 	# Lambdas pour les changements de visibilité d'étage
 	EventBus.etage_change.connect(func(e, v): $"Etage 1".modulate.a = 1.0 if v else 0.0)
 	EventBus.faux_etage_change.connect(func(v): $FauxEtage.modulate.a = 1.0 if v else 0.0)
@@ -94,9 +93,3 @@ func _on_combat_termine(_victoire: bool, mode: int, gain_pv_max: int, gain_force
 			EventBus.combat_entrainement_termine.emit(CombatManager.creature_complete, gain_pv_max, gain_force)  # Déclenche Ui_Resultats
 		)
 	SaveManager.sauvegarder(CombatManager.creature_complete)   # Sauvegarde l'état du chat post-combat (centralisé ici, plus dans Ui_Combat)
-
-func _on_hud_chat_visible(visible: bool, cible):
-	var hud = $UI_HUD
-	if cible:
-		hud.chat = cible   # Met à jour la référence du chat dans le HUD si une cible est fournie
-	hud.get_node("Panel_Chat").visible = visible

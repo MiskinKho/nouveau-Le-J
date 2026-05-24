@@ -27,12 +27,10 @@ func _afficher_items():
 		enfant.queue_free()
 	
 	var inventaire = InventoryManager.get_inventaire()
-	print("Taille inventaire : ", inventaire.size())
-	print("Contenu : ", inventaire)
+
 	for item in inventaire.keys():
 		if item == null:
 			continue
-		print("Item : ", item.nom, " type : ", item.type)
 		if item.type == Item.Type.NOURRITURE_CHAT:
 			var slot = ITEM_SCENE.instantiate()
 			grille.add_child(slot)
@@ -40,7 +38,6 @@ func _afficher_items():
 			slot.slot_clique.connect(func(i): _on_item_selectionne(i))
 			
 func _on_item_selectionne(item: Item):
-	print("item sélectionné : ", item.nom)
 	if InventoryManager.retirer_item(item):
 		gamelle_cible.remplir(item)
 		fermer()

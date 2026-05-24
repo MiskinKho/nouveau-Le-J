@@ -20,6 +20,10 @@ func from_dict(data: Dictionary):
 		var item = load("res://Asset/Item/" + nom + ".tres")
 		if item:
 			items[item] = data[nom]  # Ignore silencieusement les items dont le fichier n'existe plus
+		else:
+			# Item introuvable (fichier renommé/supprimé depuis la sauvegarde) : on avertit au lieu de le perdre en silence
+			push_warning("InventoryManager : item '%s' introuvable au chargement, ignoré" % nom)
+
 
 # Ajoute un item à l'inventaire. Si déjà présent, incrémente la quantité.
 func ajouter_item(item: Item, quantite: int = 1):

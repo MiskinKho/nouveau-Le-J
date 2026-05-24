@@ -1147,9 +1147,8 @@ offset_right = 246.0
 offset_bottom = 139.0
 text = "PV"
 
-[node name="UI_HUD" type="CanvasLayer" parent="." unique_id=1346309225 node_paths=PackedStringArray("chat")]
+[node name="UI_HUD" type="CanvasLayer" parent="." unique_id=1346309225]
 script = ExtResource("12_vsbwj")
-chat = NodePath("../Chat")
 
 [node name="Btn_Sauvgarder" type="Button" parent="UI_HUD" unique_id=1554279992]
 visible = false

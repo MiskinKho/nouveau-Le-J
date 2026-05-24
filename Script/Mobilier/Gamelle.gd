@@ -14,10 +14,7 @@ var nourriture: float = 0.0  # Quantité actuelle (0 à 100)
 @export var sprite_moitie: Texture2D
 @export var sprite_remplie: Texture2D
 
-signal chat_peut_manger  # Émis quand le chat entre dans la zone (non utilisé actuellement — la FSM gère la distance)
-
 func _ready():
-	zone_detection.body_entered.connect(_on_body_entered)
 	zone_detection.input_event.connect(_on_click)  # Clic sur la zone = ouvre le menu gamelle
 
 # Remplit la gamelle d'une portion (+25) quand un item NOURRITURE_CHAT est déposé.
@@ -46,11 +43,6 @@ func _mettre_a_jour_etat():
 		sprite.texture = sprite_moitie
 	else:
 		sprite.texture = sprite_remplie  # Vraiment pleine (> 66)
-
-func _on_body_entered(body):
-	print("body entered : ", body.name)
-	if body.is_in_group("chats"):
-		emit_signal("chat_peut_manger")  # Non connecté actuellement — la logique est dans Etat_Faim
 
 # Clic sur la zone de détection de la gamelle : ouvre le menu de remplissage
 func _on_click(_viewport, event, _shape_idx):

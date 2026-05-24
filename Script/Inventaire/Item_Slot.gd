@@ -23,6 +23,5 @@ func vider():
 
 func _gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
-		print("clic sur slot")
 		if item_actuel != null:
 			slot_clique.emit(item_actuel)  # N'émet que si le slot est occupé

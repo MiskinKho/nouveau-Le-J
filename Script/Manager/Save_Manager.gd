@@ -28,6 +28,16 @@ func charger() -> Resource:  # Retourne Personnage_Data_Chat (seul type sauvegar
 	var data = JSON.parse_string(fichier.get_as_text())  # Parse le JSON en Dictionary
 	fichier.close()
 
+	# Guard : fichier corrompu, vide ou JSON invalide → parse échoue (null) ou ne renvoie pas un Dictionary
+	if data == null or typeof(data) != TYPE_DICTIONARY:
+		push_warning("Save_Manager : sauvegarde illisible ou corrompue, démarrage par défaut")  # Avertit sans crasher
+		return null  # Traité comme une absence de sauvegarde (même chemin que fichier absent)
+
+	# Guard : structure inattendue (pas de clé créature) → save tronquée ou d'une ancienne version
+	if not data.has("creature"):
+		push_warning("Save_Manager : sauvegarde sans donnée créature, démarrage par défaut")  # Avertit sans crasher
+		return null  # Traité comme une absence de sauvegarde
+
 	var creature = Personnage_Data_Chat.new()  # Le SaveManager ne sauvegarde que les chats actuellement
 	creature.from_dict(data["creature"])       # Reconstruit les stats depuis le Dictionary
 

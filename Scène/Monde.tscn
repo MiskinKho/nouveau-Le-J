@@ -955,9 +955,12 @@ position = Vector2(479, 311)
 coussin = NodePath("../Coussin")
 gamelle = NodePath("../Gamelle")
 stats = SubResource("Resource_81b1k")
+race_id = null
 
 [node name="Souris" parent="." unique_id=1105716802 instance=ExtResource("22_0lhwn")]
 position = Vector2(538, 296)
+zone_deplacement = null
+race_id = null
 
 [node name="Gamelle" parent="." unique_id=54886999 instance=ExtResource("20_qmcaj")]
 position = Vector2(376, 346)

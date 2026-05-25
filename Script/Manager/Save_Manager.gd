@@ -15,6 +15,10 @@ func sauvegarder(creature: Resource):  # Personnage_Data_Chat en pratique (duck 
 		}
 	}
 	var fichier = FileAccess.open(SAVE_PATH, FileAccess.WRITE)  # Ouvre/crée le fichier en écriture
+	# Guard : échec d'ouverture (disque plein, permissions, chemin invalide) → évite un crash sur store_string(null)
+	if fichier == null:
+		push_warning("Save_Manager : impossible d'ouvrir le fichier en écriture, sauvegarde abandonnée")  # Avertit sans crasher
+		return  # Sortie anticipée : la sauvegarde précédente sur disque reste intacte
 	fichier.store_string(JSON.stringify(data))                   # Sérialise en JSON compact
 	fichier.close()
 

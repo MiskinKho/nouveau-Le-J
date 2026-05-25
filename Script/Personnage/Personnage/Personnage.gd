@@ -4,6 +4,7 @@ class_name Personnage    # Classe de base partagée par Joueur et PNJ (Chat)
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D  # Sprite animé enfant, chargé au _ready()
 
 @export var stats: Resource  # Personnage_Data_Chat / Mob / Joueur selon la sous-classe (duck typing : combat, etc.)
+@export var race_id: String = ""  # Id de race (clé RaceManager), renseigné par scène — permet le multi-races sans dupliquer le script
 
 
 var last_dir := "S"            # Dernière direction regardée (utilisée pour l'animation idle)
@@ -17,6 +18,14 @@ var en_repositionnement := false  # Bloque le joueur pendant le repositionnement
 func _ready():
 	EventBus.combat_demarre.connect(_on_combat_demarre_global)    # Pose en_combat = true si ce personnage est un des combattants
 	EventBus.combat_termine.connect(_on_combat_termine_global)    # Retire en_combat = false à la fin du combat
+
+# Branche l'archétype de race sur les stats de combat depuis race_id. Appelée par chaque sous-classe après création de son stats.
+func _appliquer_race() -> void:
+	var race = RaceManager.get_race(race_id)  # Récupère l'archétype de race (null si id vide ou inconnu)
+	if race == null:  # Garde-fou : race_id non renseigné dans la scène ou faute de frappe
+		push_warning("Personnage '%s' : race_id '%s' inconnu, setup ignoré" % [name, race_id])  # Avertit sans crasher
+		return  # Sortie anticipée : évite un setup(null) qui planterait
+	stats.combat.setup(race)  # Branche la race + remplit les PV au max
 
 # Callback global combat_demarre : pose en_combat = true uniquement si ce personnage participe au combat.
 # Comparaison par référence sur stats.combat (chaque Resource est unique par personnage instancié).

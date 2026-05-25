@@ -42,6 +42,9 @@ func _ready():
 	EventBus.attaque_effectuee.connect(_on_attaque_effectuee)
 	EventBus.combat_termine.connect(_on_combat_termine)
 	EventBus.tour_joueur_commence.connect(_on_tour_joueur_commence)
+	# Connexion permanente du clic-cible : chat_clique n'est émis QUE en combat (Chat._on_click), et _on_cible_chat re-vérifie l'état → pas de connect/disconnect dynamique (dette #14)
+	if chat_node:  # Guard : évite un crash si l'export chat_node n'est pas assigné dans l'inspecteur
+		chat_node.chat_clique.connect(_on_cible_chat)  # Branché une seule fois, jamais déconnecté
 
 func afficher(p_stats_chat: Resource):  # Personnage_Data_Chat (duck typing : .combat)
 	# Le flag chat_node.en_combat est posé automatiquement par Personnage via le signal EventBus.combat_demarre
@@ -137,12 +140,6 @@ func _afficher_menu(menu: Panel):
 	menu_competence.visible = false
 	menu.visible = true
 	btn_retour.visible = menu != menu_principal
-	if menu == menu_cible:
-		if not chat_node.chat_clique.is_connected(_on_cible_chat):
-			chat_node.chat_clique.connect(_on_cible_chat)
-	else:
-		if chat_node.chat_clique.is_connected(_on_cible_chat):
-			chat_node.chat_clique.disconnect(_on_cible_chat)
 
 func _on_attaquer():
 	_afficher_menu(menu_cible)
@@ -160,7 +157,8 @@ func _on_retour():
 	_afficher_menu(menu_principal)
 
 func _on_cible_chat():
-	if not CombatManager.en_combat or not CombatManager.tour_joueur:
+	# Guard : ignore le clic hors combat, hors tour joueur, ou si le joueur n'est pas dans l'écran de sélection de cible (remplace le connect/disconnect dynamique, dette #14)
+	if not CombatManager.en_combat or not CombatManager.tour_joueur or not menu_cible.visible:
 		return
 	btn_attaquer.disabled = true
 	panel.visible = false

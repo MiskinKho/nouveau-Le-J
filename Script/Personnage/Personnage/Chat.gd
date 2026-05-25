@@ -14,7 +14,7 @@ func _ready():
 	add_to_group("chats")  # Groupe utilisé par la gamelle pour détecter l'entrée du chat
 	if stats == null:
 		stats = Personnage_Data_Chat.new()  # Instancie la Resource specifique chat
-	stats.combat.setup(RaceManager.get_race("chat_commun"))  # Branche la race + remplit les PV au max
+	_appliquer_race()  # Branche la race depuis race_id (renseigné dans la scène) + remplit les PV au max
 
 # Surcharge le clic : en combat émet chat_clique, hors combat ouvre le menu contextuel
 func _on_click(_viewport, event, _shape_idx):

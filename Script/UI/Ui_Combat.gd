@@ -83,8 +83,8 @@ func _on_combat_demarre(combattant_1, combattant_2, mode):
 	label_degats.text = ""
 	_afficher_menu(menu_principal)
 
-func _on_attaque_effectuee(attaquant_nom, cible_nom, degats):
-	label_degats.text = "%s inflige %d dégâts à %s !" % [attaquant_nom, degats, cible_nom]
+func _on_attaque_effectuee(attaquant, cible, degats, attaquant_nom, cible_nom):
+	label_degats.text = "%s inflige %d dégâts à %s !" % [attaquant_nom, degats, cible_nom]  # Texte lisible via les noms
 	
 	# Met à jour les barres selon qui est attaqué
 	var stats_chat = CombatManager.stats_combattant_1
@@ -102,9 +102,9 @@ func _on_attaque_effectuee(attaquant_nom, cible_nom, degats):
 	# Dégâts flottants
 	var degats_label = scene_degats.instantiate()
 	monde.add_child(degats_label)
-	# DETTE NOTEE : identification du combattant par nom de race (fragile si deux combattants partagent la meme race). A remplacer par comparaison de references Stats_Combat en session combat dediee.
-	var position_cible = chat_node.global_position if cible_nom == CombatManager.stats_combattant_1.base.nom_race else joueur.global_position
-	if ennemi_node and is_instance_valid(ennemi_node) and cible_nom == CombatManager.stats_combattant_2.base.nom_race:
+	# Placement par comparaison de références Stats_Combat (unique), fiable même si deux combattants partagent la même race (dette #19 résolue)
+	var position_cible = chat_node.global_position if cible == CombatManager.stats_combattant_1 else joueur.global_position  # combattant_1 = chat, sinon joueur
+	if ennemi_node and is_instance_valid(ennemi_node) and cible == CombatManager.stats_combattant_2:  # En mode AUTO, combattant_2 = ennemi
 		position_cible = ennemi_node.global_position
 	degats_label.afficher(degats, position_cible + Vector2(0, -32))
 

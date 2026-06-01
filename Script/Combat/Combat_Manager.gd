@@ -3,7 +3,6 @@ extends Node  # Singleton autoload : orchestre toute la logique de combat (entra
 enum Mode { JOUEUR, AUTO }  # JOUEUR = entraînement interactif, AUTO = combat contre ennemi sauvage
 
 signal combat_demarre(combattant_1, combattant_2, mode)
-signal attaque_effectuee(attaquant_nom, cible_nom, degats)
 signal combat_termine(victoire: bool, mode: int, gain_pv_max: int, gain_force: int)  # Aligné sur EventBus.combat_termine (mode + gains pour Ui_Resultats)
 signal tour_joueur_commence  # Émis quand c'est au joueur d'agir (mode JOUEUR)
 
@@ -51,7 +50,7 @@ func attaque_joueur():
 func _riposte_chat():
 	var degats: int = max(1, stats_combattant_1.get_force() - stats_combattant_2.get_defense())
 	stats_combattant_2.subir_degats(degats)  # La Resource applique les degats et gere le plancher a 0
-	EventBus.attaque_effectuee.emit(stats_combattant_1.base.nom_race, "Joueur", degats)
+	EventBus.attaque_effectuee.emit(stats_combattant_1, stats_combattant_2, degats, stats_combattant_1.base.nom_race, "Joueur")  # Références pour le placement, noms lisibles pour le texte
 
 	if stats_combattant_2.est_ko():
 		_terminer_combat(false)  # Joueur à 0 PV : défaite
@@ -69,7 +68,7 @@ func _tour_auto():
 	# Tour du chat
 	var degats_chat: int = max(1, stats_combattant_1.get_force() - stats_combattant_2.get_defense())
 	stats_combattant_2.subir_degats(degats_chat)  # La Resource applique les degats et gere le plancher a 0
-	EventBus.attaque_effectuee.emit(stats_combattant_1.base.nom_race, stats_combattant_2.base.nom_race, degats_chat)
+	EventBus.attaque_effectuee.emit(stats_combattant_1, stats_combattant_2, degats_chat, stats_combattant_1.base.nom_race, stats_combattant_2.base.nom_race)  # Références pour le placement, noms lisibles pour le texte
 
 	if stats_combattant_2.est_ko():
 		_terminer_combat(true)
@@ -80,7 +79,7 @@ func _tour_auto():
 	# Tour de l'ennemi
 	var degats_ennemi: int = max(1, stats_combattant_2.get_force() - stats_combattant_1.get_defense())
 	stats_combattant_1.subir_degats(degats_ennemi)  # La Resource applique les degats et gere le plancher a 0
-	EventBus.attaque_effectuee.emit(stats_combattant_2.base.nom_race, stats_combattant_1.base.nom_race, degats_ennemi)
+	EventBus.attaque_effectuee.emit(stats_combattant_2, stats_combattant_1, degats_ennemi, stats_combattant_2.base.nom_race, stats_combattant_1.base.nom_race)  # Références pour le placement, noms lisibles pour le texte
 
 	if stats_combattant_1.est_ko():
 		_terminer_combat(false)

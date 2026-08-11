@@ -11,6 +11,10 @@ var en_combat := false         # Bloque les déplacements et inputs pendant un c
 var en_attaque = false         # Indique qu'une animation d'attaque est en cours
 var menu_ouvert := false       # Bloque les actions quand un menu contextuel est affiché
 var en_repositionnement := false  # Bloque le joueur pendant le repositionnement avant un combat
+var bloque: bool:
+	get:
+		return en_combat or en_attaque or menu_ouvert or en_repositionnement
+
 
 # Connecte les signaux globaux de combat dès le démarrage du personnage.
 # Chaque sous-classe (Joueur, PNJ) doit appeler super() dans son _ready() pour bénéficier de cette connexion.

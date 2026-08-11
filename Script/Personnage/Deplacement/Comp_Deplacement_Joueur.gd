@@ -6,7 +6,7 @@ func _physics_process(_delta: float) -> void:
 	var input := get_direction()                                          # Lit l'input clavier/manette
 
 	# Guard : bloque tout mouvement en combat, menu ou repositionnement
-	if personnage.en_combat or personnage.menu_ouvert or personnage.en_repositionnement:
+	if personnage.bloque:
 		if not personnage.en_repositionnement:                            # Le repositionnement gère son propre mouvement
 			personnage.velocity = Vector2.ZERO                            # Arrête le personnage
 			personnage.move_and_slide()                                   # Applique la physique

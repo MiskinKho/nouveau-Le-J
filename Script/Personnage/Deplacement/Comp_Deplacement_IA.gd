@@ -22,7 +22,7 @@ func choisir_direction():
 	direction = Vector2.ZERO                                # Toutes directions bloquées : reste immobile
 
 # Déplace le personnage vers une position cible via NavigationAgent2D (évite les obstacles).
-# Appelle les animations de marche/idle sur le personnage (sera remplacé par AnimationTree plus tard).
+# Appelle les animations de marche/idle via le composant d'animation (qui pilote l'AnimationTree).
 func se_deplacer_vers(cible_position: Vector2):
 	$NavigationAgent2D.target_position = cible_position      # Définit la destination
 	var direction_nav = $NavigationAgent2D.get_next_path_position() - personnage.global_position  # Prochain waypoint du chemin
@@ -31,9 +31,9 @@ func se_deplacer_vers(cible_position: Vector2):
 		var iso = Vector2(direction_nav.x, direction_nav.y * 0.5).normalized()
 		personnage.velocity = iso * speed                    # Utilise speed hérité de CompDeplacement
 		personnage.move_and_slide()                          # Déplace avec gestion des collisions
-		personnage._play_walk(personnage._dir8_from_vector(direction_nav))  # Animation de marche (temporaire, futur AnimationTree)
+		personnage.comp_anim.jouer_walk(direction_nav)       # Anim Walk via Comp_Animation (gère direction + last_dir)
 	else:
 		# Arrivé au waypoint : s'arrête et joue idle
 		personnage.velocity = Vector2.ZERO
 		personnage.move_and_slide()
-		personnage._play_idle()                              # Animation statique (temporaire, futur AnimationTree)
+		personnage.comp_anim.jouer_idle()                    # Anim Idle dans la dernière direction connue (last_dir)

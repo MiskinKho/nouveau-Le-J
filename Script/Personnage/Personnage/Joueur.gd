@@ -49,17 +49,22 @@ func _process(_delta):
 			EventBus.menu_contexte_ouvert.emit(
 				get_viewport().get_canvas_transform() * chat.global_position, chat)
 
-# Callback de changement de frame d'animation : déclenche le son de pas aux bonnes frames
-func _on_animated_sprite_2d_frame_changed():
-	if sprite.animation.begins_with("Walk"):
-		if sprite.frame == 2 or sprite.frame == 5:  # Frames de contact du pied avec le sol
-			_play_footstep()
+# DETTE TEMPORAIRE — Sons de pas suspendus pendant la migration AnimationTree.
+# L'ancien signal frame_changed de l'AnimatedSprite2D n'existe plus avec le nouveau setup Sprite2D + AnimationPlayer.
+# À rétablir proprement via Audio Tracks dans l'AnimationPlayer (sons posés directement sur les frames 2 et 5 de chaque Walk).
+# Le code ci-dessous est conservé en commentaire pour faciliter la réactivation future.
 
-# Joue un son de pas adapté à la surface sous le joueur (détection via TileMap)
-func _play_footstep():
-	var tile_pos = tilemap_sol.local_to_map(tilemap_sol.to_local(global_position))  # Coordonnées de tuile
-	var _tile_data = tilemap_sol.get_cell_tile_data(tile_pos)  # Données de la tuile (non utilisées ici, prévu pour variations)
-	pas_bois.play()  # Joue le son de pas bois (seul son implémenté pour l'instant)
+## Callback de changement de frame d'animation : déclenche le son de pas aux bonnes frames
+#func _on_animated_sprite_2d_frame_changed():
+#	if sprite.animation.begins_with("Walk"):
+#		if sprite.frame == 2 or sprite.frame == 5:  # Frames de contact du pied avec le sol
+#			_play_footstep()
+#
+## Joue un son de pas adapté à la surface sous le joueur (détection via TileMap)
+#func _play_footstep():
+#	var tile_pos = tilemap_sol.local_to_map(tilemap_sol.to_local(global_position))  # Coordonnées de tuile
+#	var _tile_data = tilemap_sol.get_cell_tile_data(tile_pos)  # Données de la tuile (non utilisées ici, prévu pour variations)
+#	pas_bois.play()  # Joue le son de pas bois (seul son implémenté pour l'instant)
 
 # Repositionne le joueur à une distance fixe d'une cible avant un combat automatique.
 # Si le joueur est trop proche, recule jusqu'à atteindre distance_cible, puis tourne face à la cible.
@@ -73,18 +78,18 @@ func repositionner_pour_combat(cible: Node2D) -> void:
 		while global_position.distance_to(cible.global_position) < distance_cible:    # Recule tant que pas assez loin
 			velocity = Vector2(direction_recul.x, direction_recul.y * 0.5) * 100.0    # Projection iso (y * 0.5) + vitesse 100
 			move_and_slide()                                                  # Applique la physique
-			_play_walk(_dir8_from_vector(direction_recul))                    # Animation de marche dans la direction du recul
+			comp_anim.jouer_walk(direction_recul)                             # Animation de marche via le composant (gère direction + last_dir)
 			await get_tree().process_frame                                    # Cède la main, prochain frame physique
 	var direction_ennemi = (cible.global_position - global_position).normalized()  # Vecteur joueur → cible (pour orientation finale)
-	var dir = _dir8_from_vector(direction_ennemi)                             # Direction sur 8 points cardinaux
-	_play_idle(dir)                                                           # Idle face à la cible
-	last_dir = dir                                                            # Mémorise la direction (pour les anims suivantes)
+	var dir = comp_anim.vector_to_dir(direction_ennemi)                       # Direction sur 8 points cardinaux via le composant
+	comp_anim.jouer_idle(dir)                                                 # Idle face à la cible (last_dir mémorisé automatiquement)
 	await get_tree().create_timer(0.3).timeout                                # Petit délai pour la lisibilité avant le combat
 	en_repositionnement = false                                               # Libère le déplacement normal
 
 # Joue l'animation d'attaque du joueur, attend qu'elle se termine et retourne en Idle.
 # Utilisée par Ui_Combat lors d'une attaque en mode JOUEUR (entraînement).
 func jouer_animation_attaque() -> void:
-	sprite.play("ATK SE")                                                     # Animation d'attaque (direction SE en dur, à généraliser plus tard via last_dir)
-	await sprite.animation_finished                                           # Bloque jusqu'à la fin de l'animation
-	sprite.play("Idle " + last_dir)                                           # Retour à l'idle dans la dernière direction
+	en_attaque = true                                                         # Bloque Comp_Deplacement_Joueur de jouer Idle pendant l'attaque
+	await comp_anim.jouer_atk()                                               # Joue ATK dans la dernière direction connue + attend la fin (awaitable)
+	en_attaque = false                                                        # Libère le déplacement pour jouer à nouveau Idle/Walk
+	comp_anim.jouer_idle()                                                    # Retour à l'idle dans la dernière direction (last_dir préservé)

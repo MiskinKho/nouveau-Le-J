@@ -11,7 +11,7 @@ const VITESSE_MANGER := 1.0
 func _enter() -> void:
 	agent.mange = true                # Bloque l'accumulation de faim dans CreatureManager
 	agent.velocity = Vector2.ZERO     # Immobile pendant le repas
-	agent._play_idle()                # Animation statique (pas d'animation de manger dédiée)
+	agent.comp_anim.jouer_idle()      # Animation Idle (pas d'animation de manger dédiée pour l'instant)
 
 # _tick() consomme la gamelle et réduit la faim à chaque frame
 func _tick(delta: float) -> Status:

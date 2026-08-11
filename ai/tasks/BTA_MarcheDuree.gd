@@ -20,7 +20,7 @@ func _tick(delta: float) -> Status:
 		comp.arreter()
 		return SUCCESS
 	comp.deplacer(comp.direction)
-	agent._play_walk(agent._dir8_from_vector(comp.direction))
+	agent.comp_anim.jouer_walk(comp.direction)  # Anim Walk via Comp_Animation (direction → BlendSpace2D + last_dir)
 	return RUNNING
 
 func _exit() -> void:

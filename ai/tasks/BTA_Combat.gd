@@ -11,7 +11,7 @@ func _generate_name() -> String:
 func _enter() -> void:
 	agent.velocity = Vector2.ZERO            # Stoppe tout déplacement en cours
 	agent.move_and_slide()                   # Applique la physique pour que le stop soit immédiat
-	agent._play_idle(agent.last_dir)         # Joue l'animation idle dans la dernière direction
+	agent.comp_anim.jouer_idle()             # Joue l'animation idle (dernière direction connue via comp_anim.last_dir)
 
 # _tick() maintient l'immobilisation tant que le combat est actif
 func _tick(_delta: float) -> Status:
@@ -23,4 +23,4 @@ func _tick(_delta: float) -> Status:
 
 # _exit() s'assure que le chat est bien arrêté en sortant
 func _exit() -> void:
-	agent._play_idle(agent.last_dir)         # Remet l'animation idle proprement
+	agent.comp_anim.jouer_idle()             # Remet l'animation idle proprement (dernière direction connue)

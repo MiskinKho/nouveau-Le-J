@@ -2,27 +2,73 @@
 
 [ext_resource type="PackedScene" uid="uid://cn0vkilomwk7q" path="res://Scène/Personnage/PNJ.tscn" id="1_em2w8"]
 [ext_resource type="Shape2D" uid="uid://bu6ebj342insl" path="res://Scène/Personnage/Mob/Souris/Collision_Souris.tres" id="2_qp5pw"]
-[ext_resource type="SpriteFrames" uid="uid://dab2678t3jdbd" path="res://Scène/Personnage/Mob/Souris/Animation_Souris.tres" id="3_c1034"]
 [ext_resource type="Shape2D" uid="uid://cy1pjbt2i234p" path="res://Scène/Personnage/Mob/Souris/ZoneClick_Souris.tres" id="4_fw8yy"]
+[ext_resource type="Texture2D" uid="uid://bis8pnch7x6iw" path="res://Scène/Personnage/Mob/Souris/Srpite_Souris.tres" id="4_qp5pw"]
+
+[sub_resource type="Animation" id="Animation_c1034"]
+resource_name = "Idle_S"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_qp5pw")]
+}
+
+[sub_resource type="Animation" id="Animation_fw8yy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_qp5pw")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_boisp"]
+_data = {
+&"Idle_S": SubResource("Animation_c1034"),
+&"RESET": SubResource("Animation_fw8yy")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_phkui"]
+animation = &"Idle_S"
 
 [node name="Mob" unique_id=1105716802 instance=ExtResource("1_em2w8")]
 script = null
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=1875962328]
-position = Vector2(-1, -13)
+position = Vector2(1, -14)
 shape = ExtResource("2_qp5pw")
-
-[node name="AnimatedSprite2D" parent="." index="1" unique_id=2013304795]
-position = Vector2(2, 1)
-sprite_frames = ExtResource("3_c1034")
-animation = &"Idle S"
 
 [node name="CollisionShape2D" parent="ZoneClick" parent_id_path=PackedInt32Array(1695351370) index="0" unique_id=1953491125]
 position = Vector2(2, -18)
 shape = ExtResource("4_fw8yy")
 
-[node name="PointLight2D" parent="." index="4" unique_id=119987284]
+[node name="PointLight2D" parent="." index="3" unique_id=119987284]
 metadata/_edit_lock_ = true
+
+[node name="Sprite2D" parent="." index="4" unique_id=841784002]
+position = Vector2(2, -24)
+texture = ExtResource("4_qp5pw")
 
 [node name="BTPlayer" parent="." index="7" unique_id=693886285]
 active = false
+
+[node name="AnimationPlayer" parent="." index="8" unique_id=439886192]
+libraries/ = SubResource("AnimationLibrary_boisp")
+
+[node name="AnimationTree" parent="." index="9" unique_id=1721467494]
+tree_root = SubResource("AnimationNodeAnimation_phkui")
+anim_player = NodePath("../AnimationPlayer")

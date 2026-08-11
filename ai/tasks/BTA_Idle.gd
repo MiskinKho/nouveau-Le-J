@@ -6,5 +6,5 @@ class_name BTAction_Idle             # Nom global — "one-shot" car retourne SU
 func _tick(_delta: float) -> Status:
 	agent.velocity = Vector2.ZERO     # Arrête tout mouvement
 	agent.move_and_slide()            # Applique la physique
-	agent._play_idle()                # Lance l'animation statique
+	agent.comp_anim.jouer_idle()      # Lance l'animation Idle via le composant (last_dir interne)
 	return SUCCESS                    # Terminé immédiatement → le Selector est satisfait

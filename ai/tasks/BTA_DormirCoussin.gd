@@ -12,7 +12,7 @@ func _enter() -> void:
 	agent.sur_coussin = true          # Active le flag coussin (utilisé par d'autres systèmes)
 	agent.epuise = true               # Marque comme épuisé pour la régénération
 	agent.velocity = Vector2.ZERO     # Arrête tout mouvement
-	agent._play_idle()                # Lance l'animation statique
+	agent.comp_anim.jouer_idle()      # Lance l'animation Idle via Comp_Animation
 
 # _tick() régénère l'énergie à chaque frame avec les bonus du coussin
 func _tick(delta: float) -> Status:

@@ -2,10 +2,6 @@ extends Node  # Singleton autoload : orchestre toute la logique de combat (entra
 
 enum Mode { JOUEUR, AUTO }  # JOUEUR = entraînement interactif, AUTO = combat contre ennemi sauvage
 
-signal combat_demarre(combattant_1, combattant_2, mode)
-signal combat_termine(victoire: bool, mode: int, gain_pv_max: int, gain_force: int)  # Aligné sur EventBus.combat_termine (mode + gains pour Ui_Resultats)
-signal tour_joueur_commence  # Émis quand c'est au joueur d'agir (mode JOUEUR)
-
 var mode_actuel: Mode
 var stats_combattant_1: Stats_Combat  # Toujours le chat
 var stats_combattant_2: Stats_Combat  # Joueur (mode JOUEUR) ou ennemi sauvage (mode AUTO)

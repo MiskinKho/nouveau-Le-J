@@ -3,24 +3,264 @@
 [ext_resource type="PackedScene" uid="uid://cn0vkilomwk7q" path="res://Scène/Personnage/PNJ.tscn" id="1_nngvi"]
 [ext_resource type="Script" uid="uid://bbhf6g0eh47fm" path="res://Script/Personnage/Personnage/Chat.gd" id="2_osx5m"]
 [ext_resource type="Shape2D" uid="uid://1rtug0wr05ys" path="res://Scène/Personnage/Chat/Collision_Chat.tres" id="2_rsvle"]
-[ext_resource type="SpriteFrames" uid="uid://bfrcy8fxr32ug" path="res://Scène/Personnage/Chat/Animation_Chat.tres" id="3_7wxel"]
-[ext_resource type="Script" path="res://Script/Personnage/Resource/Personnage_Data_Chat.gd" id="3_mchbw"]
+[ext_resource type="Script" uid="uid://doxrwanmgemq3" path="res://Script/Personnage/Resource/Personnage_Data_Chat.gd" id="3_mchbw"]
 [ext_resource type="Shape2D" uid="uid://c3ap2bh7wv2rq" path="res://Scène/Personnage/Chat/Collision_ZoneClick_Chat.tres" id="4_p2h0w"]
+[ext_resource type="Texture2D" uid="uid://sscvu882ya58" path="res://Asset/Chat/Idle/Chat Idle.png" id="6_mchbw"]
+[ext_resource type="Texture2D" uid="uid://c54i712i87ejq" path="res://Asset/Chat/Walk/Chat Walk.png" id="7_jsli0"]
 
 [sub_resource type="Resource" id="Resource_jsli0"]
 script = ExtResource("3_mchbw")
 
+[sub_resource type="Animation" id="Animation_mchbw"]
+resource_name = "Idle_NE"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_mchbw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(96, 0, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_xv1xt"]
+resource_name = "Idle_NO"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_mchbw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(64, 0, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_8dvah"]
+resource_name = "Idle_SE"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_mchbw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(32, 0, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_jsli0"]
+resource_name = "Idle_SO"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_mchbw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_7mte2"]
+resource_name = "Walk_NE"
+length = 2.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_jsli0")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 0.40000004, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 32, 32), Rect2(32, 0, 32, 32), Rect2(64, 0, 32, 32), Rect2(96, 0, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_ewqt3"]
+resource_name = "Walk_NO"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_jsli0")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 32, 32, 32), Rect2(32, 32, 32, 32), Rect2(64, 32, 32, 32), Rect2(96, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_va6nr"]
+resource_name = "Walk_SE"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_jsli0")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 96, 32, 32), Rect2(32, 96, 32, 32), Rect2(64, 96, 32, 32), Rect2(96, 96, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_ste2n"]
+resource_name = "Walk_SO"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_jsli0")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 64, 32, 32), Rect2(32, 64, 32, 32), Rect2(64, 64, 32, 32), Rect2(96, 64, 32, 32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xv1xt"]
+_data = {
+&"Idle_NE": SubResource("Animation_mchbw"),
+&"Idle_NO": SubResource("Animation_xv1xt"),
+&"Idle_SE": SubResource("Animation_8dvah"),
+&"Idle_SO": SubResource("Animation_jsli0"),
+&"Walk_NE": SubResource("Animation_7mte2"),
+&"Walk_NO": SubResource("Animation_ewqt3"),
+&"Walk_SE": SubResource("Animation_va6nr"),
+&"Walk_SO": SubResource("Animation_ste2n")
+}
+
 [node name="Chat" unique_id=1931301638 instance=ExtResource("1_nngvi")]
 script = ExtResource("2_osx5m")
 stats = SubResource("Resource_jsli0")
+race_id = "chat_commun"
 
-[node name="CollisionShape2D" parent="." index="0" unique_id=1875962328]
+[node name="Sprite2D" parent="." index="0" unique_id=471899479]
+position = Vector2(0, -21)
+texture = ExtResource("7_jsli0")
+region_enabled = true
+region_rect = Rect2(0, 64, 32, 32)
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1875962328]
 position = Vector2(-2, -14)
 shape = ExtResource("2_rsvle")
 
-[node name="AnimatedSprite2D" parent="." index="1" unique_id=2013304795]
-sprite_frames = ExtResource("3_7wxel")
-animation = &"Idle NE"
-
 [node name="CollisionShape2D" parent="ZoneClick" parent_id_path=PackedInt32Array(1695351370) index="0" unique_id=1953491125]
 shape = ExtResource("4_p2h0w")
+
+[node name="AnimationPlayer" parent="." index="8" unique_id=439886192]
+libraries/ = SubResource("AnimationLibrary_xv1xt")

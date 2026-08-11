@@ -10,8 +10,8 @@ func _physics_process(_delta: float) -> void:
 		if not personnage.en_repositionnement:                            # Le repositionnement gère son propre mouvement
 			personnage.velocity = Vector2.ZERO                            # Arrête le personnage
 			personnage.move_and_slide()                                   # Applique la physique
-			if not personnage.sprite.animation.begins_with("ATK"):        # Ne coupe pas une animation d'attaque en cours
-				personnage._play_idle(personnage.last_dir)                # Joue l'idle dans la dernière direction
+			if not personnage.en_attaque:                                 # Ne coupe pas une animation d'attaque en cours
+				personnage.comp_anim.jouer_idle()                         # Joue l'idle dans la dernière direction (last_dir interne)
 		return                                                            # Bloqué → on sort
 
 	# Mode escalier (sas) : restreint aux directions NE/SO uniquement
@@ -19,27 +19,24 @@ func _physics_process(_delta: float) -> void:
 	if joueur.sas:
 		if input != Vector2.ZERO:
 			if input.x > 0:                                               # Input vers la droite → monte (NE)
-				personnage.last_dir = "NE"
-				personnage._play_walk("NE")
+				personnage.comp_anim.jouer_walk(Vector2(1, -1))           # Anim Walk NE (last_dir mis à jour automatiquement)
 			elif input.x < 0:                                             # Input vers la gauche → descend (SO)
-				personnage.last_dir = "SO"
-				personnage._play_walk("SO")
+				personnage.comp_anim.jouer_walk(Vector2(-1, 1))           # Anim Walk SO (last_dir mis à jour automatiquement)
 			else:
-				personnage._play_idle(personnage.last_dir)                # Input vertical pur → idle
+				personnage.comp_anim.jouer_idle()                         # Input vertical pur → idle dans last_dir
 		else:
-			personnage._play_idle(personnage.last_dir)                    # Pas d'input → idle
+			personnage.comp_anim.jouer_idle()                             # Pas d'input → idle dans last_dir
 		deplacer(input)                                                   # Applique le déplacement iso via CompDeplacement
 		return                                                            # Sas géré → on sort
 
 	# Déplacement normal au sol
 	if input == Vector2.ZERO:                                             # Pas d'input → arrêt
 		arreter()                                                         # Stoppe via CompDeplacement (velocity = 0 + move_and_slide)
-		personnage._play_idle(personnage.last_dir)                        # Joue l'idle dans la dernière direction
+		personnage.comp_anim.jouer_idle()                                 # Joue l'idle dans la dernière direction (last_dir interne)
 		return
 
-	personnage.last_dir = personnage._dir8_from_vector(input)             # Met à jour la direction pour les animations
 	deplacer(input)                                                       # Applique le déplacement iso via CompDeplacement
-	personnage._play_walk(personnage.last_dir)                            # Joue l'animation de marche
+	personnage.comp_anim.jouer_walk(input)                                # Anim Walk dans la direction de l'input (last_dir mis à jour automatiquement)
 
 # Retourne le vecteur d'input clavier/manette sans l'appliquer
 # Utilisé par _physics_process et disponible pour d'autres systèmes (animations, checks)

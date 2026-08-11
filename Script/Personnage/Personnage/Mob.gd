@@ -3,8 +3,6 @@ class_name Mob
 
 @export var zone_deplacement: float = 100.0  # Rayon max de déambulation autour de la position initiale
 
-@onready var sprite_node: Sprite2D = $Sprite2D  # Sprite (non animé — Mob utilise Sprite2D, pas AnimatedSprite2D)
-
 var position_depart: Vector2   # Position initiale mémorisée au _ready() pour le leash
 var temps_changement := 0.0   # Timer avant le prochain changement de direction
 

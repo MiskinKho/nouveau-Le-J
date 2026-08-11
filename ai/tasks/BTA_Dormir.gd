@@ -15,7 +15,7 @@ var mobilier_actuel: MobilierDormable = null
 func _enter() -> void:
 	agent.epuise = true              # Marque le personnage comme épuisé (utilisé par d'autres systèmes)
 	agent.velocity = Vector2.ZERO    # Arrête tout mouvement
-	agent._play_idle()               # Lance l'animation statique
+	agent.comp_anim.jouer_idle()     # Lance l'animation Idle via Comp_Animation
 	mobilier_actuel = _trouver_mobilier_sous_agent()  # Détecte une seule fois si on dort sur un meuble
 
 # Cherche dans le groupe "mobilier_sommeil" un meuble qui contient l'agent dans sa ZoneOccupation.

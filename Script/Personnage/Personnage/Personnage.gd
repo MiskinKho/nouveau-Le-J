@@ -13,7 +13,7 @@ var menu_ouvert := false       # Bloque les actions quand un menu contextuel est
 var en_repositionnement := false  # Bloque le joueur pendant le repositionnement avant un combat
 var bloque: bool:
 	get:
-		return en_combat or en_attaque or menu_ouvert or en_repositionnement
+		return en_combat or en_attaque or menu_ouvert
 
 
 # Connecte les signaux globaux de combat dès le démarrage du personnage.

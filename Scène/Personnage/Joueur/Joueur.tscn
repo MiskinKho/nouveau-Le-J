@@ -278,6 +278,25 @@ tracks/1/keys = {
 "update": 1,
 "values": [Rect2(0, 0, 48, 48), Rect2(48, 0, 48, 48), Rect2(96, 0, 48, 48), Rect2(144, 0, 48, 48), Rect2(192, 0, 48, 48), Rect2(240, 0, 48, 48)]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioListener2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}],
+"times": PackedFloat32Array(0.2, 0.5)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_tu73x"]
 resource_name = "Walk_N"
@@ -307,6 +326,25 @@ tracks/1/keys = {
 "update": 1,
 "values": [Rect2(0, 0, 48, 48), Rect2(48, 0, 48, 48), Rect2(96, 0, 48, 48), Rect2(144, 0, 48, 48), Rect2(192, 0, 48, 48), Rect2(240, 0, 48, 48)]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioListener2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}],
+"times": PackedFloat32Array(0.2, 0.5)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_1ysek"]
 resource_name = "Walk_NE"
@@ -336,6 +374,25 @@ tracks/1/keys = {
 "update": 1,
 "values": [Rect2(0, 0, 48, 48), Rect2(48, 0, 48, 48), Rect2(96, 0, 48, 48), Rect2(144, 0, 48, 48), Rect2(192, 0, 48, 48), Rect2(240, 0, 48, 48)]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioListener2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}],
+"times": PackedFloat32Array(0.2, 0.5)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_18mr5"]
 resource_name = "Walk_NO"
@@ -365,6 +422,25 @@ tracks/1/keys = {
 "update": 1,
 "values": [Rect2(0, 0, 48, 48), Rect2(48, 0, 48, 48), Rect2(96, 0, 48, 48), Rect2(144, 0, 48, 48), Rect2(192, 0, 48, 48), Rect2(240, 0, 48, 48)]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioListener2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}],
+"times": PackedFloat32Array(0.2, 0.5)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_wqn3d"]
 resource_name = "Walk_O"
@@ -393,6 +469,25 @@ tracks/1/keys = {
 "update": 1,
 "values": [Rect2(0, 0, 48, 48), Rect2(48, 0, 48, 48), Rect2(96, 0, 48, 48), Rect2(144, 0, 48, 48), Rect2(192, 0, 48, 48), Rect2(240, 0, 48, 48)]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioListener2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}],
+"times": PackedFloat32Array(0.2, 0.5)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_niifp"]
 resource_name = "Walk_S"
@@ -422,6 +517,25 @@ tracks/1/keys = {
 "update": 1,
 "values": [Rect2(0, 0, 48, 48), Rect2(48, 0, 48, 48), Rect2(96, 0, 48, 48), Rect2(144, 0, 48, 48), Rect2(192, 0, 48, 48), Rect2(240, 0, 48, 48)]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioListener2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}],
+"times": PackedFloat32Array(0.2, 0.5)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_ttrn8"]
 resource_name = "Walk_SE"
@@ -451,6 +565,25 @@ tracks/1/keys = {
 "update": 1,
 "values": [Rect2(0, 0, 48, 48), Rect2(48, 0, 48, 48), Rect2(96, 0, 48, 48), Rect2(144, 0, 48, 48), Rect2(192, 0, 48, 48), Rect2(240, 0, 48, 48)]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioListener2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}],
+"times": PackedFloat32Array(0.2, 0.5)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_w4o4s"]
 resource_name = "Walk_SO"
@@ -480,6 +613,25 @@ tracks/1/keys = {
 "update": 1,
 "values": [Rect2(48, 0, 48, 48), Rect2(96, 0, 48, 48), Rect2(144, 0, 48, 48), Rect2(192, 0, 48, 48), Rect2(240, 0, 48, 48), Rect2(288, 0, 48, 48)]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioListener2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.10109445,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}, {
+"end_offset": 0.10375483,
+"start_offset": 0.0,
+"stream": ExtResource("4_mvpyb")
+}],
+"times": PackedFloat32Array(0.2, 0.5)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_sdfir"]
 resource_name = "new_animation"

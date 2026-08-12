@@ -36,8 +36,6 @@ func vector_to_dir(v: Vector2) -> String:
 # Joue une animation seulement si elle existe et n'est pas déjà en train de jouer.
 # Évite les redémarrages permanents quand jouer_walk/idle est appelée chaque frame avec la même direction.
 func _jouer_si_existe(nom: String) -> void:
-	if get_parent() is Joueur:
-		print("Demande anim: ", nom, " | existe: ", anim_player.has_animation(nom))
 	if anim_player.has_animation(nom):                                      # Vérifie l'existence (certaines directions peuvent manquer selon le perso)
 		if anim_player.current_animation != nom:                            # Pas déjà en train de jouer → on lance (sinon on laisse défiler)
 			anim_player.play(nom)

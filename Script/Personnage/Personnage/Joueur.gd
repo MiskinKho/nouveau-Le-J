@@ -49,26 +49,6 @@ func _process(_delta):
 			EventBus.menu_contexte_ouvert.emit(
 				get_viewport().get_canvas_transform() * chat.global_position, chat)
 
-# DETTE TEMPORAIRE — Sons de pas suspendus pendant la migration AnimationTree.
-# L'ancien signal frame_changed de l'AnimatedSprite2D n'existe plus avec le nouveau setup Sprite2D + AnimationPlayer.
-# À rétablir proprement via Audio Tracks dans l'AnimationPlayer (sons posés directement sur les frames 2 et 5 de chaque Walk).
-# Le code ci-dessous est conservé en commentaire pour faciliter la réactivation future.
-
-## Callback de changement de frame d'animation : déclenche le son de pas aux bonnes frames
-#func _on_animated_sprite_2d_frame_changed():
-#	if sprite.animation.begins_with("Walk"):
-#		if sprite.frame == 2 or sprite.frame == 5:  # Frames de contact du pied avec le sol
-#			_play_footstep()
-#
-## Joue un son de pas adapté à la surface sous le joueur (détection via TileMap)
-#func _play_footstep():
-#	var tile_pos = tilemap_sol.local_to_map(tilemap_sol.to_local(global_position))  # Coordonnées de tuile
-#	var _tile_data = tilemap_sol.get_cell_tile_data(tile_pos)  # Données de la tuile (non utilisées ici, prévu pour variations)
-#	pas_bois.play()  # Joue le son de pas bois (seul son implémenté pour l'instant)
-
-# Repositionne le joueur à une distance fixe d'une cible avant un combat automatique.
-# Si le joueur est trop proche, recule jusqu'à atteindre distance_cible, puis tourne face à la cible.
-# Posé/retire le flag en_repositionnement pour bloquer Comp_Deplacement_Joueur pendant l'opération.
 func repositionner_pour_combat(cible: Node2D) -> void:
 	var distance_cible = 112.0                                                # Distance souhaitée entre joueur et cible avant combat
 	var distance_actuelle = global_position.distance_to(cible.global_position)  # Distance actuelle

@@ -3,16 +3,18 @@ class_name CompDeplacementJoueur  # Composant de déplacement spécifique au jou
 
 # _physics_process() gère tout le cycle de déplacement du joueur chaque frame physique
 func _physics_process(_delta: float) -> void:
+	# Repositionnement : un script (repositionner_pour_combat) pilote le mouvement → le composant se met totalement en retrait
+	if personnage.en_repositionnement:                                    # Input coupé mais mouvement délégué à un script
+		return   
+	
 	var input := get_direction()                                          # Lit l'input clavier/manette
-
-	# Guard : bloque tout mouvement en combat, menu ou repositionnement
-	if personnage.bloque:
-		if not personnage.en_repositionnement:                            # Le repositionnement gère son propre mouvement
+		# Blocage : input coupé et personne ne pilote → perso au repos dans son idle
+	if personnage.bloque:                                                 # Combat, attaque ou menu
+		if not personnage.en_attaque:                                     # Ne coupe pas une animation d'attaque en cours
 			personnage.velocity = Vector2.ZERO                            # Arrête le personnage
 			personnage.move_and_slide()                                   # Applique la physique
-			if not personnage.en_attaque:                                 # Ne coupe pas une animation d'attaque en cours
-				personnage.comp_anim.jouer_idle()                         # Joue l'idle dans la dernière direction (last_dir interne)
-		return                                                            # Bloqué → on sort
+			personnage.comp_anim.jouer_idle()                             # Idle dans la dernière direction
+		return                                       # Bloqué → on sort
 
 	# Mode escalier (sas) : restreint aux directions NE/SO uniquement
 	var joueur := personnage as Joueur

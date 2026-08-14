@@ -8,7 +8,7 @@ func _physics_process(_delta: float) -> void:
 		return   
 	
 	var input := get_direction()                                          # Lit l'input clavier/manette
-		# Blocage : input coupé et personne ne pilote → perso au repos dans son idle
+	# Blocage : input coupé et personne ne pilote → perso au repos dans son idle
 	if personnage.bloque:                                                 # Combat, attaque ou menu
 		if not personnage.en_attaque:                                     # Ne coupe pas une animation d'attaque en cours
 			personnage.velocity = Vector2.ZERO                            # Arrête le personnage

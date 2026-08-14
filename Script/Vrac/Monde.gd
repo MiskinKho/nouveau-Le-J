@@ -22,7 +22,7 @@ func _ready():
 	# Connexion de la transition : connecte le callback one-shot puis lance le fondu
 	EventBus.transition_demandee.connect(func(depuis, vers, callback):
 		$Cl_Transition.transition_terminee.connect(callback, CONNECT_ONE_SHOT)  # Se déconnecte automatiquement après usage
-		$Cl_Transition.lancer_transition(depuis, vers)
+		$Cl_Transition.lancer_transition(func(): $Cl_Combat.calcul_position_combat(depuis, vers))  # Positions calculées et appliquées pendant le noir
 	)
 
 	# Charge la sauvegarde si elle existe, sinon démarre un nouveau jeu
@@ -55,7 +55,7 @@ func _on_entrainement_demande(cible):
 		$Ui_Combat.afficher(cible.stats)
 		# Le flag $Joueur.en_combat est posé automatiquement par Personnage via le signal EventBus.combat_demarre
 	, CONNECT_ONE_SHOT)
-	transition.lancer_transition($Joueur, cible)
+	transition.lancer_transition(func(): $Cl_Combat.calcul_position_combat($Joueur, cible))  # Positions calculées pendant le noir, affichage UI après via transition_terminee
 
 # Exécute la caresse : vérifie la distance, bloque les inputs, attend 1s, applique le bonus de confiance.
 func _on_caresse_demandee(cible):

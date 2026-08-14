@@ -2,7 +2,7 @@ extends CharacterBody2D  # Physique 2D avec détection de collisions et move_and
 class_name Personnage    # Classe de base partagée par Joueur et PNJ (Chat)
 
 @onready var comp_anim: CompAnimation = $Comp_Animation  # Composant d'animation — pilote l'AnimationTree, expose jouer_idle/walk/atk et mémorise last_dir
-
+@onready var comp_deplacement: CompDeplacement = _trouver_comp_deplacement()  # Composant de déplacement 
 @export var stats: Resource  # Personnage_Data_Chat / Mob / Joueur selon la sous-classe (duck typing : combat, etc.)
 @export var race_id: String = ""  # Id de race (clé RaceManager), renseigné par scène — permet le multi-races sans dupliquer le script
 
@@ -29,6 +29,13 @@ func _appliquer_race() -> void:
 		push_warning("Personnage '%s' : race_id '%s' inconnu, setup ignoré" % [name, race_id])  # Avertit sans crasher
 		return  # Sortie anticipée : évite un setup(null) qui planterait
 	stats.combat.setup(race)  # Branche la race + remplit les PV au max
+
+# Récupère le composant de déplacement parmi les enfants directs, quel que soit son nom de nœud.
+func _trouver_comp_deplacement() -> CompDeplacement:
+	for enfant in get_children():           # Parcourt les enfants directs du personnage
+		if enfant is CompDeplacement:       # Test de type : couvre les deux sous-classes par héritage
+			return enfant                   # Premier composant trouvé, un personnage n'en a qu'un
+	return null                             # Aucun composant : personnage statique, l'appelant doit vérifier
 
 # Callback global combat_demarre : pose en_combat = true uniquement si ce personnage participe au combat.
 # Comparaison par référence sur stats.combat (chaque Resource est unique par personnage instancié).

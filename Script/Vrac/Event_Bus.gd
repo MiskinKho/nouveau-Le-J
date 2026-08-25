@@ -26,7 +26,6 @@ signal energie_insuffisante(cible)    # Affiché quand le chat est trop fatigué
 signal trop_loin(cible)               # Affiché quand le joueur est trop loin pour caresser
 
 # --- Transition ---
-signal transition_demandee(depuis, vers, callback)  # Lance la transition fondu + callback post-transition
 signal combat_entrainement_termine(creature, gain_pv_max, gain_force)  # Déclenche l'affichage des résultats
 
 # --- Étages ---

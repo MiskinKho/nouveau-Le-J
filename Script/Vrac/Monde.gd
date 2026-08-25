@@ -8,10 +8,8 @@ func _ready():
 	$FauxEtage.modulate.a = 0.0
 
 	# Connexions des signaux EventBus → handlers locaux ou lambdas
-	EventBus.entrainement_demande.connect(_on_entrainement_demande)
 	EventBus.caresse_demandee.connect(_on_caresse_demandee)
 	EventBus.energie_insuffisante.connect(_on_energie_insuffisante)
-	EventBus.combat_termine.connect(_on_combat_termine)  # Cleanup ennemi sauvage après victoire en mode AUTO
 	EventBus.sauvegarde_demandee.connect(func(): SaveManager.sauvegarder(CreatureManager.chat_node.stats))
 	EventBus.menu_pause_ouvert.connect(func(): $Cl_Pause.ouvrir())
 	EventBus.menu_gamelle_ouvert.connect(func(gamelle): $UI_Gamelle.ouvrir(gamelle))
@@ -32,13 +30,8 @@ func _ready():
 	else:
 		TimeManager.heure = 8.0  # Nouveau jeu : démarre à 8h du matin
 		TimeManager.jour = 1
-
 	DayNightManager.initialiser($CycleJourNuit, $Joueur/PointLight2D)
 	CreatureManager.initialiser($Chat)
-
-	# Connecte le signal de clic de chaque créature sauvage présente dans la scène
-	for creature in get_tree().get_nodes_in_group("creatures_sauvages"):
-		creature.creature_cliquee.connect(_on_creature_cliquee)
 
 	# Ajoute 5 croquettes à l'inventaire au démarrage (items de test/démo)
 	var croquettes = load("res://Asset/Item/Croquette.tres")
@@ -73,23 +66,3 @@ func _on_caresse_demandee(cible):
 
 func _on_energie_insuffisante(_cible):
 	print("Le chat est trop fatigué pour s'entraîner !")  # À remplacer par un feedback UI
-
-# Lance un combat automatique contre une créature sauvage cliquée.
-func _on_creature_cliquee(creature):
-	_ennemi_combat_actuel = creature  # Mémorise la ref pour la cleanup post-combat (queue_free dans _on_combat_termine)
-	$Ui_Combat.chat_node = $Chat
-	$Ui_Combat.afficher_auto($Chat.stats, creature.stats.combat, creature)
-
-# Cleanup de fin de combat : libère la créature sauvage si victoire en mode AUTO, gère la transition de fin en mode JOUEUR, sauvegarde l'état.
-# Listener du signal EventBus.combat_termine émis par CombatManager.
-func _on_combat_termine(_victoire: bool, mode: int, gain_pv_max: int, gain_force: int):
-	if mode == CombatManager.Mode.AUTO and _victoire and _ennemi_combat_actuel:
-		_ennemi_combat_actuel.queue_free()                     # Supprime la créature sauvage vaincue
-	_ennemi_combat_actuel = null                               # Reset dans tous les cas (défaite, mode JOUEUR)
-	if mode == CombatManager.Mode.JOUEUR:
-		# Lance la transition de fin de combat puis ferme l'UI et déclenche l'écran de résultats
-		EventBus.transition_demandee.emit($Joueur, $Chat, func():
-			$Ui_Combat.cacher()                                # Ferme l'UI de combat après la transition
-			EventBus.combat_entrainement_termine.emit(CombatManager.creature_complete, gain_pv_max, gain_force)  # Déclenche Ui_Resultats
-		)
-	SaveManager.sauvegarder(CombatManager.creature_complete)   # Sauvegarde l'état du chat post-combat (centralisé ici, plus dans Ui_Combat)

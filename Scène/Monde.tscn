@@ -1463,8 +1463,12 @@ position = Vector2(271, 328)
 navigation_polygon = SubResource("NavigationPolygon_sw875")
 metadata/_edit_lock_ = true
 
-[node name="Cl_Combat" type="CanvasLayer" parent="." unique_id=315827128]
+[node name="Cl_Combat" type="CanvasLayer" parent="." unique_id=315827128 node_paths=PackedStringArray("joueur", "chat", "ui_combat", "transition")]
 script = ExtResource("45_tca78")
+joueur = NodePath("../Joueur")
+chat = NodePath("../Chat")
+ui_combat = NodePath("../Ui_Combat")
+transition = NodePath("../Cl_Transition")
 
 [connection signal="pressed" from="UI_HUD/Btn_Sauvgarder" to="UI_HUD" method="_on_btn_sauvgarder_pressed"]
 [connection signal="pressed" from="UI_HUD/Inventaire" to="UI_HUD" method="_on_inventaire_pressed"]
